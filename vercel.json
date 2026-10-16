@@ -1,0 +1,54 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "regions": ["hnd1"],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "has": [
+        {
+          "type": "header",
+          "key": "cookie",
+          "value": { "re": "sb-[^=;\\s]+-auth-token(?:\\.\\d+)?=" }
+        }
+      ],
+      "transforms": [
+        {
+          "type": "request.query",
+          "op": "set",
+          "target": { "key": "__amn_edge_cred" },
+          "args": "1"
+        }
+      ],
+      "continue": true
+    },
+    {
+      "src": "/(.*)",
+      "has": [{ "type": "header", "key": "authorization" }],
+      "transforms": [
+        {
+          "type": "request.query",
+          "op": "set",
+          "target": { "key": "__amn_edge_cred" },
+          "args": "1"
+        }
+      ],
+      "continue": true
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+---
+description: Supabase Auth, RLS, Better Auth seam (see AGENTS.md)
+globs: src/**/*.{ts,tsx},supabase/**/*,**/*.sql,.env*
+alwaysApply: false
+---
+
+Follow **`AGENTS.md` → Catch-up, Supabase and auth portability**. Session I/O and `requirePermission` live in `#/auth`. Roles are tables, not JWT claims.

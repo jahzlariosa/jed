@@ -1,0 +1,7 @@
+---
+description: Caching, bundles, and memory.
+globs: src/**/*
+alwaysApply: false
+---
+
+Follow **`AGENTS.md` → Caching** and **Memory**. Public identity-free pages cached; session bytes never `public`; unsubscribe subscriptions; paginate lists.

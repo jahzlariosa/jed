@@ -1,0 +1,1 @@
+Follow `AGENTS.md` at the repository root (catch-up, stack, auth/RBAC, security). That file is the canonical project spec for all coding agents, including Copilot. Do not invent a second set of conventions here. When you add a durable feature, update `AGENTS.md` in the same change — not this file.

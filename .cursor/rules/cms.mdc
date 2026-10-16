@@ -1,0 +1,7 @@
+---
+description: CMS, admin screens, and content tables.
+globs: src/lib/cms/**/*,src/components/admin/**/*,src/routes/_authenticated/admin/**/*
+alwaysApply: false
+---
+
+Follow **`AGENTS.md` → Catch-up routes** and **UI**. Admin chrome via `admin-shell`; paginated lists; BlockNote client-only; audit log for sensitive writes.

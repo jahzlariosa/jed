@@ -1,0 +1,7 @@
+---
+description: TanStack Start layout, routes, and module boundaries.
+globs: src/**/*
+alwaysApply: false
+---
+
+Follow **`AGENTS.md` → TanStack Start** and **Stack**. File routes in `src/routes`; `#/` imports; no Next.js APIs. Secrets and cookies only in `createServerFn` handlers.

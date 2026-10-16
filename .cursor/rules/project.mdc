@@ -1,0 +1,10 @@
+---
+description: Always load AGENTS.md — canonical spec for all AI tools
+alwaysApply: true
+---
+
+# Cursor index
+
+Read and follow **`AGENTS.md`** at the repo root. It is the single source of truth for every agent (Cursor, Claude, Codex, Gemini, Copilot).
+
+This `.mdc` only attaches that spec in Cursor. Do not add policy here. If you change conventions or ship a durable feature, edit **`AGENTS.md`** in the same task (catch-up + policy).

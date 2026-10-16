@@ -1,0 +1,64 @@
+.amianan-account {
+  --account-muted: #52525b;
+  font-size: 18px;
+}
+
+.amianan-account .account-muted {
+  color: var(--account-muted);
+}
+
+.amianan-account .account-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--account-muted);
+}
+
+.amianan-account .account-card {
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  padding: 24px;
+}
+
+@media (max-width: 767px) {
+  .amianan-account .account-card {
+    padding: 18px;
+  }
+}
+
+.amianan-account .account-field-gap {
+  gap: 14px;
+}
+
+.amianan-account .account-section-gap {
+  gap: 20px;
+}
+
+.amianan-account .account-nav-chip {
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  padding: 8px 14px;
+  font-size: 15px;
+  white-space: nowrap;
+}
+
+.amianan-account .account-nav-chip.is-active {
+  border-color: var(--primary);
+  color: var(--foreground);
+  background: color-mix(in srgb, var(--primary) 8%, transparent);
+}
+
+.amianan-account .account-nav-desktop {
+  width: 220px;
+  gap: 40px;
+}
+
+.amianan-account .account-avatar-lg {
+  width: 120px;
+  height: 120px;
+}
+
+.amianan-account .account-crop-mask {
+  border-radius: 9999px;
+  box-shadow: 0 0 0 9999px rgb(0 0 0 / 0.55);
+}

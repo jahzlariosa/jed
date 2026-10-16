@@ -1,0 +1,7 @@
+---
+description: createServerFn patterns.
+globs: src/**/*.ts
+alwaysApply: false
+---
+
+Follow **`AGENTS.md` → TanStack Start** (server vs client table). `.validator()` on inputs; `markPrivateNoStore()` for session RPCs; DTO returns only.

@@ -1,0 +1,7 @@
+---
+description: Product copy and error strings.
+globs: src/**/*.{tsx,ts}
+alwaysApply: false
+---
+
+Client-safe fixed error copy only; no leaking stacks or env. Auth and forms use `AuthFormError` / `role="alert"` per **`AGENTS.md` → Accessibility**.

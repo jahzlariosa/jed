@@ -1,0 +1,7 @@
+---
+description: Brand tokens and typography.
+globs: src/styles/**/*,src/components/**/*
+alwaysApply: false
+---
+
+Follow **`AGENTS.md` → UI**. Cool gray + black + one blue; `--brand` in admin; Syne/Outfit; shadcn only; no Google Fonts links.

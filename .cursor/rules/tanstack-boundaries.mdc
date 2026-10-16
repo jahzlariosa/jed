@@ -1,0 +1,7 @@
+---
+description: Server/client boundaries (see AGENTS.md)
+globs: src/**/*.{ts,tsx}
+alwaysApply: false
+---
+
+Follow **`AGENTS.md` → Server vs client**. No `"use client"` / `"use server"`. Return DTOs only. Secrets in `*.server.ts` / `createServerFn`.

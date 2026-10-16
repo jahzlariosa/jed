@@ -1,0 +1,1615 @@
+@import "@fontsource-variable/inter";
+
+.amianan-admin,
+.amianan-admin-auth {
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+  --radius: 12px;
+  --admin-sidebar-w: 248px;
+  --admin-topbar-h: 3.5rem;
+  --admin-page-pad-x: 1.5rem;
+  --admin-page-pad-top: 1.75rem;
+  --admin-page-pad-bottom: 2.5rem;
+  --brand-hover: #000000;
+  --brand-wash: #f0eeeb;
+  --brand-ink: #111111;
+  --brand-foreground: #ffffff;
+  --admin-success: #16a34a;
+  --admin-success-bg: #f0fdf4;
+  --admin-info: #2563eb;
+  --admin-info-bg: #eff6ff;
+  --admin-shadow-sm: 0 1px 2px rgb(0 0 0 / 4%);
+
+  font-family: var(--font-sans);
+}
+
+.amianan-admin {
+  --background: #fafafa;
+  --foreground: #0a0a0a;
+  --card: #ffffff;
+  --card-foreground: #0a0a0a;
+  --popover: #ffffff;
+  --popover-foreground: #0a0a0a;
+  --secondary: #f4f4f5;
+  --secondary-foreground: #18181b;
+  --muted: #f4f4f5;
+  --muted-foreground: #71717a;
+  --accent: var(--brand-wash);
+  --accent-foreground: var(--brand-ink);
+  --destructive: #dc2626;
+  --border: #e4e4e7;
+  --input: #e4e4e7;
+  --primary: var(--brand);
+  --primary-foreground: var(--brand-foreground);
+  --ring: var(--brand);
+  --sidebar: #ffffff;
+  --sidebar-foreground: #3f3f46;
+  --sidebar-border: #e4e4e7;
+}
+
+.amianan-admin .admin-sidebar {
+  width: var(--admin-sidebar-w);
+  background: var(--sidebar);
+  border-color: var(--sidebar-border);
+  color: var(--sidebar-foreground);
+}
+
+.amianan-admin .admin-topbar {
+  height: var(--admin-topbar-h);
+  padding-left: var(--admin-page-pad-x);
+  padding-right: var(--admin-page-pad-x);
+  background: var(--card);
+  border-color: var(--border);
+  color: var(--foreground);
+}
+
+.amianan-admin .admin-canvas {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+.amianan-admin .admin-page {
+  width: 100%;
+  max-width: none;
+  padding-top: var(--admin-page-pad-top);
+  padding-bottom: var(--admin-page-pad-bottom);
+}
+
+/** Shared horizontal inset for breadcrumbs and page content (set in AdminShell). */
+.amianan-admin .admin-page-layout {
+  width: 100%;
+  max-width: none;
+  min-width: 0;
+  padding-left: var(--admin-page-pad-x);
+  padding-right: var(--admin-page-pad-x);
+}
+
+.amianan-admin .admin-page-main {
+  width: 100%;
+  max-width: none;
+  min-width: 0;
+}
+
+/** Extra bottom space for sticky save bars on long forms (full-width pages). */
+.amianan-admin .admin-page-body {
+  width: 100%;
+  max-width: none;
+  padding-bottom: 6rem;
+}
+
+@media (min-width: 768px) {
+  .amianan-admin {
+    --admin-page-pad-x: 2rem;
+  }
+}
+
+.amianan-admin .admin-page-desk {
+  width: calc(100% + 2 * var(--admin-page-pad-x));
+  min-width: 0;
+  margin-inline: calc(-1 * var(--admin-page-pad-x));
+}
+
+.amianan-admin .admin-url-tabs {
+  margin: 0.5rem 0 1.75rem;
+}
+
+.amianan-admin .admin-tab-list {
+  display: flex;
+  gap: 0.25rem;
+  overflow-x: auto;
+  flex-wrap: nowrap;
+  border-bottom: 1px solid var(--border);
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+
+.amianan-admin .admin-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  height: 2.5rem;
+  flex-shrink: 0;
+  padding: 0 0.875rem;
+  margin-bottom: -1px;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: transparent;
+  color: var(--muted-foreground);
+  font-size: 0.84375rem;
+  font-weight: 550;
+  white-space: nowrap;
+  border-radius: 0;
+  cursor: pointer;
+}
+
+.amianan-admin .admin-tab:hover {
+  color: var(--foreground);
+}
+
+.amianan-admin .admin-tab:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+.amianan-admin .admin-tab-active {
+  color: var(--brand-ink);
+  border-bottom-color: var(--brand);
+  font-weight: 650;
+}
+
+.amianan-admin .admin-tab-panel {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.amianan-admin .admin-tab-panel[hidden] {
+  display: none;
+}
+
+.amianan-admin .admin-section-block {
+  border: 1px solid var(--border);
+  border-radius: 0.875rem;
+  background: var(--card);
+  padding: 1.5rem 1.75rem;
+  box-shadow: var(--admin-shadow-sm);
+}
+
+.amianan-admin .admin-section-head {
+  margin-bottom: 1.25rem;
+}
+
+.amianan-admin .admin-section-head h2 {
+  font-size: 0.9375rem;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  margin-bottom: 0.25rem;
+}
+
+.amianan-admin .admin-section-head p {
+  font-size: 0.8125rem;
+  color: var(--muted-foreground);
+  max-width: 56ch;
+  line-height: 1.45;
+}
+
+.amianan-admin .admin-field-grid {
+  display: grid;
+  gap: 1.125rem;
+}
+
+.amianan-admin .admin-field-grid-two {
+  grid-template-columns: 1fr;
+  gap: 1.125rem 1.25rem;
+}
+
+@media (min-width: 768px) {
+  .amianan-admin .admin-field-grid-two {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.amianan-admin .admin-save-bar {
+  position: sticky;
+  bottom: 1rem;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.875rem;
+  background: var(--card);
+  border: 1px solid var(--border);
+  box-shadow: 0 8px 24px -8px rgb(15 23 42 / 18%);
+}
+
+.amianan-admin .admin-save-bar-status {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8125rem;
+  color: var(--muted-foreground);
+}
+
+.amianan-admin .admin-save-bar-status-dirty {
+  color: #b45309;
+  font-weight: 550;
+}
+
+.amianan-admin .admin-save-bar-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: #f59e0b;
+  flex-shrink: 0;
+}
+
+.amianan-admin .admin-save-bar-actions {
+  margin-left: auto;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.amianan-admin .admin-input-tall {
+  height: 2.5rem;
+}
+
+.amianan-admin .admin-nav-label {
+  padding: 0.5rem 0.75rem 0.25rem;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+
+.amianan-admin .admin-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  border-radius: 10px;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--sidebar-foreground);
+  transition:
+    background-color 150ms ease,
+    color 150ms ease;
+}
+
+.amianan-admin .admin-nav-link:hover {
+  background: var(--muted);
+  color: var(--foreground);
+}
+
+.amianan-admin .admin-nav-link.active {
+  background: var(--accent);
+  color: var(--accent-foreground);
+}
+
+.amianan-admin .admin-nav-link.active svg {
+  color: var(--primary);
+}
+
+.amianan-admin .admin-search-trigger {
+  display: flex;
+  height: 2.25rem;
+  flex: 1;
+  max-width: 32rem;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 999px;
+  border: 1px solid var(--input);
+  background: var(--card);
+  padding: 0 0.875rem;
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+}
+
+.amianan-admin .admin-card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--card);
+  box-shadow: var(--admin-shadow-sm);
+}
+
+.amianan-admin .admin-chip {
+  border-radius: 999px;
+  padding: 0.375rem 0.75rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+}
+
+.amianan-admin .admin-chip.active {
+  background: var(--accent);
+  color: var(--accent-foreground);
+}
+
+.amianan-admin .admin-status-published {
+  background: var(--admin-success-bg);
+  color: var(--admin-success);
+}
+
+.amianan-admin .admin-status-draft {
+  background: var(--muted);
+  color: var(--muted-foreground);
+}
+
+.amianan-admin .admin-status-scheduled {
+  background: var(--admin-info-bg);
+  color: var(--admin-info);
+}
+
+/* Content / blog list + writing desk */
+.amianan-admin .admin-filter-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+}
+
+.amianan-admin .admin-filter-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  height: 2.125rem;
+  padding: 0 0.75rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  font-size: 0.8125rem;
+  font-weight: 550;
+  color: var(--muted-foreground);
+}
+
+.amianan-admin .admin-filter-pill-count {
+  font-size: 0.6875rem;
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+  padding: 0.0625rem 0.4375rem;
+  border-radius: 999px;
+  background: var(--muted);
+}
+
+.amianan-admin .admin-filter-pill.active {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: var(--primary-foreground);
+}
+
+.amianan-admin .admin-filter-pill.active .admin-filter-pill-count {
+  background: color-mix(in oklab, var(--primary-foreground) 22%, transparent);
+  color: var(--primary-foreground);
+}
+
+.amianan-admin .admin-list-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.625rem;
+  margin-bottom: 1rem;
+}
+
+.amianan-admin .admin-list-toolbar .admin-list-search {
+  margin-left: auto;
+  max-width: 16rem;
+}
+
+.amianan-admin .admin-users-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  padding: 0.5rem 0;
+  position: sticky;
+  top: calc(var(--admin-topbar-h) + 0.25rem);
+  z-index: 15;
+  background: color-mix(in oklab, var(--background) 92%, transparent);
+  backdrop-filter: blur(6px);
+}
+
+.amianan-admin .admin-users-toolbar-filters {
+  display: flex;
+  flex: 1 1 auto;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+@media (min-width: 1280px) {
+  .amianan-admin .admin-users-toolbar {
+    flex-wrap: nowrap;
+  }
+
+  .amianan-admin .admin-users-toolbar-filters {
+    flex-wrap: nowrap;
+  }
+}
+
+.amianan-admin .admin-users-toolbar-search {
+  flex: 1 1 12rem;
+  min-width: 10rem;
+  max-width: 18rem;
+}
+
+@media (min-width: 1280px) {
+  .amianan-admin .admin-users-toolbar-search {
+    max-width: none;
+    flex: 1 1 16rem;
+  }
+}
+
+.amianan-admin .admin-users-toolbar-select-wrap {
+  flex: 0 1 auto;
+}
+
+.amianan-admin .admin-users-toolbar-select {
+  height: 2rem;
+  min-width: 7.5rem;
+  border-radius: 0.375rem;
+  border: 1px solid var(--border);
+  background: var(--background);
+  padding: 0 0.5rem;
+  font-size: 0.8125rem;
+}
+
+.amianan-admin .admin-users-toolbar-date-input {
+  height: 2rem;
+  min-width: 9rem;
+  font-size: 0.8125rem;
+}
+
+.amianan-admin .admin-users-toolbar-add {
+  flex-shrink: 0;
+}
+
+.amianan-admin .admin-directory-pagination {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.amianan-admin .admin-directory-pagination-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.amianan-admin .admin-view-toggle {
+  display: inline-flex;
+  border: 1px solid var(--border);
+  border-radius: 0.625rem;
+  overflow: hidden;
+  background: var(--card);
+}
+
+.amianan-admin .admin-view-toggle button {
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.125rem;
+  border: 0;
+  background: transparent;
+  color: var(--muted-foreground);
+}
+
+.amianan-admin .admin-view-toggle button.active {
+  background: var(--accent);
+  color: var(--accent-foreground);
+}
+
+.amianan-admin .admin-bulk-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 0.875rem;
+  margin-bottom: 0.875rem;
+  border-radius: 0.75rem;
+  border: 1px solid color-mix(in oklab, var(--primary) 28%, var(--border));
+  background: var(--accent);
+  font-size: 0.8125rem;
+  font-weight: 550;
+  color: var(--accent-foreground);
+}
+
+.amianan-admin .admin-list-card {
+  border: 1px solid var(--border);
+  border-radius: 0.875rem;
+  background: var(--card);
+  overflow: hidden;
+}
+
+.amianan-admin .admin-cover-thumb {
+  width: 2.75rem;
+  height: 2rem;
+  border-radius: 0.4375rem;
+  object-fit: cover;
+  flex-shrink: 0;
+  background: var(--muted);
+}
+
+.amianan-admin .admin-cover-thumb-empty {
+  display: block;
+  background: var(--muted);
+}
+
+.amianan-admin .admin-title-cell {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 0;
+}
+
+.amianan-admin .admin-content-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.875rem;
+}
+
+@media (max-width: 1024px) {
+  .amianan-admin .admin-content-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .amianan-admin .admin-content-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.amianan-admin .admin-grid-card {
+  border: 1px solid var(--border);
+  border-radius: 0.875rem;
+  background: var(--card);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.amianan-admin .admin-grid-cover {
+  height: 7.5rem;
+  background: var(--muted);
+  position: relative;
+}
+
+.amianan-admin .admin-grid-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.amianan-admin .admin-grid-body {
+  padding: 0.875rem 0.875rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.amianan-admin .admin-list-empty {
+  border: 1px dashed var(--border);
+  border-radius: 1rem;
+  background: var(--card);
+  padding: 3.5rem 1.75rem;
+  text-align: center;
+}
+
+.amianan-admin .admin-list-empty-icon {
+  width: 3.25rem;
+  height: 3.25rem;
+  border-radius: 0.875rem;
+  margin: 0 auto 1rem;
+  background: var(--accent);
+  color: var(--accent-foreground);
+  display: grid;
+  place-items: center;
+}
+
+.amianan-admin .admin-writing-desk {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  gap: 0;
+  width: 100%;
+  min-height: calc(100dvh - var(--admin-topbar-h) - 3.5rem);
+  background: var(--muted);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.amianan-admin .admin-writing-desk--stacked {
+  flex-direction: column;
+}
+
+@media (max-width: 1023px) {
+  .amianan-admin .admin-writing-desk--stacked .admin-writing-desk-main {
+    border-right: 0;
+  }
+
+  .amianan-admin .admin-writing-desk--stacked .admin-writing-desk-side {
+    border-left: 0;
+    border-top: 1px solid var(--border);
+    max-height: none;
+    width: 100%;
+    flex: none;
+  }
+}
+
+.amianan-admin .admin-writing-desk-main {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.amianan-admin .admin-writing-desk-separator {
+  flex: 0 0 0.625rem;
+  width: 0.625rem;
+  position: relative;
+  z-index: 2;
+  touch-action: none;
+  cursor: col-resize;
+  background: transparent;
+  outline: none;
+}
+
+.amianan-admin .admin-writing-desk-separator::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto;
+  left: 50%;
+  width: 1px;
+  height: 100%;
+  transform: translateX(-50%);
+  background: var(--border);
+  transition: background 0.15s ease;
+}
+
+.amianan-admin .admin-writing-desk-separator:hover::before,
+.amianan-admin .admin-writing-desk-separator:focus-visible::before {
+  width: 2px;
+  background: color-mix(in oklab, var(--primary) 35%, var(--border));
+}
+
+.amianan-admin .admin-writing-desk-separator:focus-visible {
+  box-shadow: inset 0 0 0 2px color-mix(in oklab, var(--ring) 50%, transparent);
+}
+
+.amianan-admin .admin-writing-desk-top {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  height: 3.25rem;
+  padding: 0 var(--admin-page-pad-x);
+  background: var(--card);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.amianan-admin .admin-writing-desk-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.8125rem;
+  font-weight: 550;
+  color: var(--muted-foreground);
+}
+
+.amianan-admin .admin-writing-desk-actions {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  position: relative;
+}
+
+.amianan-admin .admin-autosave {
+  font-size: 0.75rem;
+  color: var(--muted-foreground);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  margin-left: 0.5rem;
+}
+
+.amianan-admin .admin-autosave-pulse {
+  width: 0.4375rem;
+  height: 0.4375rem;
+  border-radius: 50%;
+  background: var(--admin-success);
+}
+
+.amianan-admin .admin-writing-desk-canvas-wrap {
+  flex: 1;
+  overflow: auto;
+  padding: 1.25rem var(--admin-page-pad-x) 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .amianan-admin .admin-writing-desk-canvas-wrap {
+    padding-top: 1.5rem;
+  }
+}
+
+.amianan-admin .admin-writing-desk-canvas {
+  width: 100%;
+  flex: 1 0 auto;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  padding: 2.5rem 3rem 3.5rem;
+  box-shadow: var(--admin-shadow-sm);
+}
+
+@media (max-width: 640px) {
+  .amianan-admin .admin-writing-desk-canvas {
+    padding: 1.5rem 1.125rem 2.5rem;
+  }
+}
+
+.amianan-admin .admin-write-title {
+  width: 100%;
+  border: 0;
+  outline: none;
+  background: transparent;
+  font-size: clamp(1.625rem, 3vw, 2.125rem);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1.15;
+  margin-bottom: 0.625rem;
+}
+
+.amianan-admin .admin-write-excerpt {
+  width: 100%;
+  border: 0;
+  outline: none;
+  background: transparent;
+  font-size: 1rem;
+  color: var(--muted-foreground);
+  margin-bottom: 1.75rem;
+  line-height: 1.45;
+  resize: none;
+}
+
+.amianan-admin .admin-cover-slot {
+  min-height: 11rem;
+  border-radius: 0.75rem;
+  margin-bottom: 1.75rem;
+  border: 1px dashed color-mix(in oklab, var(--primary) 25%, var(--border));
+  background: var(--muted);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.amianan-admin .admin-cover-slot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  min-height: 11rem;
+}
+
+.amianan-admin .admin-writing-desk-side-header {
+  padding: 1rem 1rem 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.amianan-admin .admin-writing-desk-side-intro {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.amianan-admin .admin-cover-sidebar-card {
+  padding: 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  background: var(--background);
+}
+
+.amianan-admin .admin-cover-field-sidebar {
+  margin-bottom: 0;
+  gap: 0.375rem;
+}
+
+.amianan-admin .admin-cover-field-sidebar .admin-cover-drop {
+  min-height: 6.5rem;
+  border-radius: 0.5rem;
+}
+
+.amianan-admin .admin-cover-field-sidebar .admin-cover-drop-preview,
+.amianan-admin .admin-cover-field-sidebar .admin-cover-drop-placeholder {
+  min-height: 6.5rem;
+}
+
+.amianan-admin .admin-cover-field-sidebar .admin-cover-drop-placeholder svg {
+  width: 1.75rem;
+  height: 1.75rem;
+}
+
+.amianan-admin .admin-cover-field-sidebar .admin-cover-drop-placeholder span {
+  font-size: 0.75rem;
+}
+
+.amianan-admin .admin-cover-field-sidebar .admin-cover-field-actions {
+  gap: 0.375rem;
+}
+
+.amianan-admin .admin-cover-field-sidebar .admin-cover-field-actions button {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.amianan-admin .admin-editor-slug-field {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.amianan-admin .admin-cover-field {
+  display: grid;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.amianan-admin .admin-cover-drop {
+  position: relative;
+  display: block;
+  width: 100%;
+  min-height: 10rem;
+  border-radius: 0.75rem;
+  border: 1px dashed color-mix(in oklab, var(--primary) 25%, var(--border));
+  background: var(--muted);
+  cursor: pointer;
+  overflow: hidden;
+  padding: 0;
+  text-align: inherit;
+  font: inherit;
+  color: inherit;
+}
+
+.amianan-admin .admin-cover-drop-active {
+  border-color: var(--primary);
+  background: color-mix(in oklab, var(--primary) 8%, var(--muted));
+}
+
+.amianan-admin .admin-cover-drop-uploading {
+  opacity: 0.85;
+  pointer-events: none;
+}
+
+.amianan-admin .admin-cover-drop-error {
+  border-color: var(--destructive);
+}
+
+.amianan-admin .admin-cover-drop-preview {
+  width: 100%;
+  height: 100%;
+  min-height: 10rem;
+  object-fit: cover;
+  display: block;
+}
+
+.amianan-admin .admin-cover-drop-placeholder {
+  min-height: 10rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  text-align: center;
+}
+
+.amianan-admin .admin-cover-drop-status {
+  position: absolute;
+  inset: auto 0 0;
+  padding: 0.5rem;
+  text-align: center;
+  font-size: 0.75rem;
+  background: color-mix(in oklab, var(--background) 85%, transparent);
+}
+
+.amianan-admin .admin-cover-field-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.amianan-admin .admin-media-picker-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(6.5rem, 1fr));
+  gap: 0.5rem;
+  max-height: 18rem;
+  overflow: auto;
+  padding: 0.25rem 0;
+}
+
+.amianan-admin .admin-media-picker-item {
+  display: grid;
+  gap: 0.25rem;
+  padding: 0.25rem;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  background: var(--card);
+  text-align: left;
+}
+
+.amianan-admin .admin-media-picker-item img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 0.375rem;
+}
+
+.amianan-admin .admin-media-library-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(7.5rem, 1fr));
+  gap: 0.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+@media (min-width: 640px) {
+  .amianan-admin .admin-media-library-grid {
+    grid-template-columns: repeat(auto-fill, minmax(8.5rem, 1fr));
+    gap: 0.625rem;
+  }
+}
+
+.amianan-admin .admin-media-library-thumb {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 0.625rem;
+  overflow: hidden;
+  background: var(--muted);
+  cursor: pointer;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.amianan-admin .admin-media-library-thumb:hover {
+  border-color: color-mix(in oklab, var(--primary) 35%, var(--border));
+}
+
+.amianan-admin .admin-media-library-thumb:focus-visible {
+  outline: none;
+  border-color: var(--ring);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--ring) 45%, transparent);
+}
+
+.amianan-admin .admin-media-library-thumb-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.amianan-admin .admin-media-library-thumb-file {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  color: var(--muted-foreground);
+}
+
+.amianan-admin .admin-media-library-preview {
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  background: var(--muted);
+  overflow: hidden;
+  min-height: 10rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.amianan-admin .admin-media-library-preview-img {
+  max-width: 100%;
+  max-height: min(50vh, 20rem);
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.amianan-admin .admin-media-library-meta {
+  display: grid;
+  gap: 0.625rem;
+  margin: 0;
+}
+
+.amianan-admin .admin-media-library-meta-row {
+  display: grid;
+  gap: 0.125rem;
+}
+
+.amianan-admin .admin-media-library-meta-row dt {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted-foreground);
+}
+
+.amianan-admin .admin-media-library-meta-row dd {
+  margin: 0;
+  font-size: 0.8125rem;
+  word-break: break-word;
+}
+
+.amianan-admin .admin-writing-desk-side {
+  background: var(--card);
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 auto;
+  width: min(20rem, 32vw);
+  min-height: 0;
+  max-height: calc(100dvh - var(--admin-topbar-h) - 3.5rem);
+  overflow: auto;
+  border-left: 1px solid var(--border);
+}
+
+.amianan-admin .admin-writing-desk-tabs {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: var(--card);
+  border-bottom: 1px solid var(--border);
+  margin: 0;
+}
+
+.amianan-admin .admin-writing-desk-tabs .admin-tab-list {
+  flex-wrap: wrap;
+}
+
+.amianan-admin .admin-writing-desk-save {
+  width: 100%;
+  flex-shrink: 0;
+}
+
+.amianan-admin .admin-writing-desk-save .admin-save-bar {
+  bottom: 0.75rem;
+}
+
+.amianan-admin .admin-writing-desk-side-body {
+  padding: 1rem 1rem 2rem;
+}
+
+.amianan-admin .admin-writing-desk-side-body .admin-tab-panel {
+  padding-top: 0.25rem;
+}
+
+.amianan-admin .admin-serp-preview {
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  padding: 0.875rem;
+  background: var(--muted);
+}
+
+.amianan-admin .admin-serp-title {
+  color: #1a0dab;
+  font-size: 1rem;
+  line-height: 1.3;
+}
+
+.amianan-admin .admin-serp-url {
+  color: #006621;
+  font-size: 0.75rem;
+  margin-top: 0.125rem;
+  word-break: break-all;
+}
+
+.amianan-admin .admin-serp-desc {
+  color: var(--muted-foreground);
+  font-size: 0.8125rem;
+  margin-top: 0.25rem;
+  line-height: 1.45;
+}
+
+.amianan-admin .admin-social-card {
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  overflow: hidden;
+  background: var(--card);
+}
+
+.amianan-admin .admin-social-card-img {
+  display: block;
+  width: 100%;
+  height: 7.5rem;
+  object-fit: cover;
+}
+
+.amianan-admin .admin-social-card-img-placeholder {
+  background: var(--muted);
+}
+
+.amianan-admin .admin-social-card-body {
+  padding: 0.75rem 0.875rem;
+}
+
+.amianan-admin .admin-social-card-host {
+  font-size: 0.6875rem;
+  color: var(--muted-foreground);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.amianan-admin .admin-social-card-title {
+  font-size: 0.875rem;
+  font-weight: 650;
+  margin-top: 0.25rem;
+}
+
+.amianan-admin .admin-social-card-desc {
+  font-size: 0.75rem;
+  color: var(--muted-foreground);
+  margin-top: 0.125rem;
+  line-height: 1.4;
+}
+
+.amianan-admin .admin-publish-pop {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  z-index: 50;
+  width: 20rem;
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 0.875rem;
+  background: var(--card);
+  box-shadow: var(--admin-shadow-md);
+}
+
+.amianan-admin .admin-publish-pop-sub {
+  font-size: 0.75rem;
+  color: var(--muted-foreground);
+  margin: 0.25rem 0 0.875rem;
+}
+
+.amianan-admin {
+  --admin-sidebar-w-collapsed: 4.5rem;
+  --admin-warning: #ca8a04;
+}
+
+.amianan-admin.admin-shell-collapsed .admin-sidebar {
+  width: var(--admin-sidebar-w-collapsed);
+}
+
+.amianan-admin .admin-sidebar-collapse {
+  font-size: 0.75rem;
+  font-weight: 550;
+}
+
+.amianan-admin .admin-nav-link-collapsed {
+  justify-content: center;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.amianan-admin .admin-breadcrumbs {
+  margin-bottom: 0.625rem;
+}
+
+.amianan-admin .admin-breadcrumbs-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 0.8125rem;
+  color: var(--muted-foreground);
+}
+
+.amianan-admin .admin-breadcrumbs-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.amianan-admin .admin-breadcrumbs-link:hover {
+  color: var(--foreground);
+}
+
+.amianan-admin .admin-breadcrumbs-current {
+  color: var(--foreground);
+  font-weight: 550;
+}
+
+.amianan-admin .admin-breadcrumbs-sep {
+  opacity: 0.5;
+}
+
+.amianan-admin .admin-dash-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 1024px) {
+  .amianan-admin .admin-dash-grid {
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  }
+}
+
+.amianan-admin .admin-dash-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.amianan-admin .admin-dash-card {
+  border: 1px solid var(--border);
+  border-radius: 0.875rem;
+  background: var(--card);
+  overflow: hidden;
+  box-shadow: var(--admin-shadow-sm);
+}
+
+.amianan-admin .admin-dash-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.875rem 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.amianan-admin .admin-dash-card-head h2 {
+  font-size: 0.84375rem;
+  font-weight: 650;
+}
+
+.amianan-admin .admin-dash-card-link {
+  font-size: 0.78125rem;
+  font-weight: 550;
+  color: var(--brand-ink);
+}
+
+.amianan-admin .admin-dash-rows {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.amianan-admin .admin-dash-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.84375rem;
+}
+
+.amianan-admin .admin-dash-row:last-child {
+  border-bottom: 0;
+}
+
+.amianan-admin .admin-dash-row-empty {
+  padding: 1.25rem 1rem;
+  text-align: center;
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+}
+
+.amianan-admin .admin-dash-row-meta {
+  font-size: 0.75rem;
+  color: var(--muted-foreground);
+  margin-top: 0.125rem;
+}
+
+.amianan-admin .admin-dash-row-date {
+  margin-left: auto;
+  font-size: 0.75rem;
+  color: var(--muted-foreground);
+  white-space: nowrap;
+}
+
+.amianan-admin .admin-quick-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.625rem;
+  padding: 0.875rem;
+}
+
+.amianan-admin .admin-quick-action {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.75rem 0.875rem;
+  border-radius: 0.75rem;
+  border: 1px solid var(--border);
+  background: var(--background);
+  font-size: 0.84375rem;
+  font-weight: 550;
+}
+
+.amianan-admin .admin-status-list {
+  list-style: none;
+  margin: 0;
+  padding: 0.5rem 1rem 0.875rem;
+}
+
+.amianan-admin .admin-status-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.625rem 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.84375rem;
+}
+
+.amianan-admin .admin-status-row:last-child {
+  border-bottom: 0;
+}
+
+.amianan-admin .admin-status-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.amianan-admin .admin-status-value {
+  font-size: 0.78125rem;
+  color: var(--muted-foreground);
+}
+
+.amianan-admin .admin-status-dot-ok,
+.amianan-admin .admin-status-dot-warn {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.amianan-admin .admin-status-dot-ok {
+  background: var(--admin-success);
+}
+
+.amianan-admin .admin-status-dot-warn {
+  background: var(--admin-warning);
+}
+
+.amianan-admin .admin-cmd-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 12vh 1rem 1rem;
+}
+
+.amianan-admin .admin-cmd-scrim-hit {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  background: rgb(15 23 42 / 40%);
+}
+
+.amianan-admin .admin-cmd-dialog {
+  position: relative;
+  z-index: 1;
+  width: min(35rem, 100%);
+  max-height: min(60vh, 28rem);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 0.875rem;
+  border: 1px solid var(--border);
+  background: var(--popover);
+  color: var(--popover-foreground);
+  box-shadow: 0 24px 60px -24px rgb(15 23 42 / 40%);
+}
+
+.amianan-admin .admin-cmd-input {
+  padding: 1rem 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+@media (min-width: 40rem) {
+  .amianan-admin .admin-cmd-input {
+    padding: 1.5rem 1.5rem;
+  }
+}
+
+.amianan-admin .admin-cmd-results {
+  overflow: auto;
+  padding: 0.5rem 1rem 1rem;
+}
+
+@media (min-width: 40rem) {
+  .amianan-admin .admin-cmd-results {
+    padding: 0.5rem 1.5rem 1rem;
+  }
+}
+
+.amianan-admin .admin-cmd-hit {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.625rem 0.75rem;
+  border: 0;
+  border-radius: 0.625rem;
+  background: transparent;
+  font-size: 0.875rem;
+  text-align: left;
+  color: inherit;
+}
+
+.amianan-admin .admin-cmd-hit:hover,
+.amianan-admin .admin-cmd-hit.active {
+  background: var(--accent);
+  color: var(--accent-foreground);
+}
+
+.amianan-admin .admin-cmd-kbd {
+  margin-left: auto;
+  font-size: 0.6875rem;
+  color: var(--muted-foreground);
+  max-width: 45%;
+}
+
+.amianan-admin .admin-cmd-foot {
+  display: flex;
+  gap: 0.75rem;
+  padding: 1rem 1rem 1rem;
+  border-top: 1px solid var(--border);
+  font-size: 0.6875rem;
+  color: var(--muted-foreground);
+}
+
+@media (min-width: 40rem) {
+  .amianan-admin .admin-cmd-foot {
+    padding: 1rem 1.5rem 1.5rem;
+  }
+}
+
+.amianan-admin .admin-state-box {
+  border: 1px dashed var(--border);
+  border-radius: 0.875rem;
+  background: var(--card);
+  padding: 3rem 1.5rem;
+  text-align: center;
+}
+
+.amianan-admin .admin-state-box-icon {
+  width: 3rem;
+  height: 3rem;
+  margin: 0 auto 0.875rem;
+  border-radius: 0.75rem;
+  display: grid;
+  place-items: center;
+  background: var(--accent);
+  color: var(--primary);
+}
+
+.amianan-admin .admin-state-box-title {
+  font-size: 1rem;
+  font-weight: 650;
+  margin-bottom: 0.375rem;
+}
+
+.amianan-admin .admin-state-box-desc {
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+  max-width: 36ch;
+  margin: 0 auto 1rem;
+}
+
+.amianan-admin .admin-state-box-action {
+  display: flex;
+  justify-content: center;
+}
+
+.amianan-admin .admin-table-skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--card);
+}
+
+.amianan-admin .admin-table-skeleton-row {
+  height: 2.75rem;
+  width: 100%;
+}
+
+.amianan-admin .admin-banner-error {
+  display: flex;
+  gap: 0.625rem;
+  align-items: flex-start;
+  padding: 0.75rem 0.875rem;
+  border-radius: 0.75rem;
+  border: 1px solid #fecaca;
+  background: #fef2f2;
+  color: #991b1b;
+  font-size: 0.84375rem;
+}
+
+html[data-admin-theme="dark"] .amianan-admin,
+.amianan-admin[data-theme="dark"] {
+  --background: #09090b;
+  --foreground: #fafafa;
+  --card: #111113;
+  --card-foreground: #fafafa;
+  --popover: #111113;
+  --popover-foreground: #fafafa;
+  --muted: #27272a;
+  --muted-foreground: #a1a1aa;
+  --border: #27272a;
+  --input: #27272a;
+  --secondary: #27272a;
+  --secondary-foreground: #fafafa;
+  --brand-wash: #1e1b4b;
+  --brand-ink: #a5b4fc;
+  --sidebar: #09090b;
+  --sidebar-foreground: #a1a1aa;
+  --sidebar-border: #27272a;
+  --accent: var(--brand-wash);
+  --accent-foreground: var(--brand-ink);
+  --admin-success-bg: #14532d;
+  --admin-info-bg: #1e3a5f;
+}
+
+.amianan-admin[data-theme="dark"] .admin-banner-error {
+  background: #450a0a;
+  border-color: #7f1d1d;
+  color: #fecaca;
+}
+
+html[data-admin-theme="dark"] .amianan-admin .admin-banner-error {
+  background: #450a0a;
+  border-color: #7f1d1d;
+  color: #fecaca;
+}
+
+.amianan-admin[data-theme="dark"] .admin-quick-action {
+  background: #18181b;
+}
+
+html[data-admin-theme="dark"] .amianan-admin .admin-quick-action {
+  background: #18181b;
+}
+
+.amianan-admin-auth {
+  --brand: #111111;
+  --brand-hover: #000000;
+  --brand-wash: #f0eeeb;
+  --brand-ink: #111111;
+  --brand-foreground: #ffffff;
+  --primary: var(--brand);
+  --primary-foreground: var(--brand-foreground);
+  --ring: var(--brand);
+  --radius: 12px;
+  --card: #ffffff;
+  --border: #e4e4e7;
+  --background: #fafafa;
+  --foreground: #0a0a0a;
+  --muted-foreground: #71717a;
+  font-family: var(--font-sans);
+  background: var(--background);
+}

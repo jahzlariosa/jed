@@ -1,0 +1,6 @@
+---
+description: Security — fail closed (see AGENTS.md)
+alwaysApply: true
+---
+
+Required on every change. Follow **`AGENTS.md` → Security**. Fail closed. `requireUser` / `requirePermission` plus RLS. No IDOR, no secret leakage, no public cache of session data.

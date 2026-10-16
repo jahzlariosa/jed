@@ -1,0 +1,6 @@
+---
+description: Product, security, and copy standards for JED
+alwaysApply: true
+---
+
+Read `AGENTS.md` for architecture, auth, RLS, caching, and UI. No em dashes in user-facing copy. Production-ready wording on public pages. Inter only on marketing and auth.

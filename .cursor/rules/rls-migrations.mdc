@@ -1,0 +1,7 @@
+---
+description: Postgres migrations, grants, and RLS.
+globs: supabase/**/*
+alwaysApply: false
+---
+
+Follow **`AGENTS.md` → Data** and **Security**. Revoke broad grants; grant only what RLS needs; `has_permission` / ownership policies; system roles changed in migrations only.

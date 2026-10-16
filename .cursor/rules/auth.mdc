@@ -1,0 +1,7 @@
+---
+description: Session I/O, redirects, and MFA.
+globs: src/auth/**/*,src/routes/**/*
+alwaysApply: false
+---
+
+Follow **`AGENTS.md` → Auth module** and **Security**. All session work in `#/auth`; `requireUser` / `requirePermission` in every private handler; `safeInternalPath` for redirects; remember-me via session vs persistent cookies in `#/lib/supabase/auth-cookie.server.ts`.

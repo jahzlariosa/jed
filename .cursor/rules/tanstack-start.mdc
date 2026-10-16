@@ -1,0 +1,7 @@
+---
+description: TanStack Start routing and server functions (see AGENTS.md)
+globs: src/routes/**/*.{ts,tsx},src/router.tsx,src/**/*.tsx
+alwaysApply: false
+---
+
+Follow **`AGENTS.md` → Catch-up** for current routes, then **TanStack Start**. Isomorphic loaders; privileged I/O in `createServerFn`; `#/auth` for guards.

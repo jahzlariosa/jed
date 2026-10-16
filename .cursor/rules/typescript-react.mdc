@@ -1,0 +1,7 @@
+---
+description: TypeScript and React (see AGENTS.md)
+globs: "**/*.{ts,tsx}"
+alwaysApply: false
+---
+
+Follow **`AGENTS.md` → TypeScript and React** and **UI**. Strict TS, validators, shadcn + Tailwind only.

@@ -4,7 +4,7 @@ import { getCache, invalidateByTag } from '@vercel/functions'
 
 export const PUBLIC_CACHE_SCHEMA_VERSION = '1'
 
-const cache = getCache({ namespace: 'amianan-api' })
+const cache = getCache({ namespace: 'jed-api' })
 
 export type CachedHttpPayload = {
   body: string

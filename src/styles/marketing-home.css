@@ -1,7 +1,7 @@
 @import "./marketing-tokens.css";
 @import "./marketing-shadcn.css";
 
-html.marketing-reveal-init .amianan-marketing .marketing-reveal {
+html.marketing-reveal-init .jed-marketing .marketing-reveal {
   opacity: 0;
   transform: translateY(28px);
   transition:
@@ -9,27 +9,27 @@ html.marketing-reveal-init .amianan-marketing .marketing-reveal {
     transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-html.marketing-reveal-init .amianan-marketing .marketing-reveal-from-left {
+html.marketing-reveal-init .jed-marketing .marketing-reveal-from-left {
   transform: translateX(-28px);
 }
 
-html.marketing-reveal-init .amianan-marketing .marketing-reveal-from-right {
+html.marketing-reveal-init .jed-marketing .marketing-reveal-from-right {
   transform: translateX(28px);
 }
 
-html.marketing-reveal-init .amianan-marketing .marketing-reveal.is-revealed {
+html.marketing-reveal-init .jed-marketing .marketing-reveal.is-revealed {
   opacity: 1;
   transform: none;
   transition-delay: var(--reveal-delay, 0ms);
 }
 
-html.marketing-reveal-init .amianan-marketing .marketing-reveal.is-visible {
+html.marketing-reveal-init .jed-marketing .marketing-reveal.is-visible {
   opacity: 1;
   transform: translateY(0);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html.marketing-reveal-init .amianan-marketing .marketing-reveal {
+  html.marketing-reveal-init .jed-marketing .marketing-reveal {
     opacity: 1;
     transform: none;
     transition: none;

@@ -1,5 +1,5 @@
 /* Pixel shadcn-inspired public marketing (scoped) */
-.amianan-marketing .marketing-wrap {
+.jed-marketing .marketing-wrap {
   width: 100%;
   max-width: var(--marketing-wrap);
   margin-inline: auto;
@@ -7,12 +7,12 @@
 }
 
 @media (min-width: 768px) {
-  .amianan-marketing .marketing-wrap {
+  .jed-marketing .marketing-wrap {
     padding-inline: 40px;
   }
 }
 
-.amianan-marketing .marketing-header {
+.jed-marketing .marketing-header {
   position: sticky;
   top: 0;
   z-index: 40;
@@ -21,7 +21,7 @@
   background: var(--background);
 }
 
-.amianan-marketing .marketing-header-inner {
+.jed-marketing .marketing-header-inner {
   display: flex;
   align-items: center;
   gap: 16px;
@@ -31,28 +31,28 @@
 }
 
 @media (min-width: 640px) {
-  .amianan-marketing .marketing-header-inner {
+  .jed-marketing .marketing-header-inner {
     padding-inline: 24px;
   }
 }
 
 @media (min-width: 768px) {
-  .amianan-marketing .marketing-header-inner {
+  .jed-marketing .marketing-header-inner {
     gap: 24px;
   }
 }
 
 @media (min-width: 1024px) {
-  .amianan-marketing .marketing-header-inner {
+  .jed-marketing .marketing-header-inner {
     padding-inline: 32px;
   }
 }
 
-.amianan-marketing .marketing-wrap.marketing-wrap-wide {
+.jed-marketing .marketing-wrap.marketing-wrap-wide {
   max-width: var(--marketing-header-inner);
 }
 
-.amianan-marketing .marketing-nav-links {
+.jed-marketing .marketing-nav-links {
   display: none;
   align-items: center;
   gap: 4px;
@@ -61,23 +61,23 @@
 }
 
 @media (min-width: 1024px) {
-  .amianan-marketing .marketing-nav-links {
+  .jed-marketing .marketing-nav-links {
     display: flex;
   }
 }
 
-.amianan-marketing .marketing-nav-links a {
+.jed-marketing .marketing-nav-links a {
   padding: 6px 10px;
   border-radius: 6px;
 }
 
-.amianan-marketing .marketing-nav-links a:hover,
-.amianan-marketing .marketing-nav-links a[aria-current="page"] {
+.jed-marketing .marketing-nav-links a:hover,
+.jed-marketing .marketing-nav-links a[aria-current="page"] {
   color: var(--foreground);
   background: var(--muted);
 }
 
-.amianan-marketing .marketing-search-chip {
+.jed-marketing .marketing-search-chip {
   display: none;
   align-items: center;
   gap: 8px;
@@ -93,12 +93,12 @@
 }
 
 @media (min-width: 640px) {
-  .amianan-marketing .marketing-search-chip {
+  .jed-marketing .marketing-search-chip {
     display: flex;
   }
 }
 
-.amianan-marketing .marketing-search-chip kbd {
+.jed-marketing .marketing-search-chip kbd {
   margin-left: auto;
   padding: 1px 5px;
   border: 1px solid var(--border);
@@ -107,7 +107,7 @@
   font-size: 11px;
 }
 
-.amianan-marketing .marketing-icon-btn {
+.jed-marketing .marketing-icon-btn {
   display: grid;
   place-items: center;
   width: 32px;
@@ -120,23 +120,23 @@
 }
 
 @media (min-width: 640px) {
-  .amianan-marketing .marketing-icon-btn-mobile {
+  .jed-marketing .marketing-icon-btn-mobile {
     display: none;
   }
 }
 
 @media (min-width: 1024px) {
-  .amianan-marketing .marketing-menu-btn {
+  .jed-marketing .marketing-menu-btn {
     display: none;
   }
 }
 
-.amianan-marketing .marketing-icon-btn:hover {
+.jed-marketing .marketing-icon-btn:hover {
   color: var(--foreground);
   background: var(--muted);
 }
 
-.amianan-marketing .marketing-btn-brand {
+.jed-marketing .marketing-btn-brand {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -150,11 +150,11 @@
   font-weight: 500;
 }
 
-.amianan-marketing .marketing-btn-brand:hover {
+.jed-marketing .marketing-btn-brand:hover {
   background: var(--brand-hover);
 }
 
-.amianan-marketing .marketing-btn-ghost-sm {
+.jed-marketing .marketing-btn-ghost-sm {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -166,23 +166,23 @@
   color: var(--foreground);
 }
 
-.amianan-marketing .marketing-btn-ghost-sm:hover {
+.jed-marketing .marketing-btn-ghost-sm:hover {
   background: var(--muted);
 }
 
-.amianan-marketing .marketing-hero {
+.jed-marketing .marketing-hero {
   padding: 40px 0 32px;
   text-align: center;
   border-bottom: 1px solid var(--border);
 }
 
 @media (min-width: 768px) {
-  .amianan-marketing .marketing-hero {
+  .jed-marketing .marketing-hero {
     padding: 72px 0 48px;
   }
 }
 
-.amianan-marketing .marketing-pill {
+.jed-marketing .marketing-pill {
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -196,7 +196,7 @@
   font-size: 12.5px;
 }
 
-.amianan-marketing .marketing-hero h1 {
+.jed-marketing .marketing-hero h1 {
   max-width: 18ch;
   margin: 0 auto 16px;
   font-size: clamp(1.875rem, 5vw, 3rem);
@@ -205,7 +205,7 @@
   line-height: 1.1;
 }
 
-.amianan-marketing .marketing-hero .marketing-hero-sub {
+.jed-marketing .marketing-hero .marketing-hero-sub {
   max-width: 46ch;
   margin: 0 auto 28px;
   color: var(--muted-foreground);
@@ -214,19 +214,19 @@
 }
 
 @media (min-width: 768px) {
-  .amianan-marketing .marketing-hero .marketing-hero-sub {
+  .jed-marketing .marketing-hero .marketing-hero-sub {
     font-size: 16px;
   }
 }
 
-.amianan-marketing .marketing-hero-actions {
+.jed-marketing .marketing-hero-actions {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 10px;
 }
 
-.amianan-marketing .marketing-btn-lg {
+.jed-marketing .marketing-btn-lg {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -237,13 +237,13 @@
   font-weight: 500;
 }
 
-.amianan-marketing .marketing-btn-outline-lg {
+.jed-marketing .marketing-btn-outline-lg {
   border: 1px solid var(--border);
   background: transparent;
   color: var(--foreground);
 }
 
-.amianan-marketing .marketing-showcase-grid {
+.jed-marketing .marketing-showcase-grid {
   display: grid;
   grid-template-columns: 1fr;
   max-width: var(--marketing-header-inner);
@@ -252,18 +252,18 @@
 }
 
 @media (min-width: 768px) {
-  .amianan-marketing .marketing-showcase-grid {
+  .jed-marketing .marketing-showcase-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (min-width: 1024px) {
-  .amianan-marketing .marketing-showcase-grid {
+  .jed-marketing .marketing-showcase-grid {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
-.amianan-marketing .marketing-sc-card {
+.jed-marketing .marketing-sc-card {
   min-height: 220px;
   padding: 16px;
   border-right: 1px solid var(--border);
@@ -271,7 +271,7 @@
   background: var(--background);
 }
 
-.amianan-marketing .marketing-sc-card h3 {
+.jed-marketing .marketing-sc-card h3 {
   margin-bottom: 12px;
   color: var(--muted-foreground);
   font-size: 12px;
@@ -280,30 +280,30 @@
   text-transform: uppercase;
 }
 
-.amianan-marketing .marketing-section-block {
+.jed-marketing .marketing-section-block {
   padding: 40px 0;
   border-bottom: 1px solid var(--border);
 }
 
 @media (min-width: 768px) {
-  .amianan-marketing .marketing-section-block {
+  .jed-marketing .marketing-section-block {
     padding: 64px 0;
   }
 }
 
-.amianan-marketing .marketing-section-head {
+.jed-marketing .marketing-section-head {
   max-width: 40ch;
   margin-bottom: 28px;
 }
 
-.amianan-marketing .marketing-eyebrow {
+.jed-marketing .marketing-eyebrow {
   margin-bottom: 8px;
   color: var(--muted-foreground);
   font-size: 12.5px;
   font-weight: 550;
 }
 
-.amianan-marketing .marketing-section-head h2 {
+.jed-marketing .marketing-section-head h2 {
   margin-bottom: 10px;
   font-size: clamp(1.375rem, 3vw, 1.75rem);
   font-weight: 650;
@@ -311,13 +311,13 @@
   line-height: 1.2;
 }
 
-.amianan-marketing .marketing-section-head p {
+.jed-marketing .marketing-section-head p {
   color: var(--muted-foreground);
   font-size: 14.5px;
   line-height: 1.6;
 }
 
-.amianan-marketing .marketing-feat-list {
+.jed-marketing .marketing-feat-list {
   display: grid;
   grid-template-columns: 1fr;
   overflow: hidden;
@@ -326,24 +326,24 @@
 }
 
 @media (min-width: 768px) {
-  .amianan-marketing .marketing-feat-list {
+  .jed-marketing .marketing-feat-list {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (min-width: 1024px) {
-  .amianan-marketing .marketing-feat-list {
+  .jed-marketing .marketing-feat-list {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
-.amianan-marketing .marketing-feat-item {
+.jed-marketing .marketing-feat-item {
   padding: 20px;
   border-right: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
 }
 
-.amianan-marketing .marketing-feat-icon {
+.jed-marketing .marketing-feat-icon {
   display: grid;
   place-items: center;
   width: 36px;
@@ -354,69 +354,69 @@
   color: var(--brand);
 }
 
-.amianan-marketing .marketing-feat-name {
+.jed-marketing .marketing-feat-name {
   margin-bottom: 4px;
   font-size: 14px;
   font-weight: 600;
 }
 
-.amianan-marketing .marketing-feat-desc {
+.jed-marketing .marketing-feat-desc {
   color: var(--muted-foreground);
   font-size: 13px;
   line-height: 1.5;
 }
 
-.amianan-marketing .marketing-steps {
+.jed-marketing .marketing-steps {
   display: grid;
   gap: 16px;
 }
 
 @media (min-width: 768px) {
-  .amianan-marketing .marketing-steps {
+  .jed-marketing .marketing-steps {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
-.amianan-marketing .marketing-step {
+.jed-marketing .marketing-step {
   padding: 20px;
   border: 1px solid var(--border);
   border-radius: var(--radius);
 }
 
-.amianan-marketing .marketing-step-num {
+.jed-marketing .marketing-step-num {
   margin-bottom: 10px;
   color: var(--muted-foreground);
   font-family: var(--font-mono);
   font-size: 12px;
 }
 
-.amianan-marketing .marketing-step h3 {
+.jed-marketing .marketing-step h3 {
   margin-bottom: 6px;
   font-size: 15px;
   font-weight: 600;
 }
 
-.amianan-marketing .marketing-step p {
+.jed-marketing .marketing-step p {
   color: var(--muted-foreground);
   font-size: 13px;
   line-height: 1.55;
 }
 
-.amianan-marketing .start-terminal-body {
+.jed-marketing .start-terminal-body {
   scrollbar-width: thin;
   scrollbar-color: rgb(255 255 255 / 0.2) transparent;
 }
 
-.amianan-marketing .start-terminal-body::-webkit-scrollbar {
+.jed-marketing .start-terminal-body::-webkit-scrollbar {
   height: 6px;
 }
 
-.amianan-marketing .start-terminal-body::-webkit-scrollbar-thumb {
+.jed-marketing .start-terminal-body::-webkit-scrollbar-thumb {
   border-radius: 3px;
   background: rgb(255 255 255 / 0.2);
 }
 
-.amianan-marketing .marketing-footer-grid {
+.jed-marketing .marketing-footer-grid {
   display: grid;
   gap: 24px;
   padding: 40px 0 0;
@@ -424,31 +424,31 @@
 }
 
 @media (min-width: 768px) {
-  .amianan-marketing .marketing-footer-grid {
+  .jed-marketing .marketing-footer-grid {
     grid-template-columns: 1.4fr 1fr 1fr 1fr;
   }
 }
 
-.amianan-marketing .marketing-footer-brand {
+.jed-marketing .marketing-footer-brand {
   margin-bottom: 8px;
   font-size: 14px;
   font-weight: 600;
 }
 
-.amianan-marketing .marketing-footer-blurb {
+.jed-marketing .marketing-footer-blurb {
   max-width: 28ch;
   color: var(--muted-foreground);
   font-size: 13px;
   line-height: 1.55;
 }
 
-.amianan-marketing .marketing-footer-col h4 {
+.jed-marketing .marketing-footer-col h4 {
   margin-bottom: 10px;
   font-size: 12.5px;
   font-weight: 550;
 }
 
-.amianan-marketing .marketing-footer-col ul {
+.jed-marketing .marketing-footer-col ul {
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -457,16 +457,16 @@
   margin: 0;
 }
 
-.amianan-marketing .marketing-footer-col a {
+.jed-marketing .marketing-footer-col a {
   color: var(--muted-foreground);
   font-size: 13px;
 }
 
-.amianan-marketing .marketing-footer-col a:hover {
+.jed-marketing .marketing-footer-col a:hover {
   color: var(--foreground);
 }
 
-.amianan-marketing .marketing-footer-bottom {
+.jed-marketing .marketing-footer-bottom {
   display: flex;
   justify-content: space-between;
   margin-top: 32px;
@@ -476,32 +476,32 @@
   font-size: 12.5px;
 }
 
-.amianan-marketing .marketing-page-hero {
+.jed-marketing .marketing-page-hero {
   padding: 40px 0 32px;
   border-bottom: 1px solid var(--border);
 }
 
 @media (min-width: 768px) {
-  .amianan-marketing .marketing-page-hero {
+  .jed-marketing .marketing-page-hero {
     padding: 56px 0 40px;
   }
 }
 
-.amianan-marketing .marketing-page-hero h1 {
+.jed-marketing .marketing-page-hero h1 {
   margin-bottom: 10px;
   font-size: clamp(1.625rem, 4vw, 2.25rem);
   font-weight: 650;
   letter-spacing: -0.03em;
 }
 
-.amianan-marketing .marketing-page-lead {
+.jed-marketing .marketing-page-lead {
   max-width: 48ch;
   color: var(--muted-foreground);
   font-size: 15px;
   line-height: 1.6;
 }
 
-.amianan-marketing .marketing-blog-item {
+.jed-marketing .marketing-blog-item {
   display: grid;
   gap: 8px;
   padding: 24px 0;
@@ -509,41 +509,41 @@
 }
 
 @media (min-width: 768px) {
-  .amianan-marketing .marketing-blog-item {
+  .jed-marketing .marketing-blog-item {
     grid-template-columns: 1fr auto;
     gap: 24px;
     align-items: start;
   }
 }
 
-.amianan-marketing .marketing-blog-item h2 {
+.jed-marketing .marketing-blog-item h2 {
   margin-bottom: 6px;
   font-size: 18px;
   font-weight: 600;
   letter-spacing: -0.02em;
 }
 
-.amianan-marketing .marketing-blog-item p {
+.jed-marketing .marketing-blog-item p {
   max-width: 56ch;
   color: var(--muted-foreground);
   font-size: 14px;
   line-height: 1.55;
 }
 
-.amianan-marketing .marketing-blog-meta {
+.jed-marketing .marketing-blog-meta {
   color: var(--muted-foreground);
   font-size: 12.5px;
   white-space: nowrap;
 }
 
-.amianan-marketing .marketing-post-body {
+.jed-marketing .marketing-post-body {
   max-width: var(--marketing-header-inner);
   padding-block: 40px 64px;
   font-size: 17px;
   line-height: 1.75;
 }
 
-.amianan-marketing .marketing-post-body h1 {
+.jed-marketing .marketing-post-body h1 {
   margin-bottom: 16px;
   font-size: clamp(1.625rem, 4vw, 2.25rem);
   font-weight: 650;
@@ -551,32 +551,32 @@
   line-height: 1.15;
 }
 
-.amianan-marketing .marketing-post-dek {
+.jed-marketing .marketing-post-dek {
   margin-bottom: 28px;
   color: var(--muted-foreground);
   font-size: 17px;
   line-height: 1.55;
 }
 
-.amianan-marketing .marketing-contact-grid {
+.jed-marketing .marketing-contact-grid {
   display: grid;
   gap: 24px;
   padding: 32px 0 48px;
 }
 
 @media (min-width: 768px) {
-  .amianan-marketing .marketing-contact-grid {
+  .jed-marketing .marketing-contact-grid {
     grid-template-columns: 1fr 1fr;
     gap: 40px;
     padding: 48px 0 64px;
   }
 }
 
-.amianan-marketing .marketing-muted {
+.jed-marketing .marketing-muted {
   color: var(--muted-foreground);
 }
 
-.amianan-marketing .marketing-mini {
+.jed-marketing .marketing-mini {
   overflow: hidden;
   border: 1px solid var(--border);
   border-radius: 8px;
@@ -584,7 +584,7 @@
   font-size: 11.5px;
 }
 
-.amianan-marketing .marketing-mini-bar {
+.jed-marketing .marketing-mini-bar {
   display: flex;
   align-items: center;
   gap: 6px;
@@ -593,11 +593,11 @@
   background: var(--muted);
 }
 
-.amianan-marketing .marketing-mini-body {
+.jed-marketing .marketing-mini-body {
   padding: 10px;
 }
 
-.amianan-marketing .marketing-mini-row {
+.jed-marketing .marketing-mini-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -606,11 +606,11 @@
   border-bottom: 1px solid var(--border);
 }
 
-.amianan-marketing .marketing-mini-row:last-child {
+.jed-marketing .marketing-mini-row:last-child {
   border-bottom: 0;
 }
 
-.amianan-marketing .marketing-mini-badge {
+.jed-marketing .marketing-mini-badge {
   padding: 2px 6px;
   border-radius: 999px;
   background: #f0fdf4;
@@ -619,25 +619,25 @@
   font-size: 10px;
 }
 
-html.dark .amianan-marketing .marketing-mini-badge {
+html.dark .jed-marketing .marketing-mini-badge {
   background: #14532d;
   border-color: #166534;
   color: #86efac;
 }
 
-.amianan-marketing .marketing-mini-badge-muted {
+.jed-marketing .marketing-mini-badge-muted {
   background: var(--muted);
   border-color: var(--border);
   color: var(--muted-foreground);
 }
 
-.amianan-marketing .marketing-mini-sidebar {
+.jed-marketing .marketing-mini-sidebar {
   display: grid;
   grid-template-columns: 56px 1fr;
   min-height: 140px;
 }
 
-.amianan-marketing .marketing-mini-nav {
+.jed-marketing .marketing-mini-nav {
   display: flex;
   flex-direction: column;
   gap: 4px;
@@ -646,49 +646,49 @@ html.dark .amianan-marketing .marketing-mini-badge {
   background: var(--muted);
 }
 
-.amianan-marketing .marketing-mini-nav span {
+.jed-marketing .marketing-mini-nav span {
   height: 8px;
   border-radius: 3px;
   background: var(--border);
 }
 
-.amianan-marketing .marketing-mini-nav span.on {
+.jed-marketing .marketing-mini-nav span.on {
   background: var(--brand);
   opacity: 0.7;
 }
 
-.amianan-marketing .marketing-mini-tabs {
+.jed-marketing .marketing-mini-tabs {
   display: flex;
   gap: 0;
   margin-bottom: 10px;
   border-bottom: 1px solid var(--border);
 }
 
-.amianan-marketing .marketing-mini-tabs span {
+.jed-marketing .marketing-mini-tabs span {
   padding: 6px 10px;
   border-bottom: 2px solid transparent;
   color: var(--muted-foreground);
   font-size: 11px;
 }
 
-.amianan-marketing .marketing-mini-tabs span.on {
+.jed-marketing .marketing-mini-tabs span.on {
   border-bottom-color: var(--foreground);
   color: var(--foreground);
   font-weight: 550;
 }
 
-.amianan-marketing .marketing-mini-field {
+.jed-marketing .marketing-mini-field {
   margin-bottom: 8px;
 }
 
-.amianan-marketing .marketing-mini-field label {
+.jed-marketing .marketing-mini-field label {
   display: block;
   margin-bottom: 3px;
   color: var(--muted-foreground);
   font-size: 10.5px;
 }
 
-.amianan-marketing .marketing-mini-box {
+.jed-marketing .marketing-mini-box {
   display: flex;
   align-items: center;
   height: 26px;
@@ -701,7 +701,7 @@ html.dark .amianan-marketing .marketing-mini-badge {
   font-size: 10.5px;
 }
 
-.amianan-marketing .marketing-mini-code {
+.jed-marketing .marketing-mini-code {
   padding: 10px;
   border-radius: 6px;
   background: var(--muted);
@@ -712,7 +712,7 @@ html.dark .amianan-marketing .marketing-mini-badge {
   white-space: pre-wrap;
 }
 
-.amianan-marketing .marketing-mini-auth {
+.jed-marketing .marketing-mini-auth {
   max-width: 200px;
   margin: 0 auto;
   padding: 14px;
@@ -720,19 +720,19 @@ html.dark .amianan-marketing .marketing-mini-badge {
   border-radius: 8px;
 }
 
-.amianan-marketing .marketing-mini-auth h4 {
+.jed-marketing .marketing-mini-auth h4 {
   margin-bottom: 4px;
   font-size: 13px;
   font-weight: 600;
 }
 
-.amianan-marketing .marketing-mini-auth p {
+.jed-marketing .marketing-mini-auth p {
   margin-bottom: 10px;
   color: var(--muted-foreground);
   font-size: 11px;
 }
 
-.amianan-marketing .marketing-mini-auth-btn {
+.jed-marketing .marketing-mini-auth-btn {
   display: grid;
   place-items: center;
   width: 100%;
@@ -747,7 +747,7 @@ html.dark .amianan-marketing .marketing-mini-badge {
 }
 
 @media (max-width: 639.98px) {
-  .amianan-marketing .marketing-guest-action {
+  .jed-marketing .marketing-guest-action {
     display: none;
   }
 }

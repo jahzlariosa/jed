@@ -62,7 +62,7 @@ export function MarketingSiteShell({
 
   return (
     <div
-      className="amianan-marketing flex min-h-dvh flex-col bg-background text-foreground"
+      className="jed-marketing flex min-h-dvh flex-col bg-background text-foreground"
       style={brandStyle}
     >
       <SkipLink />

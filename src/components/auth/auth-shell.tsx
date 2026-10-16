@@ -38,7 +38,7 @@ export function AuthShell({
 
   return (
     <div
-      className="amianan-auth grid min-h-dvh w-full lg:grid-cols-[1.05fr_0.95fr]"
+      className="jed-auth grid min-h-dvh w-full lg:grid-cols-[1.05fr_0.95fr]"
       style={brandStyle}
     >
       <SkipLink />

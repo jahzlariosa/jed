@@ -9,7 +9,7 @@ vi.mock('#/lib/supabase/service-role.server', () => ({
   createServiceRoleClient: vi.fn(),
 }))
 
-import { parseContactInput } from '#/lib/cms/contact-fns'
+import { parseContactInput } from '#/lib/cms/contact-input'
 
 const BASE = { name: 'Ana', message: 'Hi', company: '' }
 

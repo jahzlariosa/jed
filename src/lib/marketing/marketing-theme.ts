@@ -1,4 +1,4 @@
-export const MARKETING_THEME_STORAGE_KEY = 'amianan-marketing-theme'
+export const MARKETING_THEME_STORAGE_KEY = 'jed-marketing-theme'
 
 export type MarketingThemePreference = 'light' | 'dark'
 

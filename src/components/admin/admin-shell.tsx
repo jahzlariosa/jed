@@ -48,7 +48,7 @@ import {
 } from '@/components/ui/sheet'
 import { cn } from '@/lib/utils'
 
-const SIDEBAR_COLLAPSED_KEY = 'amianan-admin-sidebar-collapsed'
+const SIDEBAR_COLLAPSED_KEY = 'jed-admin-sidebar-collapsed'
 
 function readSidebarCollapsed(): boolean {
   if (typeof window === 'undefined') {
@@ -293,7 +293,7 @@ export function AdminShell({
   return (
     <div
       className={cn(
-        'amianan-admin min-h-dvh',
+        'jed-admin min-h-dvh',
         sidebarCollapsed && 'admin-shell-collapsed',
       )}
       style={brandStyle}

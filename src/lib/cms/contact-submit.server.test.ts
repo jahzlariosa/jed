@@ -1,7 +1,6 @@
 import { describe, expect, it, vi } from 'vitest'
 
 import {
-  CONTACT_EMAIL_PATTERN,
   CONTACT_GENERIC_ERROR,
   CONTACT_IP_SECRET_MISSING,
   CONTACT_UNKNOWN_IP,
@@ -11,10 +10,13 @@ import {
   resolveContactIp,
   resolveContactIpHashSecret,
   resolveContactResendConfig,
-  stripControlChars,
   submitContactMessage,
   type ContactSubmitContext,
 } from '#/lib/cms/contact-submit.server'
+import {
+  CONTACT_EMAIL_PATTERN,
+  stripControlChars,
+} from '#/lib/cms/contact-input'
 
 const INPUT = {
   name: 'Ana',

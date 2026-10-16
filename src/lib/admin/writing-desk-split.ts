@@ -1,5 +1,5 @@
 export const WRITING_DESK_SPLIT = {
-  storageKey: 'amianan-admin-writing-desk-sidebar-v1',
+  storageKey: 'jed-admin-writing-desk-sidebar-v1',
   minPx: 260,
   maxPx: 560,
   minRatio: 0.2,

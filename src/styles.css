@@ -1,7 +1,7 @@
 @import "tailwindcss";
 @import "shadcn/tailwind.css";
 @import "@fontsource-variable/inter";
-@import "./styles/amianan-content.css";
+@import "./styles/jed-content.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -147,7 +147,7 @@
   }
 }
 
-@keyframes amianan-rise {
+@keyframes jed-rise {
   from {
     opacity: 0;
     transform: translateY(18px);
@@ -159,7 +159,7 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .amianan-rise {
-    animation: amianan-rise 0.7s cubic-bezier(0.32, 0.72, 0, 1) both;
+  .jed-rise {
+    animation: jed-rise 0.7s cubic-bezier(0.32, 0.72, 0, 1) both;
   }
 }

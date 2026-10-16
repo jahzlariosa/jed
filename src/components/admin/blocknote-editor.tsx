@@ -20,7 +20,7 @@ function useAdminEditorTheme(): 'light' | 'dark' {
   useEffect(() => {
     const root = document.documentElement
     const read = () => {
-      const admin = document.querySelector('.amianan-admin')
+      const admin = document.querySelector('.jed-admin')
       const attr =
         admin?.getAttribute('data-theme') ??
         root.getAttribute('data-admin-theme')
@@ -28,7 +28,7 @@ function useAdminEditorTheme(): 'light' | 'dark' {
     }
     read()
     const observer = new MutationObserver(read)
-    const admin = document.querySelector('.amianan-admin')
+    const admin = document.querySelector('.jed-admin')
     if (admin) {
       observer.observe(admin, {
         attributes: true,

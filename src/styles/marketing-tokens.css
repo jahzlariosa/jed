@@ -1,7 +1,7 @@
 @import "@fontsource-variable/geist";
 @import "@fontsource-variable/geist-mono";
 
-.amianan-marketing {
+.jed-marketing {
   --marketing-header-h: 56px;
   --marketing-wrap: 1400px;
   --marketing-header-inner: 1400px;
@@ -43,7 +43,7 @@
   background: var(--background);
 }
 
-html.dark .amianan-marketing {
+html.dark .jed-marketing {
   --background: #09090b;
   --foreground: #fafafa;
   --card: #09090b;

@@ -11,7 +11,7 @@ import {
 
 function applyResolvedTheme(theme: AdminResolvedTheme) {
   document.documentElement.setAttribute('data-admin-theme', theme)
-  const root = document.querySelector('.amianan-admin')
+  const root = document.querySelector('.jed-admin')
   root?.setAttribute('data-theme', theme)
 }
 

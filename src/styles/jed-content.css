@@ -1,5 +1,5 @@
 /* Shared typography for CMS HTML (public pages, blog, editor canvas). */
-.amianan-content {
+.jed-content {
   --content-body: var(--foreground);
   --content-muted: var(--muted-foreground);
   --content-link: var(--signal, var(--primary));
@@ -9,42 +9,42 @@
   word-wrap: break-word;
 }
 
-.amianan-content :where(p, .bn-inline-content) {
+.jed-content :where(p, .bn-inline-content) {
   margin: 0 0 1em;
 }
 
-.amianan-content :where(h1, h2, h3, h4) {
+.jed-content :where(h1, h2, h3, h4) {
   font-weight: 650;
   letter-spacing: -0.02em;
   line-height: 1.25;
   color: var(--content-body);
 }
 
-.amianan-content :where(h1) {
+.jed-content :where(h1) {
   font-size: 1.75rem;
   margin: 1.5em 0 0.6em;
 }
 
-.amianan-content :where(h2, [data-content-type="heading"][data-level="2"]) {
+.jed-content :where(h2, [data-content-type="heading"][data-level="2"]) {
   font-size: 1.375rem;
   margin: 1.35em 0 0.5em;
 }
 
-.amianan-content :where(h3, [data-content-type="heading"][data-level="3"]) {
+.jed-content :where(h3, [data-content-type="heading"][data-level="3"]) {
   font-size: 1.125rem;
   margin: 1.2em 0 0.45em;
 }
 
-.amianan-content :where(ul, ol) {
+.jed-content :where(ul, ol) {
   margin: 0 0 1em;
   padding-left: 1.35em;
 }
 
-.amianan-content :where(li) {
+.jed-content :where(li) {
   margin: 0.25em 0;
 }
 
-.amianan-content :where(blockquote) {
+.jed-content :where(blockquote) {
   margin: 1.15em 0;
   padding: 0.15em 0 0.15em 1em;
   border-left: 3px solid var(--content-link);
@@ -52,24 +52,24 @@
   font-style: normal;
 }
 
-.amianan-content :where(a) {
+.jed-content :where(a) {
   color: var(--content-link);
   text-decoration: underline;
   text-underline-offset: 2px;
 }
 
-.amianan-content :where(a:hover) {
+.jed-content :where(a:hover) {
   text-decoration-thickness: 2px;
 }
 
-.amianan-content :where(img, video) {
+.jed-content :where(img, video) {
   max-width: 100%;
   height: auto;
   border-radius: 0.75rem;
   margin: 1.25em 0;
 }
 
-.amianan-content :where(pre) {
+.jed-content :where(pre) {
   margin: 1.15em 0;
   padding: 0.85em 1em;
   overflow-x: auto;
@@ -80,43 +80,43 @@
   line-height: 1.5;
 }
 
-.amianan-content :where(code) {
+.jed-content :where(code) {
   font-size: 0.9em;
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
-.amianan-content :where(:not(pre) > code) {
+.jed-content :where(:not(pre) > code) {
   padding: 0.12em 0.35em;
   border-radius: 0.35rem;
   background: var(--muted);
 }
 
-.amianan-content :where(table) {
+.jed-content :where(table) {
   width: 100%;
   margin: 1.15em 0;
   border-collapse: collapse;
   font-size: 0.9375rem;
 }
 
-.amianan-content :where(th, td) {
+.jed-content :where(th, td) {
   border: 1px solid var(--border);
   padding: 0.5em 0.65em;
   text-align: left;
   vertical-align: top;
 }
 
-.amianan-content :where(th) {
+.jed-content :where(th) {
   font-weight: 600;
   background: var(--muted);
 }
 
-.amianan-content :where(hr) {
+.jed-content :where(hr) {
   margin: 1.5em 0;
   border: 0;
   border-top: 1px solid var(--border);
 }
 
-.amianan-content :where(iframe) {
+.jed-content :where(iframe) {
   display: block;
   width: 100%;
   max-width: 100%;
@@ -127,10 +127,10 @@
 }
 
 /* BlockNote editor blocks align with exported HTML spacing */
-.amianan-content.bn-editor-shell :where(.bn-block-outer) {
+.jed-content.bn-editor-shell :where(.bn-block-outer) {
   margin: 0.15em 0;
 }
 
-.amianan-content.bn-editor-shell :where(.bn-block-content) {
+.jed-content.bn-editor-shell :where(.bn-block-content) {
   padding: 3px 0;
 }

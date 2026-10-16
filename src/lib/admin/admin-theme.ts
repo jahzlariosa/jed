@@ -1,4 +1,4 @@
-export const ADMIN_THEME_STORAGE_KEY = 'amianan-admin-theme'
+export const ADMIN_THEME_STORAGE_KEY = 'jed-admin-theme'
 
 export type AdminThemePreference = 'light' | 'dark' | 'system'
 

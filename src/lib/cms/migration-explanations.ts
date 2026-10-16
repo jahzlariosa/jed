@@ -198,4 +198,10 @@ export const MIGRATION_EXPLANATIONS: Record<string, MigrationExplanation> = {
     whenToRun:
       'Before using the contact form or Admin > Inbox. Safe to re-run.',
   },
+  '20261016180000_jed_site_name.sql': {
+    summary:
+      'Renames the default site name to Jed and updates any site_settings row that still uses the previous starter name.',
+    whenToRun:
+      'After 20261015130000_site_settings_neutral_defaults.sql. Safe to re-run.',
+  },
 }

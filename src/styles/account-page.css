@@ -1,19 +1,19 @@
-.amianan-account {
+.jed-account {
   --account-muted: #52525b;
   font-size: 18px;
 }
 
-.amianan-account .account-muted {
+.jed-account .account-muted {
   color: var(--account-muted);
 }
 
-.amianan-account .account-label {
+.jed-account .account-label {
   font-size: 13px;
   font-weight: 500;
   color: var(--account-muted);
 }
 
-.amianan-account .account-card {
+.jed-account .account-card {
   border-radius: 12px;
   border: 1px solid var(--border);
   background: var(--card);
@@ -21,20 +21,20 @@
 }
 
 @media (max-width: 767px) {
-  .amianan-account .account-card {
+  .jed-account .account-card {
     padding: 18px;
   }
 }
 
-.amianan-account .account-field-gap {
+.jed-account .account-field-gap {
   gap: 14px;
 }
 
-.amianan-account .account-section-gap {
+.jed-account .account-section-gap {
   gap: 20px;
 }
 
-.amianan-account .account-nav-chip {
+.jed-account .account-nav-chip {
   border-radius: 999px;
   border: 1px solid var(--border);
   padding: 8px 14px;
@@ -42,23 +42,23 @@
   white-space: nowrap;
 }
 
-.amianan-account .account-nav-chip.is-active {
+.jed-account .account-nav-chip.is-active {
   border-color: var(--primary);
   color: var(--foreground);
   background: color-mix(in srgb, var(--primary) 8%, transparent);
 }
 
-.amianan-account .account-nav-desktop {
+.jed-account .account-nav-desktop {
   width: 220px;
   gap: 40px;
 }
 
-.amianan-account .account-avatar-lg {
+.jed-account .account-avatar-lg {
   width: 120px;
   height: 120px;
 }
 
-.amianan-account .account-crop-mask {
+.jed-account .account-crop-mask {
   border-radius: 9999px;
   box-shadow: 0 0 0 9999px rgb(0 0 0 / 0.55);
 }

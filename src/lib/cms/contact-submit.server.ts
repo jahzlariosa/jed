@@ -4,6 +4,7 @@ import { createHmac } from 'node:crypto'
 
 import type { SupabaseClient } from '@supabase/supabase-js'
 
+import { stripControlChars } from '#/lib/cms/contact-input'
 import type { Database } from '#/lib/supabase/database.types'
 
 export const CONTACT_LIMIT_PER_HOUR = 5
@@ -37,8 +38,6 @@ export type ContactSubmitResult =
   | { ok: true; emailed: boolean }
   | { error: string }
 
-export const CONTACT_EMAIL_PATTERN =
-  /^[A-Za-z0-9._+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/
 export const CONTACT_UNKNOWN_IP = 'unknown'
 export const CONTACT_IP_SECRET_MISSING =
   'CONTACT_IP_HASH_SECRET is not set. Add it to the server environment.'
@@ -70,17 +69,6 @@ export function resolveContactIpHashSecret(
     throw new Error(CONTACT_IP_SECRET_MISSING)
   }
   return DEV_CONTACT_IP_SECRET
-}
-
-/** Removes CR, LF and other control characters so text is safe in email headers. */
-export function stripControlChars(value: string): string {
-  return (
-    value
-      // biome-ignore lint/suspicious/noControlCharactersInRegex: matching control characters is the point
-      .replace(/[\u0000-\u001F\u007F]+/g, ' ')
-      .replace(/\s{2,}/g, ' ')
-      .trim()
-  )
 }
 
 export function hashContactIp(ip: string, secret: string): string {

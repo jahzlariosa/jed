@@ -22,7 +22,7 @@ import {
   insertEditorImageFromFile,
 } from '#/lib/admin/admin-blocknote-images.client'
 import type { BlockNoteDocument } from '#/lib/cms/blocknote-types'
-import { AMIANAN_CONTENT_CLASS } from '#/lib/cms/content-surface'
+import { JED_CONTENT_CLASS } from '#/lib/cms/content-surface'
 import { cn } from '@/lib/utils'
 
 function InsertImageToolbarButton({
@@ -161,7 +161,7 @@ export function BlockNoteEditorInner({
     <div
       ref={setPortalRoot}
       className={cn(
-        AMIANAN_CONTENT_CLASS,
+        JED_CONTENT_CLASS,
         'bn-editor-shell min-h-[min(50vh,520px)] overflow-visible border-0 bg-transparent shadow-none',
       )}
     >

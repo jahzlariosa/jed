@@ -3,6 +3,7 @@ import {
   Code,
   Database,
   EnvelopeSimple,
+  GithubLogo,
   Key,
   MagnifyingGlass,
   PlugsConnected,
@@ -19,6 +20,7 @@ import { StartTerminal } from '#/components/marketing/start-terminal'
 import { MAIN_CONTENT_ID } from '#/components/a11y/skip-link'
 import type { PublicMarketing } from '#/lib/cms/public-marketing'
 import { phosphorIcon } from '#/lib/icon'
+import { JED_REPO_URL } from '#/lib/marketing/repo'
 
 const homeFeatures: {
   title: string
@@ -130,6 +132,16 @@ export function HomePage({ marketing }: { marketing: PublicMarketing }) {
                 >
                   Read the docs
                 </Link>
+                <a
+                  href={JED_REPO_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="View Jed on GitHub (opens in a new tab)"
+                  className="marketing-btn-lg marketing-btn-outline-lg gap-2"
+                >
+                  <GithubLogo {...phosphorIcon} aria-hidden />
+                  View on GitHub
+                </a>
               </div>
             </Reveal>
           </div>

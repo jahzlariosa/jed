@@ -37,15 +37,15 @@ security definer
 set search_path = ''
 as $$
 declare
-  q text := pg_catalog.btrim(pg_catalog.coalesce(search_query, ''));
+  q text := pg_catalog.btrim(coalesce(search_query, ''));
   tsq tsquery;
 begin
   if pg_catalog.char_length(q) < 1 then
     return;
   end if;
 
-  page_limit := pg_catalog.least(pg_catalog.greatest(page_limit, 1), 50);
-  page_offset := pg_catalog.greatest(page_offset, 0);
+  page_limit := least(greatest(page_limit, 1), 50);
+  page_offset := greatest(page_offset, 0);
 
   begin
     tsq := pg_catalog.websearch_to_tsquery('english', q);
@@ -60,8 +60,8 @@ begin
       p.slug,
       p.title,
       pg_catalog.left(
-        pg_catalog.coalesce(
-          pg_catalog.nullif(p.excerpt, ''),
+        coalesce(
+          nullif(p.excerpt, ''),
           pg_catalog.regexp_replace(p.body_html, '<[^>]+>', ' ', 'g')
         ),
         280
@@ -90,7 +90,7 @@ begin
       'page'::text as result_kind,
       c.slug,
       c.title,
-      pg_catalog.left(pg_catalog.coalesce(c.meta_description, ''), 280) as excerpt,
+      pg_catalog.left(coalesce(c.meta_description, ''), 280) as excerpt,
       pg_catalog.ts_rank(c.search_document, tsq) as rank,
       pg_catalog.ts_headline(
         'english',

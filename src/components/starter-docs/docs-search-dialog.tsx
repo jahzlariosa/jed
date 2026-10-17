@@ -2,6 +2,7 @@ import { MagnifyingGlass } from '@phosphor-icons/react'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 import { searchStarterDocs } from '#/lib/starter-docs/catalog'
+import '#/styles/docs-search.css'
 import { cn } from '@/lib/utils'
 
 export function DocsSearchDialog({
@@ -94,29 +95,31 @@ export function DocsSearchDialog({
           />
           <kbd>Esc</kbd>
         </div>
-        <div className="search-results">
-          {hits.length === 0 && query.trim() ? (
-            <p className="px-3 py-2 text-sm text-[var(--muted-foreground)]">
-              No results.
-            </p>
-          ) : null}
-          {hits.map((hit, index) => (
-            <button
-              key={hit.path}
-              type="button"
-              className={cn('search-hit', index === active && 'active')}
-              onMouseEnter={() => setActive(index)}
-              onClick={() => {
-                window.location.assign(hit.path)
-                close()
-              }}
-            >
-              <span className="path">{hit.path}</span>
-              <span className="title">{hit.title}</span>
-              <span className="snip">{hit.snippet}</span>
-            </button>
-          ))}
-        </div>
+        {query.trim() ? (
+          <div className="search-results">
+            {hits.length === 0 ? (
+              <p className="px-3 py-2 text-sm text-[var(--muted-foreground)]">
+                No results.
+              </p>
+            ) : null}
+            {hits.map((hit, index) => (
+              <button
+                key={hit.path}
+                type="button"
+                className={cn('search-hit', index === active && 'active')}
+                onMouseEnter={() => setActive(index)}
+                onClick={() => {
+                  window.location.assign(hit.path)
+                  close()
+                }}
+              >
+                <span className="path">{hit.path}</span>
+                <span className="title">{hit.title}</span>
+                <span className="snip">{hit.snippet}</span>
+              </button>
+            ))}
+          </div>
+        ) : null}
         <div className="search-foot">
           <span>↑↓ to move</span>
           <span>↵ to open</span>

@@ -364,7 +364,7 @@ export const resendAuthEmailFn = createServerFn({ method: 'POST' })
   .handler(async ({ data }) => {
     markPrivateNoStore()
     try {
-      assertRateLimit('auth:resend-email', 5, 60 * 60 * 1000)
+      await assertRateLimit('auth:resend-email', 5, 60 * 60 * 1000)
     } catch {
       return { error: RATE_LIMIT_MESSAGE }
     }
@@ -397,7 +397,7 @@ export const signInWithPasswordFn = createServerFn({ method: 'POST' })
   .handler(async ({ data }) => {
     markPrivateNoStore()
     try {
-      assertRateLimit('auth:sign-in', 20, 15 * 60 * 1000)
+      await assertRateLimit('auth:sign-in', 20, 15 * 60 * 1000)
     } catch {
       return { error: RATE_LIMIT_MESSAGE }
     }
@@ -466,7 +466,7 @@ export const signUpWithPasswordFn = createServerFn({ method: 'POST' })
   .handler(async ({ data }) => {
     markPrivateNoStore()
     try {
-      assertRateLimit('auth:sign-up', 10, 60 * 60 * 1000)
+      await assertRateLimit('auth:sign-up', 10, 60 * 60 * 1000)
     } catch {
       return { error: RATE_LIMIT_MESSAGE }
     }
@@ -547,7 +547,7 @@ export const requestPasswordResetFn = createServerFn({ method: 'POST' })
   .handler(async ({ data }) => {
     markPrivateNoStore()
     try {
-      assertRateLimit('auth:forgot-password', 8, 60 * 60 * 1000)
+      await assertRateLimit('auth:forgot-password', 8, 60 * 60 * 1000)
     } catch {
       return { ok: true as const }
     }
@@ -582,7 +582,7 @@ export const updatePasswordFn = createServerFn({ method: 'POST' })
   .handler(async ({ data }) => {
     markPrivateNoStore()
     try {
-      assertRateLimit('auth:update-password', 10, 60 * 60 * 1000)
+      await assertRateLimit('auth:update-password', 10, 60 * 60 * 1000)
     } catch {
       return { error: RATE_LIMIT_MESSAGE }
     }

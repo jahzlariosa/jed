@@ -152,6 +152,12 @@ In **Admin → Settings**, set **Contact email**. When it is set:
 
 When contact email is empty, `/contact` explains that the form is not available yet.
 
+## Password and leaked-password protection
+
+- App and Zod validators require passwords of **8 to 72 characters**.
+- Local Supabase Auth: `supabase/config.toml` sets `minimum_password_length = 8` and `password_hibp_enabled = true`.
+- **Hosted Supabase:** open **Authentication → Sign in / Providers → Email** and enable **Prevent use of leaked passwords** (breach list check). `config.toml` does not apply to hosted Auth; set this in the dashboard for each environment.
+
 ## MFA settings
 
 In **Admin → Settings → Multi-factor authentication**:

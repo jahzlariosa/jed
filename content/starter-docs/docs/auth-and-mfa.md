@@ -59,8 +59,17 @@ People add an authenticator from their **Account** page. If a policy requires on
 
 You can't require MFA for others until you've set up your own authenticator. If you try, the settings screen shows: "Set up your own authenticator before requiring MFA for others." This keeps you from locking yourself out of the admin panel.
 
+## Password strength
+
+Passwords must be at least **8 characters**. The app validates length on every password form and server function.
+
+**Leaked password protection** checks new passwords against public breach lists (Have I Been Pwned). For **local** Supabase, `supabase/config.toml` sets `minimum_password_length = 8` and `password_hibp_enabled = true` under `[auth]`.
+
+**Hosted** projects do not read `config.toml` for Auth. Turn on the same protection in the Supabase Dashboard: **Authentication → Sign in / Providers → Email → Prevent use of leaked passwords** (wording may vary slightly by dashboard version). Enable it in every production project.
+
 ## Session security
 
 - Sessions live in `HttpOnly`, `Secure` cookies.
 - Server functions check the signed-in user on the server and reject cross-site requests.
 - Pages that depend on the session are sent with private, no-store cache headers so a shared cache never serves one person's page to another.
+- When MFA is required, Postgres RLS checks the session **AAL** claim so a password-only JWT cannot change CMS data through the Supabase API.

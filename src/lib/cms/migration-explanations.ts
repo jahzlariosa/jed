@@ -210,4 +210,41 @@ export const MIGRATION_EXPLANATIONS: Record<string, MigrationExplanation> = {
     whenToRun:
       'Before using the navbar and footer width options in Admin > Settings. Safe to re-run.',
   },
+  '20261017100000_drop_set_user_role_atomic.sql': {
+    summary:
+      'Drops the legacy set_user_role_atomic RPC so role changes go only through service_role admin_set_user_role.',
+    whenToRun:
+      'After admin_set_user_role is live on hosted Postgres. Safe to re-run.',
+  },
+  '20261017101000_rls_mfa_aal2.sql': {
+    summary:
+      'Requires JWT AAL2 in is_admin() and has_permission() when site MFA policy requires step-up, so password-only sessions cannot write through PostgREST.',
+    whenToRun: 'After MFA site settings on hosted Postgres. Safe to re-run.',
+  },
+  '20261017102000_profile_bylines_grants.sql': {
+    summary:
+      'Revokes broad grants on profile_bylines and grants SELECT only to anon and authenticated.',
+    whenToRun: 'After profiles email visibility migration. Safe to re-run.',
+  },
+  '20261017103000_security_definer_search_path.sql': {
+    summary:
+      'Sets search_path to empty on get_site_mfa_settings, search_published_content, and list_applied_schema_migrations with schema-qualified references.',
+    whenToRun: 'After those RPCs exist on hosted Postgres. Safe to re-run.',
+  },
+  '20261017104000_public_default_privileges.sql': {
+    summary:
+      'Revokes default public-schema grants to anon and authenticated from postgres and supabase_admin, then re-applies explicit table, sequence, and function grants.',
+    whenToRun: 'After grant hygiene on hosted Postgres. Safe to re-run.',
+  },
+  '20261017105000_rate_limit_buckets.sql': {
+    summary:
+      'Adds private.rate_limit_buckets and service_role-only consume_rate_limit_bucket for shared server rate limits across instances.',
+    whenToRun:
+      'Before production traffic on Vercel when using contact, auth, or account rate limits. Safe to re-run.',
+  },
+  '20261017106000_pg_trgm_extensions_schema.sql': {
+    summary:
+      'Installs pg_trgm in the extensions schema and rebuilds profiles_email_trgm_idx with extensions.gin_trgm_ops.',
+    whenToRun: 'After admin query indexes on hosted Postgres. Safe to re-run.',
+  },
 }

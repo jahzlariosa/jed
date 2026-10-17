@@ -21,7 +21,7 @@ export const submitContactMessageFn = createServerFn({ method: 'POST' })
   .handler(async ({ data }) => {
     markPrivateNoStore()
     try {
-      assertRateLimit('contact:submit', 8, 15 * 60 * 1000)
+      await assertRateLimit('contact:submit', 8, 15 * 60 * 1000)
     } catch {
       return { error: CONTACT_RATE_LIMIT_ERROR }
     }

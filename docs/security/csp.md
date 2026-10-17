@@ -119,4 +119,4 @@ Pre-strip checks (local or staging): built-handler integration test capture hook
 
 - `AGENTS.md` (Security, Caching)
 - `content/starter-docs/docs/caching.md` (public HTML at the edge)
-- `#/lib/security-headers.server` (nonce CSP for non-public HTML)
+- `#/lib/security-headers.server` (nonce CSP for non-public HTML, plus `Cross-Origin-Opener-Policy: same-origin`)

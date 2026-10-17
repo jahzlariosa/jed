@@ -40,10 +40,10 @@ Using Windows PowerShell 5.1? Run each command on its own line. It doesn't suppo
 ## 3. Configure the environment
 
 ```bash
-cp .env.example .env.local
+npm run setup
 ```
 
-Open `.env.local` and fill in the values. For a hosted Supabase project, you'll find the URL and keys under **Project Settings > API** in the Supabase dashboard. For local Supabase, start the stack first (next step), then run `npx supabase status` and copy the API URL and anon key.
+Setup creates `.env.local` from `.env.example` and asks for the Supabase URL, publishable key, and the other required settings. It checks that Supabase accepts the publishable key, and it does not print secret values. For a hosted project, copy the URL and keys from **Project Settings > API**. For local Supabase, start the stack first (next step), run `npx supabase status`, then run `npm run setup` again.
 
 See [Environment variables](/docs/environment) for what each value does.
 
@@ -94,9 +94,17 @@ After this, you can give other people the admin role from **Admin > Users**.
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000). When you run Supabase locally, confirmation and password reset emails land in Inbucket at [http://127.0.0.1:54324](http://127.0.0.1:54324).
+Open [http://localhost:3000](http://localhost:3000). When setup is still incomplete, the dev server opens `/setup` instead. That page is only available while you are running the app locally. When you run Supabase locally, confirmation and password reset emails land in Inbucket at [http://127.0.0.1:54324](http://127.0.0.1:54324).
 
-## 7. Brand the site
+## 7. Check the setup
+
+```bash
+npm run doctor
+```
+
+Doctor checks the environment, Supabase connectivity, the latest migration when the key can read it, and the Node.js version. It exits with an error if a check fails.
+
+## 8. Brand the site
 
 Go to **Admin > Settings** and set:
 
@@ -109,6 +117,8 @@ Go to **Admin > Settings** and set:
 
 | Command | What it does |
 |---------|--------------|
+| `npm run setup` | Write `.env.local` and check the Supabase publishable key |
+| `npm run doctor` | Check env, Supabase, migrations, and Node.js |
 | `npm run dev` | Dev server on port 3000 |
 | `npm run build` | Production build (Vercel output in `.vercel/output`) |
 | `npm run preview` | Serve the production build locally |

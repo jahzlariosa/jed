@@ -26,6 +26,10 @@ Start each client site from a fresh clone of this repository.
 
 ## Quick start (about 5 minutes)
 
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fjahzlariosa%2Fjed&env=VITE_SUPABASE_URL,VITE_SUPABASE_PUBLISHABLE_KEY,APP_URL,SUPABASE_SERVICE_ROLE_KEY,SUPABASE_JWT_SECRET,MEDIA_UPLOAD_TICKET_SECRET,CONTACT_IP_HASH_SECRET&envDescription=Required%20settings%20from%20your%20Supabase%20project%20and%20generated%20app%20secrets&envLink=https%3A%2F%2Fgithub.com%2Fjahzlariosa%2Fjed%2Fblob%2Fmain%2F.env.example&project-name=jed)
+
+The button creates a Vercel project from this repository and asks for `VITE_SUPABASE_URL`, `VITE_SUPABASE_PUBLISHABLE_KEY`, `APP_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `SUPABASE_JWT_SECRET`, `MEDIA_UPLOAD_TICKET_SECRET`, and `CONTACT_IP_HASH_SECRET`.
+
 ### 1. Create the app repository
 
 Clone the starter into a new folder and move into it:
@@ -45,17 +49,19 @@ npm ci
 
 Using Windows PowerShell 5.1? Run each command on its own line. It doesn't support chaining commands with `&&`.
 
+If `.env.local` is missing or incomplete, the install prints a reminder to run `npm run setup`. That reminder does not stop the install.
+
 ### 3. Configure environment
 
 ```bash
-cp .env.example .env.local
+npm run setup
 ```
 
-Edit `.env.local` (see [Environment variables](#environment-variables)). For a **hosted** Supabase project, copy URL and keys from **Supabase Dashboard → Project Settings → API**.
+Setup writes `.env.local` from [`.env.example`](./.env.example), asks for your Supabase URL, publishable key, and the other required settings, and checks that Supabase accepts the publishable key. It does not print secret values. For a hosted project, copy the URL and keys from **Supabase Dashboard > Project Settings > API**.
 
-For **local** Supabase, start the stack first (step 4), then run `npx supabase status` and copy the API URL and **anon** / publishable key into `.env.local`.
+For local Supabase, start the stack first (step 4), run `npx supabase status`, then run `npm run setup` again and use the API URL and anon / publishable key.
 
-### 4. Apply the database schema
+### 4. Link and push the database schema
 
 **Option A: Supabase CLI (recommended)**
 
@@ -76,9 +82,27 @@ npx supabase db push
 
 **Option B: SQL editor**
 
-If you cannot use the CLI, open **Admin → SQL templates** after your first admin exists, or copy each file from `supabase/migrations/` in **filename order** into the Supabase **SQL Editor** and run them one at a time. Do not skip files. `supabase/seed.sql` is optional and mainly for local dev samples.
+If you cannot use the CLI, open **Admin > SQL templates** after your first admin exists, or copy each file from `supabase/migrations/` in filename order into the Supabase **SQL Editor** and run them one at a time. Do not skip files. `supabase/seed.sql` is optional and mainly for local dev samples.
 
-### 5. Create the first admin
+### 5. Run the dev server
+
+```bash
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000). While the dev server is running, an incomplete Supabase setup opens `/setup` instead of the rest of the site. That page is not available in production.
+
+**Local auth emails** (confirm, reset) go to Inbucket when using `supabase start`: [http://127.0.0.1:54324](http://127.0.0.1:54324).
+
+### 6. Check the setup
+
+```bash
+npm run doctor
+```
+
+Doctor checks the environment, Supabase connectivity, the latest migration when the key can read it, and the Node.js version. It exits with an error when a check fails, and it does not print secret values.
+
+### 7. Create the first admin
 
 1. Enable email signups in Supabase (**Authentication → Providers → Email**) if needed.
 2. Sign up at `http://localhost:3000/signup` (or invite a user in the dashboard).
@@ -93,16 +117,6 @@ on conflict do nothing;
 ```
 
 4. Sign in and open **`/admin`**. Legacy `/admin-panel` URLs redirect to `/admin`.
-
-### 6. Run the dev server
-
-```bash
-npm run dev
-```
-
-Open [http://localhost:3000](http://localhost:3000).
-
-**Local auth emails** (confirm, reset) go to Inbucket when using `supabase start`: [http://127.0.0.1:54324](http://127.0.0.1:54324).
 
 ## Environment variables
 
@@ -179,7 +193,9 @@ Each new migration file must have an entry in `src/lib/cms/migration-explanation
 
 ## Deploy to Vercel
 
-1. **Import** the GitHub repository: Vercel → **Add New → Project**.
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fjahzlariosa%2Fjed&env=VITE_SUPABASE_URL,VITE_SUPABASE_PUBLISHABLE_KEY,APP_URL,SUPABASE_SERVICE_ROLE_KEY,SUPABASE_JWT_SECRET,MEDIA_UPLOAD_TICKET_SECRET,CONTACT_IP_HASH_SECRET&envDescription=Required%20settings%20from%20your%20Supabase%20project%20and%20generated%20app%20secrets&envLink=https%3A%2F%2Fgithub.com%2Fjahzlariosa%2Fjed%2Fblob%2Fmain%2F.env.example&project-name=jed)
+
+1. **Import** the GitHub repository: Vercel > **Add New > Project**. Or use the button above. It asks for the required environment variables.
 2. **Build settings**: Install `npm ci`, Build `npm run build`, Node **22.x** (matches `.nvmrc`). Framework preset **Other** is fine.
 3. **Environment variables** (at minimum):
 
@@ -225,6 +241,8 @@ Generated files such as `src/routeTree.gen.ts` are produced by `npm run generate
 
 | Command | What it does |
 |---------|----------------|
+| `npm run setup` | Write `.env.local` and check the Supabase publishable key |
+| `npm run doctor` | Check env, Supabase, migrations, and Node.js |
 | `npm run dev` | Dev server at port 3000 |
 | `npm run build` | Production build (Vercel output under `.vercel/output`) |
 | `npm run preview` | Serve the production build locally |

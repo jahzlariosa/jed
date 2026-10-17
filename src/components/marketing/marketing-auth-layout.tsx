@@ -1,4 +1,4 @@
-import { EnvelopeSimple, ShieldCheck } from '@phosphor-icons/react'
+import { EnvelopeSimple, Gear, ShieldCheck } from '@phosphor-icons/react'
 import type { ReactNode } from 'react'
 
 import { MarketingSiteShell } from '#/components/marketing/marketing-site-shell'
@@ -10,6 +10,7 @@ import '#/styles/auth-marketing.css'
 const authIcons = {
   shield: ShieldCheck,
   envelope: EnvelopeSimple,
+  gear: Gear,
 } as const
 
 export function MarketingAuthLayout({

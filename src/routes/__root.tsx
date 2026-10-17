@@ -3,6 +3,7 @@ import {
   HeadContent,
   Scripts,
   createRootRoute,
+  redirect,
 } from '@tanstack/react-router'
 import { lazy, Suspense } from 'react'
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
@@ -15,6 +16,8 @@ import {
   SITE_NAME,
   seoTitleTemplate,
 } from '#/lib/seo'
+import { SETUP_CACHE_HEADERS, shouldRedirectToSetup } from '#/lib/env/gate'
+import { getSetupStatusFn } from '#/lib/env/setup-status'
 import { getRootShellFn } from '#/lib/site'
 
 import { SiteAnalyticsScripts } from '#/components/seo/site-analytics-scripts'
@@ -32,6 +35,25 @@ import { MarketingThemeInitScript } from '#/components/seo/marketing-theme-init-
 import appCss from '../styles.css?url'
 
 export const Route = createRootRoute({
+  beforeLoad: async ({ location }) => {
+    if (!import.meta.env.DEV || import.meta.env.MODE === 'test') return
+    if (
+      !shouldRedirectToSetup({
+        dev: true,
+        pathname: location.pathname,
+        ok: false,
+      })
+    ) {
+      return
+    }
+    const status = await getSetupStatusFn()
+    if (!status.ok) {
+      throw redirect({
+        to: '/setup',
+        headers: SETUP_CACHE_HEADERS,
+      })
+    }
+  },
   // Public, identity-free origin for canonical links. Resolved once per client session.
   staleTime: Infinity,
   gcTime: Infinity,

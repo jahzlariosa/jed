@@ -16,6 +16,7 @@ export const START_COMMANDS = [
   `git clone ${JED_REPO_URL}.git my-site`,
   'cd my-site',
   'npm ci',
+  'npm run setup',
 ] as const
 
 export function StartTerminal() {

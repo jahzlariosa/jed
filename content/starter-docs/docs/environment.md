@@ -7,7 +7,7 @@ order: 2
 
 # Environment variables
 
-Copy `.env.example` to `.env.local` for local work. On Vercel, set the same names under **Project > Settings > Environment Variables**. Never commit real values.
+Run `npm run setup` to create `.env.local` from `.env.example` and fill the required values. On Vercel, set the same names under **Project > Settings > Environment Variables**, or use the Deploy with Vercel button in the README. Never commit real values.
 
 Anything that starts with `VITE_` ends up in the browser bundle, so only public values use that prefix. Keys that grant extra access stay server-only.
 

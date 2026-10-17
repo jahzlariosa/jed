@@ -98,6 +98,7 @@ const NON_PUBLIC_HTML_PREFIXES = [
   '/update-password',
   '/mfa-setup',
   '/mfa-challenge',
+  '/setup',
   '/account',
   '/admin',
   '/admin-panel',

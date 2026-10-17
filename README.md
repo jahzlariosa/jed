@@ -222,7 +222,7 @@ Generated files such as `src/routeTree.gen.ts` are produced by `npm run generate
 | `npm run dev` | Dev server at port 3000 |
 | `npm run build` | Production build (Vercel output under `.vercel/output`) |
 | `npm run preview` | Serve the production build locally |
-| `npm run typecheck` | `tsc --noEmit` |
+| `npm run typecheck` | TypeScript 7 native `tsc --noEmit` (`@typescript/native`; JS API via `@typescript/typescript6` for Vite and tooling) |
 | `npm run check` | Biome lint + format check |
 | `npm run format` | Auto-format with Biome |
 | `npm test` | Vitest unit tests |

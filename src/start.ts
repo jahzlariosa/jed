@@ -6,6 +6,7 @@ import {
 import { setResponseHeader } from '@tanstack/react-start/server'
 
 import { safeInternalPath } from '#/auth/path'
+import { maybeRedirectSignedOutAdminHtml } from '#/lib/auth/admin-html-redirect.server'
 import { getTrustedAppOrigins } from '#/lib/app-url'
 import { getAppUrl } from '#/lib/app-url.server'
 import { applyPublicHtmlContentSecurityPolicy } from '#/lib/apply-public-html-csp.server'
@@ -171,6 +172,11 @@ function applyLightSecurityHeaders(nonce: string, isProduction: boolean) {
 
 const seoRequestMiddleware = createMiddleware().server(
   async ({ request, next }) => {
+    const adminRedirect = maybeRedirectSignedOutAdminHtml(request)
+    if (adminRedirect) {
+      return adminRedirect
+    }
+
     const url = new URL(request.url)
     const pathname = url.pathname
 

@@ -716,9 +716,13 @@ export type Database = {
           mfa_policy: string
         }[]
       }
-      set_user_role_atomic: {
-        Args: { target_user_id: string; new_role_code: string }
-        Returns: undefined
+      consume_rate_limit_bucket: {
+        Args: {
+          p_bucket_key: string
+          p_max_hits: number
+          p_window_seconds: number
+        }
+        Returns: boolean
       }
       admin_list_directory_users: {
         Args: {

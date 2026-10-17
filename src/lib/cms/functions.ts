@@ -1008,7 +1008,7 @@ export const searchAdminCommandFn = createServerFn({ method: 'GET' })
     })
 
     try {
-      assertRateLimit(`admin:search:${user.id}`, 60, 60_000)
+      await assertRateLimit(`admin:search:${user.id}`, 60, 60_000)
     } catch (error) {
       if (error instanceof Error && error.message === 'RATE_LIMITED') {
         return emptyResult(RATE_LIMIT_MESSAGE)

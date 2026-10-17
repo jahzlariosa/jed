@@ -155,7 +155,7 @@ export const uploadAccountAvatarFn = createServerFn({ method: 'POST' })
   .handler(async ({ data }) => {
     markPrivateNoStore()
     try {
-      assertRateLimit('account:avatar-upload', 12, 60 * 60 * 1000)
+      await assertRateLimit('account:avatar-upload', 12, 60 * 60 * 1000)
     } catch {
       return { error: RATE_LIMIT_MESSAGE }
     }
@@ -265,7 +265,7 @@ export const updateAccountPasswordFn = createServerFn({ method: 'POST' })
   .handler(async ({ data }) => {
     markPrivateNoStore()
     try {
-      assertRateLimit('auth:update-password', 10, 60 * 60 * 1000)
+      await assertRateLimit('auth:update-password', 10, 60 * 60 * 1000)
     } catch {
       return { error: RATE_LIMIT_MESSAGE }
     }

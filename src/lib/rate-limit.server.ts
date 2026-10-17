@@ -2,39 +2,43 @@ import '@tanstack/react-start/server-only'
 
 import { getRequest } from '@tanstack/react-start/server'
 
-type Bucket = { count: number; resetAt: number }
-
-const buckets = new Map<string, Bucket>()
-
-const MAX_BUCKETS = 10_000
+import { resolveContactIp } from '#/lib/cms/contact-submit.server'
+import { createServiceRoleClient } from '#/lib/supabase/service-role.server'
 
 function clientKey(action: string): string {
   const request = getRequest()
-  const forwarded = request.headers.get('x-forwarded-for')
-  const ip = forwarded?.split(',')[0]?.trim() || 'unknown'
-  return `${action}:${ip}`
+  return `${action}:${resolveContactIp(request.headers)}`
 }
 
-export function assertRateLimit(
+export async function assertRateLimit(
   action: string,
   limit: number,
   windowMs: number,
-): void {
+): Promise<void> {
   const key = clientKey(action)
-  const now = Date.now()
-  let bucket = buckets.get(key)
-  if (!bucket || bucket.resetAt <= now) {
-    bucket = { count: 0, resetAt: now + windowMs }
-    buckets.set(key, bucket)
-    if (buckets.size > MAX_BUCKETS) {
-      const oldest = buckets.keys().next().value
-      if (oldest) {
-        buckets.delete(oldest)
-      }
+  const windowSeconds = Math.max(1, Math.ceil(windowMs / 1000))
+
+  try {
+    const supabase = createServiceRoleClient()
+    const { data, error } = await supabase.rpc('consume_rate_limit_bucket', {
+      p_bucket_key: key,
+      p_max_hits: limit,
+      p_window_seconds: windowSeconds,
+    })
+
+    if (error) {
+      console.error(error)
+      throw new Error('RATE_LIMITED')
     }
-  }
-  bucket.count += 1
-  if (bucket.count > limit) {
+
+    if (data !== true) {
+      throw new Error('RATE_LIMITED')
+    }
+  } catch (error) {
+    if (error instanceof Error && error.message === 'RATE_LIMITED') {
+      throw error
+    }
+    console.error(error)
     throw new Error('RATE_LIMITED')
   }
 }

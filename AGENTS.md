@@ -124,6 +124,7 @@ Private responses: `Cache-Control: private, no-store`.
 ### Data (Postgres + RLS)
 
 Migrations: `supabase/migrations/`. Apply remotely with Supabase MCP `apply_migration`; keep the matching SQL file in git.
+Default privileges on `public` are revoked for `anon` and `authenticated`; every new table, view, sequence, and function needs explicit `GRANT`s in its migration (least privilege; column grants for sensitive tables).
 
 | Table / fn | Purpose |
 |---|---|

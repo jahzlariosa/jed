@@ -1,0 +1,40 @@
+name: Publish create-jed
+
+on:
+  push:
+    tags:
+      - 'create-jed@*'
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  publish:
+    name: Publish to npm
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: packages/create-jed
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          registry-url: https://registry.npmjs.org
+          cache: npm
+          cache-dependency-path: packages/create-jed/package-lock.json
+
+      - name: Set version from tag
+        run: |
+          VERSION="${GITHUB_REF_NAME#create-jed@}"
+          npm version "$VERSION" --no-git-tag-version --allow-same-version
+
+      - run: npm ci
+
+      - name: Publish with provenance
+        run: npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

@@ -32,7 +32,7 @@ npm run check        # Biome lint + format check (CI runs `biome ci .`); npm run
 npm test             # Vitest (vitest run); npm run test:watch to iterate
 ```
 
-CI (`.github/workflows/ci.yml`) runs `npm ci`, Biome (`biome ci .`), `typecheck`, `npm test` (when defined), `build`, and `npm audit --omit=dev --audit-level=high` on every PR and on `main`. Node is pinned by `.nvmrc` (22) and `engines`. Keep `shadcn` (CLI) in `devDependencies` so the production audit stays clean.
+CI (`.github/workflows/ci.yml`) runs `npm ci`, Biome (`biome ci .`), `typecheck`, `npm test` (when defined), `build`, `npm audit --omit=dev --audit-level=high`, and `packages/create-jed` tests on every PR and on `main`. New client sites can scaffold with `npm create jed@latest` (`packages/create-jed`, published as `create-jed`). Node is pinned by `.nvmrc` (22) and `engines`. Keep `shadcn` (CLI) in `devDependencies` so the production audit stays clean.
 
 Unit tests live next to the code as `src/**/*.test.ts` (Vitest, `vitest.config.ts` kept separate from the app Vite config). Security-critical pure helpers (`safeInternalPath`, `#/auth/validators`, `isPermission`) must keep their tests; add a case when you change their rules.
 

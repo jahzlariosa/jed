@@ -20,8 +20,8 @@ import { JED_REPO_URL } from '#/lib/marketing/repo'
 const startSteps = [
   {
     num: '01',
-    title: 'Clone the repository',
-    body: 'Clone JED into a new folder for the client and run npm ci.',
+    title: 'Scaffold the project',
+    body: 'Run npm create jed@latest for the client folder, or clone the repo if you prefer git.',
   },
   {
     num: '02',

@@ -30,6 +30,10 @@ export const SETTINGS_FIELD_HELP = {
     'The accent color for buttons, links, and focus rings across marketing, auth, and account pages. Use a six-digit hex code, such as #111111.',
   logo_url:
     'Optional image URL for the logo in the admin sidebar and other chrome. Use a full https link to an image you host.',
+  navbar_width:
+    'How wide the top bar on public pages is. Full width runs edge to edge. Contained keeps the whole bar, background included, inside the page width. Full width, content contained keeps the background edge to edge but lines up the links with the page content.',
+  footer_width:
+    'How wide the footer on public pages is. Full width runs edge to edge. Contained keeps the whole footer, border included, inside the page width. Full width, content contained keeps the border edge to edge but lines up the links with the page content.',
   seo_title_template:
     'How browser titles are built when a page supplies a title. Use {title} for the page name and {site} for the site name, for example {title} · {site}.',
   seo_default_description:

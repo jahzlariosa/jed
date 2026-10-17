@@ -40,7 +40,8 @@ export function MarketingSiteShell({
   onSearchOpen?: () => void
   searchQuery?: string
 }) {
-  const { siteName, brandHex } = normalizePublicMarketing(marketing)
+  const { siteName, brandHex, navbarWidth, footerWidth } =
+    normalizePublicMarketing(marketing)
   const brandStyle = applyMarketingBrandCss(brandHex) as CSSProperties
   const pathname = useRouterState({
     select: (state) => state.location.pathname,
@@ -66,7 +67,7 @@ export function MarketingSiteShell({
       style={brandStyle}
     >
       <SkipLink />
-      <header className="marketing-header">
+      <header className="marketing-header" data-width={navbarWidth}>
         <div className="marketing-header-inner">
           <Link
             to="/"
@@ -155,8 +156,8 @@ export function MarketingSiteShell({
       {onSearchOpen ? null : (
         <DocsSearchDialog open={paletteOpen} onOpenChange={setPaletteOpen} />
       )}
-      <footer className="marketing-wrap marketing-wrap-wide">
-        <div className="marketing-footer-grid">
+      <footer className="marketing-footer" data-width={footerWidth}>
+        <div className="marketing-footer-inner marketing-footer-grid">
           <div>
             <div className="marketing-footer-brand">{siteName}</div>
             <p className="marketing-footer-blurb">
@@ -211,8 +212,10 @@ export function MarketingSiteShell({
           </div>
         </div>
         <div className="marketing-footer-bottom">
-          <span>{siteName}</span>
-          <span>© {year}</span>
+          <div className="marketing-footer-inner marketing-footer-bottom-row">
+            <span>{siteName}</span>
+            <span>© {year}</span>
+          </div>
         </div>
       </footer>
     </div>

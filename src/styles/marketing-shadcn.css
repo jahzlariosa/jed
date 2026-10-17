@@ -3,13 +3,7 @@
   width: 100%;
   max-width: var(--marketing-wrap);
   margin-inline: auto;
-  padding-inline: 16px;
-}
-
-@media (min-width: 768px) {
-  .jed-marketing .marketing-wrap {
-    padding-inline: 40px;
-  }
+  padding-inline: var(--marketing-content-edge);
 }
 
 .jed-marketing .marketing-header {
@@ -21,19 +15,36 @@
   background: var(--background);
 }
 
+.jed-marketing {
+  --marketing-edge: 16px;
+  --marketing-content-edge: 16px;
+}
+
+@media (min-width: 640px) {
+  .jed-marketing {
+    --marketing-edge: 24px;
+  }
+}
+
+@media (min-width: 768px) {
+  .jed-marketing {
+    --marketing-content-edge: 40px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .jed-marketing {
+    --marketing-edge: 32px;
+  }
+}
+
 .jed-marketing .marketing-header-inner {
   display: flex;
   align-items: center;
   gap: 16px;
   height: var(--marketing-header-h);
   width: 100%;
-  padding-inline: 16px;
-}
-
-@media (min-width: 640px) {
-  .jed-marketing .marketing-header-inner {
-    padding-inline: 24px;
-  }
+  padding-inline: var(--marketing-edge);
 }
 
 @media (min-width: 768px) {
@@ -42,10 +53,40 @@
   }
 }
 
-@media (min-width: 1024px) {
-  .jed-marketing .marketing-header-inner {
-    padding-inline: 32px;
-  }
+.jed-marketing .marketing-footer {
+  width: 100%;
+  border-top: 1px solid var(--border);
+}
+
+.jed-marketing .marketing-footer-inner {
+  padding-inline: var(--marketing-edge);
+}
+
+/* Navbar and footer width options from site settings (data-width). */
+.jed-marketing .marketing-header[data-width="contained"],
+.jed-marketing .marketing-footer[data-width="contained"] {
+  max-width: var(--marketing-header-inner);
+  margin-inline: auto;
+}
+
+.jed-marketing
+  .marketing-header[data-width="contained"]
+  .marketing-header-inner,
+.jed-marketing
+  .marketing-footer[data-width="contained"]
+  .marketing-footer-inner {
+  padding-inline: var(--marketing-content-edge);
+}
+
+.jed-marketing
+  .marketing-header[data-width="full_content_contained"]
+  .marketing-header-inner,
+.jed-marketing
+  .marketing-footer[data-width="full_content_contained"]
+  .marketing-footer-inner {
+  max-width: var(--marketing-header-inner);
+  margin-inline: auto;
+  padding-inline: var(--marketing-content-edge);
 }
 
 .jed-marketing .marketing-wrap.marketing-wrap-wide {
@@ -419,8 +460,7 @@
 .jed-marketing .marketing-footer-grid {
   display: grid;
   gap: 24px;
-  padding: 40px 0 0;
-  border-top: 1px solid var(--border);
+  padding-top: 40px;
 }
 
 @media (min-width: 768px) {
@@ -467,13 +507,17 @@
 }
 
 .jed-marketing .marketing-footer-bottom {
-  display: flex;
-  justify-content: space-between;
   margin-top: 32px;
-  padding: 20px 0 48px;
   border-top: 1px solid var(--border);
   color: var(--muted-foreground);
   font-size: 12.5px;
+}
+
+.jed-marketing .marketing-footer-bottom-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding-block: 20px 48px;
 }
 
 .jed-marketing .marketing-page-hero {

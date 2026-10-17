@@ -45,7 +45,7 @@ export function AccountPageScreen({
 
   return (
     <div className="jed-account marketing-main flex flex-1 flex-col outline-none">
-      <div className="marketing-container w-full pt-10 pb-0 md:pt-10">
+      <div className="marketing-wrap marketing-wrap-wide pt-10 pb-0">
         <header className="flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-6">
           <AccountUserAvatar
             avatarUrl={profile.avatarUrl}

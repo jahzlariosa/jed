@@ -10,6 +10,7 @@ import {
 } from '#/components/admin/redirects-screen'
 import { ADMIN_LIST_ROUTE_CACHE } from '#/auth'
 import { parseMfaPolicy } from '#/auth/mfa-policy'
+import { parseSiteBarWidth } from '#/lib/cms/site-layout'
 import { adminTabSearchSchema } from '#/lib/admin/admin-tab-search'
 import { getSiteSettingsFn } from '#/lib/cms/functions'
 import { listUrlRedirectsFn } from '#/lib/cms/redirects-fns'
@@ -49,6 +50,8 @@ function AdminRedirectsPage() {
     redirect_after_sign_out: settings.redirect_after_sign_out ?? '/login',
     mfa_enabled: settings.mfa_enabled ?? true,
     mfa_policy: parseMfaPolicy(settings.mfa_policy),
+    navbar_width: parseSiteBarWidth(settings.navbar_width),
+    footer_width: parseSiteBarWidth(settings.footer_width),
     og_locale: settings.og_locale ?? 'en_US',
     twitter_handle: settings.twitter_handle ?? null,
     allow_search_indexing: settings.allow_search_indexing ?? true,

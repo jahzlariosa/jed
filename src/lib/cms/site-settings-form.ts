@@ -1,4 +1,5 @@
 import type { MfaPolicy } from '#/auth/mfa-policy'
+import { parseSiteBarWidth, type SiteBarWidth } from '#/lib/cms/site-layout'
 import { pathsToText } from '#/lib/cms/site-settings-seo'
 import {
   resolvePublicBrandHex,
@@ -12,6 +13,8 @@ export type SiteSettingsForm = {
   language: string
   brand_hex: string
   logo_url: string | null
+  navbar_width: SiteBarWidth
+  footer_width: SiteBarWidth
   seo_title_template: string
   seo_default_description: string | null
   social_image_url: string | null
@@ -58,6 +61,8 @@ export function normalizeSiteSettingsForm(
     ...settings,
     site_name: resolvePublicSiteName(settings.site_name),
     brand_hex: resolvePublicBrandHex(settings.brand_hex),
+    navbar_width: parseSiteBarWidth(settings.navbar_width),
+    footer_width: parseSiteBarWidth(settings.footer_width),
   }
 }
 
@@ -69,6 +74,8 @@ export function toSaveSiteSettingsPayload(form: SiteSettingsForm) {
     language: form.language,
     brandHex: form.brand_hex,
     logoUrl: form.logo_url ?? '',
+    navbarWidth: form.navbar_width,
+    footerWidth: form.footer_width,
     seoTitleTemplate: form.seo_title_template,
     seoDefaultDescription: form.seo_default_description ?? '',
     socialImageUrl: form.social_image_url ?? '',

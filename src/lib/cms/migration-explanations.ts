@@ -204,4 +204,10 @@ export const MIGRATION_EXPLANATIONS: Record<string, MigrationExplanation> = {
     whenToRun:
       'After 20261015130000_site_settings_neutral_defaults.sql. Safe to re-run.',
   },
+  '20261017090000_site_layout_widths.sql': {
+    summary:
+      'Adds navbar_width and footer_width to site_settings so admins can choose full width, contained, or full width with contained content for the public navbar and footer. Both default to full width.',
+    whenToRun:
+      'Before using the navbar and footer width options in Admin > Settings. Safe to re-run.',
+  },
 }

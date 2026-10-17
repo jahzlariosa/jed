@@ -61,7 +61,7 @@ function BlogIndexPage() {
         categories={categories}
         search={{ ...search, page: search.page ?? 1 }}
       />
-      <div className="marketing-container pb-10 text-center text-sm marketing-muted">
+      <div className="marketing-wrap marketing-wrap-wide pb-10 text-center text-sm marketing-muted">
         <Link to="/blog/rss.xml" className="hover:text-foreground">
           RSS feed
         </Link>

@@ -8,12 +8,15 @@ import {
   resolvePublicBrandHex,
   resolvePublicSiteName,
 } from '#/lib/cms/brand-defaults'
+import { parseSiteBarWidth } from '#/lib/cms/site-layout'
 import { createServiceRoleClient } from '#/lib/supabase/service-role.server'
 
 type SiteRow = {
   site_name: string | null
   brand_hex: string | null
   contact_email: string | null
+  navbar_width: string | null
+  footer_width: string | null
 }
 
 async function loadSiteSettings(): Promise<SiteRow | null> {
@@ -21,7 +24,7 @@ async function loadSiteSettings(): Promise<SiteRow | null> {
     const service = createServiceRoleClient()
     const { data, error } = await service
       .from('site_settings')
-      .select('site_name, brand_hex, contact_email')
+      .select('site_name, brand_hex, contact_email, navbar_width, footer_width')
       .eq('id', 1)
       .maybeSingle()
     if (error) {
@@ -42,6 +45,8 @@ export async function loadPublicMarketing(): Promise<PublicMarketing> {
     siteName: resolvePublicSiteName(row?.site_name),
     contactEmail: email && email.length > 0 ? email : null,
     brandHex: resolvePublicBrandHex(row?.brand_hex),
+    navbarWidth: parseSiteBarWidth(row?.navbar_width),
+    footerWidth: parseSiteBarWidth(row?.footer_width),
   })
 }
 
@@ -51,5 +56,7 @@ export async function loadAuthBranding() {
     siteName: resolvePublicSiteName(row?.site_name),
     contactEmail: null,
     brandHex: resolvePublicBrandHex(row?.brand_hex),
+    navbarWidth: parseSiteBarWidth(row?.navbar_width),
+    footerWidth: parseSiteBarWidth(row?.footer_width),
   })
 }

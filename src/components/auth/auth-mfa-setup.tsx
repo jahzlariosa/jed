@@ -1,6 +1,7 @@
+import { Copy, ShieldCheck } from '@phosphor-icons/react'
 import { useRouter } from '@tanstack/react-router'
 import { useServerFn } from '@tanstack/react-start'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, type FormEvent } from 'react'
 
 import {
   enrollMfaTotpFn,
@@ -8,14 +9,19 @@ import {
   unenrollMfaFactorFn,
   verifyMfaEnrollmentFn,
 } from '#/auth/mfa-fns'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
 import { APP_SHELL_CACHE_KEY } from '#/auth'
+import { AuthAlert } from '#/components/auth/auth-alert'
+import {
+  AUTH_ERROR_ID,
+  AuthFormError,
+  AuthSubmitButton,
+} from '#/components/auth/auth-fields'
+import { AuthOtpInput } from '#/components/auth/auth-otp-input'
 import { appToast } from '#/lib/app-toast'
 import { clearFetchCache } from '#/lib/deduped-fetch'
+import { phosphorIcon } from '#/lib/icon'
 
-export function MfaSection() {
+export function AuthMfaSetup() {
   const router = useRouter()
   const listFactors = useServerFn(listMfaFactorsFn)
   const enroll = useServerFn(enrollMfaTotpFn)
@@ -64,7 +70,8 @@ export function MfaSection() {
     setPending(false)
   }
 
-  async function onVerify() {
+  async function onVerify(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault()
     if (!enrollState) {
       return
     }
@@ -118,103 +125,108 @@ export function MfaSection() {
 
   if (!enrollmentAllowed) {
     return (
-      <p className="text-sm text-muted-foreground">
-        Authenticator setup is turned off in site settings.
-      </p>
+      <AuthAlert tone="info" title="Authenticator setup is turned off">
+        A site admin can turn it on in site settings.
+      </AuthAlert>
     )
   }
 
-  return (
-    <div className="grid gap-4">
-      <p className="text-sm text-muted-foreground">
-        Add an authenticator app for a second sign-in step when your site policy
-        requires it.
-      </p>
-      {error ? (
-        <p role="alert" className="text-sm text-destructive">
-          {error}
-        </p>
-      ) : null}
-      {active ? (
-        <div className="flex flex-wrap items-center justify-between gap-3 rounded-md border border-border px-4 py-3">
-          <div>
-            <p className="text-sm font-medium">Authenticator app</p>
-            <p className="text-xs text-muted-foreground">Status: active</p>
+  if (active) {
+    return (
+      <div className="grid gap-5">
+        <div className="marketing-auth-factor">
+          <ShieldCheck {...phosphorIcon} size={20} aria-hidden />
+          <div className="min-w-0">
+            <p className="marketing-auth-factor-title">Authenticator app</p>
+            <p className="marketing-auth-factor-meta">Active</p>
           </div>
-          <Button
-            type="button"
-            variant="outline"
-            size="sm"
-            disabled={pending}
-            onClick={() => void onRemove(active.id)}
-          >
-            Remove
-          </Button>
         </div>
-      ) : enrollState ? (
-        <div className="grid gap-4 rounded-md border border-border p-4">
+        <AuthFormError message={error} />
+        <AuthSubmitButton
+          type="button"
+          variant="secondary"
+          pending={pending}
+          pendingLabel="Removing."
+          onClick={() => void onRemove(active.id)}
+        >
+          Remove authenticator
+        </AuthSubmitButton>
+      </div>
+    )
+  }
+
+  if (enrollState) {
+    return (
+      <form method="post" onSubmit={onVerify} className="grid gap-5">
+        <div className="grid gap-3">
+          <p className="marketing-auth-step">1. Scan this code in your app</p>
           {enrollState.qrCode ? (
             <img
               src={enrollState.qrCode}
               alt="Authenticator QR code"
-              className="mx-auto size-40 rounded-md border border-border bg-white p-2"
+              width={176}
+              height={176}
+              className="marketing-auth-qr"
             />
           ) : null}
-          <div className="flex flex-wrap items-center justify-center gap-2">
-            <p className="font-mono text-xs text-muted-foreground">
-              {enrollState.secret}
-            </p>
-            <Button
+          <p className="marketing-auth-step-hint">
+            Can't scan it? Enter this key instead.
+          </p>
+          <div className="marketing-auth-secret">
+            <code>{enrollState.secret}</code>
+            <button
               type="button"
-              variant="outline"
-              size="sm"
+              aria-label="Copy secret"
               onClick={() => void onCopySecret()}
             >
-              Copy secret
-            </Button>
-          </div>
-          <div>
-            <Label htmlFor="mfa-code">6-digit code</Label>
-            <Input
-              id="mfa-code"
-              inputMode="numeric"
-              autoComplete="one-time-code"
-              maxLength={6}
-              value={code}
-              onChange={(event) => setCode(event.target.value)}
-              className="mt-1 max-w-[12rem] font-mono"
-            />
-          </div>
-          <div className="flex gap-2">
-            <Button
-              type="button"
-              size="sm"
-              disabled={pending || code.length < 6}
-              onClick={() => void onVerify()}
-            >
-              Verify and enable
-            </Button>
-            <Button
-              type="button"
-              variant="ghost"
-              size="sm"
-              disabled={pending}
-              onClick={() => setEnrollState(null)}
-            >
-              Cancel
-            </Button>
+              <Copy {...phosphorIcon} size={16} aria-hidden />
+            </button>
           </div>
         </div>
-      ) : (
-        <Button
-          type="button"
-          size="sm"
-          disabled={pending}
-          onClick={() => void onStartEnroll()}
-        >
-          Set up authenticator
-        </Button>
-      )}
+        <div className="grid gap-3">
+          <p className="marketing-auth-step">2. Enter the 6-digit code</p>
+          <AuthOtpInput
+            id="mfa-setup-code"
+            value={code}
+            onChange={setCode}
+            invalid={Boolean(error)}
+            aria-describedby={error ? AUTH_ERROR_ID : undefined}
+          />
+        </div>
+        <AuthFormError message={error} />
+        <div className="grid gap-2.5">
+          <AuthSubmitButton
+            pending={pending}
+            pendingLabel="Verifying."
+            disabled={code.length < 6}
+          >
+            Verify and turn on
+          </AuthSubmitButton>
+          <AuthSubmitButton
+            type="button"
+            variant="secondary"
+            pending={false}
+            disabled={pending}
+            onClick={() => setEnrollState(null)}
+          >
+            Cancel
+          </AuthSubmitButton>
+        </div>
+      </form>
+    )
+  }
+
+  return (
+    <div className="grid gap-5">
+      <AuthFormError message={error} />
+      <AuthSubmitButton
+        type="button"
+        pending={pending}
+        pendingLabel="Preparing."
+        onClick={() => void onStartEnroll()}
+      >
+        Set up authenticator
+      </AuthSubmitButton>
     </div>
   )
 }

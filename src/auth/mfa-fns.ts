@@ -3,6 +3,8 @@ import { setResponseStatus } from '@tanstack/react-start/server'
 
 import { createClient } from '#/lib/supabase/server'
 import { effectiveMfaPolicy } from '#/auth/mfa-policy'
+import { totpIssuerFromSiteName } from '#/auth/mfa-issuer'
+import { loadAuthBranding } from '#/lib/cms/public-marketing.server'
 
 import { resolvePostSignInHref } from './redirect'
 import { loadAuthRedirectSettings } from '#/lib/cms/auth-redirect-settings.server'
@@ -13,7 +15,6 @@ import {
 } from './mfa-policy.server'
 import {
   clearRequestAuth,
-  getAccess,
   getAccessWithClient,
   markPrivateNoStore,
   requireUser,
@@ -114,9 +115,11 @@ export const enrollMfaTotpFn = createServerFn({ method: 'POST' }).handler(
     if (state.pendingFactorIds.length > 0) {
       await cleanupPendingMfaFactors(supabase, state.pendingFactorIds)
     }
+    const branding = await loadAuthBranding()
     const { data, error } = await supabase.auth.mfa.enroll({
       factorType: 'totp',
       friendlyName: 'Authenticator app',
+      issuer: totpIssuerFromSiteName(branding.siteName),
     })
     if (error) {
       console.error(error)
@@ -208,7 +211,7 @@ export const completeMfaChallengeFn = createServerFn({ method: 'POST' })
   })
   .handler(async ({ data }) => {
     markPrivateNoStore()
-    await requireUser({ skipMfaCheck: true })
+    const startUser = await requireUser({ skipMfaCheck: true })
     const supabase = createClient()
     const { data: challenge, error: challengeError } =
       await supabase.auth.mfa.challenge({ factorId: data.factorId })
@@ -216,7 +219,7 @@ export const completeMfaChallengeFn = createServerFn({ method: 'POST' })
       console.error(challengeError)
       return { error: 'Unable to verify code' }
     }
-    const { error } = await supabase.auth.mfa.verify({
+    const { data: verified, error } = await supabase.auth.mfa.verify({
       factorId: data.factorId,
       challengeId: challenge.id,
       code: data.code,
@@ -225,11 +228,18 @@ export const completeMfaChallengeFn = createServerFn({ method: 'POST' })
       console.error(error)
       return { error: 'That code did not match. Try again.' }
     }
-    clearRequestAuth()
-    const user = await requireUser()
-    const access = await getAccess(user.id)
+    const authUser = verified.user
+    if (!authUser || authUser.id !== startUser.id) {
+      clearRequestAuth()
+      return { error: 'Unable to verify code' }
+    }
+    // The aal2 session only exists on this client and in the Set-Cookie
+    // response. Request cookies still hold the aal1 session, so re-running the
+    // MFA gate here would reject the code that just verified.
+    const access = await getAccessWithClient(authUser.id, supabase)
     const settings = await loadAuthRedirectSettings()
     const redirectTo = resolvePostSignInHref(access, data.redirectTo, settings)
+    clearRequestAuth()
     return { redirectTo }
   })
 

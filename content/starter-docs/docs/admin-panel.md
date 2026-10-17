@@ -41,6 +41,8 @@ Editing settings needs `settings.write`. Writing content or media needs `content
 | Site name | Header, page titles, and sign-in screens |
 | Accent color | Buttons, links, and focus rings |
 | Logo URL | Public branding |
+| Navbar width | Whether the public navbar spans the full screen, sits inside the centred page width, or spans the full screen with its content kept to the page width. Needs the migration `20261017090000_site_layout_widths.sql`. |
+| Footer width | The same three choices for the public footer |
 | Contact email | Turns on the [contact form](/docs/contact) |
 | Sign-in destinations | Where people land after signing in (admins and members separately), signing up, resetting a password, and signing out |
 | Allow authenticator setup | Turns MFA on or off |

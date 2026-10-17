@@ -508,6 +508,7 @@ export type Database = {
           analytics_id: string | null
           brand_hex: string
           id: number
+          footer_width: string
           language: string
           logo_url: string | null
           redirect_after_password_reset: string
@@ -518,6 +519,7 @@ export type Database = {
           contact_email: string | null
           mfa_enabled: boolean
           mfa_policy: string
+          navbar_width: string
           seo_default_description: string | null
           seo_title_template: string
           site_name: string
@@ -556,6 +558,7 @@ export type Database = {
           brand_hex?: string
           contact_email?: string | null
           id?: number
+          footer_width?: string
           language?: string
           logo_url?: string | null
           redirect_after_password_reset?: string
@@ -565,6 +568,7 @@ export type Database = {
           redirect_after_sign_up?: string
           mfa_enabled?: boolean
           mfa_policy?: string
+          navbar_width?: string
           seo_default_description?: string | null
           seo_title_template?: string
           site_name?: string
@@ -603,6 +607,7 @@ export type Database = {
           brand_hex?: string
           contact_email?: string | null
           id?: number
+          footer_width?: string
           language?: string
           logo_url?: string | null
           redirect_after_password_reset?: string
@@ -612,6 +617,7 @@ export type Database = {
           redirect_after_sign_up?: string
           mfa_enabled?: boolean
           mfa_policy?: string
+          navbar_width?: string
           seo_default_description?: string | null
           seo_title_template?: string
           site_name?: string

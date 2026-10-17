@@ -12,7 +12,7 @@ import {
   safeInternalPath,
 } from '#/auth'
 import { cachedFetch } from '#/lib/deduped-fetch'
-import { MfaSection } from '#/components/account/mfa-section'
+import { AuthMfaSetup } from '#/components/auth/auth-mfa-setup'
 import { MarketingAuthLayout } from '#/components/marketing/marketing-auth-layout'
 import { getAuthBrandingFn } from '#/lib/cms/public-marketing-fns'
 import { noindexHead, type RootMatch } from '#/lib/seo'
@@ -62,10 +62,10 @@ function MfaSetupPage() {
       marketing={marketing}
       icon="shield"
       title="Set up authenticator"
-      description="Your site requires an authenticator app. Scan the QR code or enter the secret, then confirm with a 6-digit code."
+      description="This site asks for a second sign-in step. Add an authenticator app such as Google Authenticator or 1Password to continue."
     >
-      <MfaSection />
-      <p className="marketing-auth-foot mt-6">
+      <AuthMfaSetup />
+      <p className="marketing-auth-foot">
         <Link to="/" className="marketing-auth-link">
           Back to home
         </Link>

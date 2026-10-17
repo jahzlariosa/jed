@@ -27,6 +27,12 @@ import {
 } from '#/lib/cms/site-settings-form'
 import { appToast } from '#/lib/app-toast'
 import type { SettingsFieldHelpKey } from '#/lib/admin/settings-help'
+import {
+  parseSiteBarWidth,
+  SITE_BAR_WIDTHS,
+  type SiteBarWidth,
+  siteBarWidthLabel,
+} from '#/lib/cms/site-layout'
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Input } from '@/components/ui/input'
@@ -317,6 +323,32 @@ export function SettingsScreen({
               helpKey="logo_url"
               value={form.logo_url ?? ''}
               onChange={(value) => setForm((f) => ({ ...f, logo_url: value }))}
+            />
+          </div>
+        </AdminSectionBlock>
+
+        <AdminSectionBlock
+          title="Navbar and footer"
+          description="How wide the top bar and footer are on public pages."
+        >
+          <div className="admin-field-grid">
+            <BarWidthSelect
+              id="navbar-width"
+              label="Navbar width"
+              helpKey="navbar_width"
+              value={form.navbar_width}
+              onChange={(value) =>
+                setForm((f) => ({ ...f, navbar_width: value }))
+              }
+            />
+            <BarWidthSelect
+              id="footer-width"
+              label="Footer width"
+              helpKey="footer_width"
+              value={form.footer_width}
+              onChange={(value) =>
+                setForm((f) => ({ ...f, footer_width: value }))
+              }
             />
           </div>
         </AdminSectionBlock>
@@ -806,6 +838,38 @@ function Field({
         }
         className={`admin-input-tall mt-1${mono ? ' font-mono text-xs' : ''}`}
       />
+    </div>
+  )
+}
+
+function BarWidthSelect({
+  id,
+  label,
+  helpKey,
+  value,
+  onChange,
+}: {
+  id: string
+  label: string
+  helpKey: SettingsFieldHelpKey
+  value: SiteBarWidth
+  onChange: (value: SiteBarWidth) => void
+}) {
+  return (
+    <div className="grid gap-1.5">
+      <AdminFieldLabel label={label} helpKey={helpKey} htmlFor={id} />
+      <select
+        id={id}
+        value={value}
+        onChange={(event) => onChange(parseSiteBarWidth(event.target.value))}
+        className="admin-input-tall flex w-full rounded-md border border-input bg-background px-3 text-sm"
+      >
+        {SITE_BAR_WIDTHS.map((width) => (
+          <option key={width} value={width}>
+            {siteBarWidthLabel(width)}
+          </option>
+        ))}
+      </select>
     </div>
   )
 }

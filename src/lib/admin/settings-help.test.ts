@@ -17,6 +17,8 @@ const REQUIRED_KEYS = [
   'redirect_after_sign_out',
   'brand_hex',
   'logo_url',
+  'navbar_width',
+  'footer_width',
   'seo_title_template',
   'seo_default_description',
   'social_image_url',

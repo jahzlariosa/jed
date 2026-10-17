@@ -6,6 +6,7 @@ import { assertMfaPolicyAllowsSave, parseMfaPolicy } from '#/auth/mfa-policy'
 import { safeInternalPath } from '#/auth/path'
 import { parseEmail, quotePostgrestFilterValue } from '#/auth/validators'
 import { PERMISSIONS } from '#/auth/permissions'
+import { parseSiteBarWidthForSave } from '#/lib/cms/site-layout'
 import { writeAuditLog } from '#/lib/cms/audit.server'
 import { escapeLike } from '#/auth/validators'
 import { getRequestClient, markPrivateNoStore } from '#/auth/session.server'
@@ -818,6 +819,8 @@ export const saveSiteSettingsFn = createServerFn({ method: 'POST' })
         String(raw.logoUrl ?? '')
           .trim()
           .slice(0, 512) || null,
+      navbarWidth: parseSiteBarWidthForSave(raw.navbarWidth),
+      footerWidth: parseSiteBarWidthForSave(raw.footerWidth),
       seoTitleTemplate: String(raw.seoTitleTemplate ?? '')
         .trim()
         .slice(0, 160),
@@ -884,7 +887,7 @@ export const saveSiteSettingsFn = createServerFn({ method: 'POST' })
     }
     const { data: previous, error: readError } = await supabase
       .from('site_settings')
-      .select('mfa_enabled, mfa_policy, timezone')
+      .select('mfa_enabled, mfa_policy, timezone, navbar_width, footer_width')
       .eq('id', 1)
       .maybeSingle()
     if (readError) {
@@ -908,6 +911,8 @@ export const saveSiteSettingsFn = createServerFn({ method: 'POST' })
         language: data.language,
         brand_hex: data.brandHex,
         logo_url: data.logoUrl,
+        ...(data.navbarWidth ? { navbar_width: data.navbarWidth } : {}),
+        ...(data.footerWidth ? { footer_width: data.footerWidth } : {}),
         seo_title_template: data.seoTitleTemplate,
         seo_default_description: data.seoDefaultDescription,
         social_image_url: data.socialImageUrl,
@@ -944,6 +949,25 @@ export const saveSiteSettingsFn = createServerFn({ method: 'POST' })
           mfa_policy: data.mfaPolicy,
           previous_mfa_enabled: previous.mfa_enabled,
           previous_mfa_policy: previous.mfa_policy,
+        },
+      })
+    }
+    const layoutChanged =
+      (data.navbarWidth !== undefined &&
+        previous?.navbar_width !== data.navbarWidth) ||
+      (data.footerWidth !== undefined &&
+        previous?.footer_width !== data.footerWidth)
+    if (previous && layoutChanged) {
+      await writeAuditLog(supabase, {
+        actorUserId: user.id,
+        action: 'site_settings.layout_update',
+        targetType: 'site_settings',
+        targetId: '1',
+        metadata: {
+          navbar_width: data.navbarWidth ?? previous.navbar_width,
+          footer_width: data.footerWidth ?? previous.footer_width,
+          previous_navbar_width: previous.navbar_width,
+          previous_footer_width: previous.footer_width,
         },
       })
     }

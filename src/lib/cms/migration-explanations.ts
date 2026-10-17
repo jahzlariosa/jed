@@ -247,4 +247,10 @@ export const MIGRATION_EXPLANATIONS: Record<string, MigrationExplanation> = {
       'Installs pg_trgm in the extensions schema and rebuilds profiles_email_trgm_idx with extensions.gin_trgm_ops.',
     whenToRun: 'After admin query indexes on hosted Postgres. Safe to re-run.',
   },
+  '20261017110000_mfa_helper_grants_and_rate_limit_index.sql': {
+    summary:
+      'Revokes anon execute on MFA helper RPCs (session_aal_is_aal2, site_mfa_policy_row, rls_requires_aal2_*) and adds an index on private.rate_limit_buckets(expires_at).',
+    whenToRun:
+      'After RLS MFA AAL2 migration on hosted Postgres. Safe to re-run.',
+  },
 }

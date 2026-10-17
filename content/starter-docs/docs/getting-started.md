@@ -112,7 +112,7 @@ Go to **Admin > Settings** and set:
 | `npm run dev` | Dev server on port 3000 |
 | `npm run build` | Production build (Vercel output in `.vercel/output`) |
 | `npm run preview` | Serve the production build locally |
-| `npm run typecheck` | `tsc --noEmit` |
+| `npm run typecheck` | TypeScript 7 native `tsc --noEmit` (`@typescript/native`; JS API via `@typescript/typescript6` for Vite and tooling) |
 | `npm run check` | Biome lint and format check |
 | `npm run format` | Format with Biome |
 | `npm test` | Vitest unit tests |

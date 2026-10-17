@@ -1,0 +1,1 @@
+export const DEFAULT_PUBLIC_SITE_NAME = 'JED'

@@ -3,7 +3,6 @@ import { Link } from '@tanstack/react-router'
 import { useEffect, useRef, useState } from 'react'
 
 import { phosphorIcon } from '#/lib/icon'
-import { JED_REPO_URL } from '#/lib/marketing/repo'
 import { Button } from '@/components/ui/button'
 import {
   Tooltip,
@@ -13,9 +12,8 @@ import {
 } from '@/components/ui/tooltip'
 
 export const START_COMMANDS = [
-  `git clone ${JED_REPO_URL}.git my-site`,
+  'npm create jed@latest my-site',
   'cd my-site',
-  'npm ci',
 ] as const
 
 export function StartTerminal() {

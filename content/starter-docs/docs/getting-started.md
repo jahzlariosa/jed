@@ -1,6 +1,6 @@
 ---
 title: Getting started
-description: Clone the starter, apply the schema, create your first admin, and run it locally.
+description: Scaffold or clone the starter, apply the schema, create your first admin, and run it locally.
 slug: /docs/getting-started
 order: 1
 ---
@@ -18,9 +18,16 @@ This guide takes you from an empty GitHub repository to a running site with an a
 | Supabase | A hosted project, or the Supabase CLI with Docker for local development |
 | Vercel account | For deployment |
 
-## 1. Create your repository
+## 1. Create your project
 
-Start each client site from a fresh copy of the starter. Clone it into a new folder and move into it:
+**Recommended:** use the generator (downloads the template from GitHub, no git required):
+
+```bash
+npm create jed@latest my-site
+cd my-site
+```
+
+**Alternative:** clone the starter repository:
 
 ```bash
 git clone https://github.com/jahzlariosa/jed.git my-site

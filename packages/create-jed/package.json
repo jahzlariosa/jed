@@ -1,0 +1,40 @@
+{
+  "name": "create-jed",
+  "version": "0.1.0",
+  "description": "Scaffold a new site from the JED TanStack Start and Supabase starter",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "bin": {
+    "create-jed": "./bin/create-jed.js"
+  },
+  "files": [
+    "bin",
+    "lib",
+    "LICENSE",
+    "README.md"
+  ],
+  "scripts": {
+    "test": "node --test test/*.test.js"
+  },
+  "dependencies": {
+    "tar": "^7.5.7"
+  },
+  "keywords": [
+    "jed",
+    "tanstack",
+    "supabase",
+    "starter",
+    "scaffold"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jahzlariosa/jed.git",
+    "directory": "packages/create-jed"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

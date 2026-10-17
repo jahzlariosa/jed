@@ -39,5 +39,11 @@ jobs:
       - name: Unit tests
         run: npm test --if-present
 
+      - name: create-jed package tests
+        working-directory: packages/create-jed
+        run: |
+          npm ci
+          npm test
+
       - name: Audit production dependencies
         run: npm audit --omit=dev --audit-level=high

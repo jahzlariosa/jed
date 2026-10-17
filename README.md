@@ -2,7 +2,7 @@
 
 JED (`jed`) is a production-oriented base for client sites. It ships **TanStack Start** (React 19 + Vite), **Supabase** (Postgres, Auth, RLS), and deploys to **Vercel** with the Nitro Vercel preset.
 
-Start each client site from a fresh clone of this repository.
+Start each client site with `npm create jed@latest` or from a fresh clone of this repository.
 
 **Agents:** read [`AGENTS.md`](./AGENTS.md) first. Prompt ideas live in [`prompts/README.md`](./prompts/README.md).
 
@@ -26,9 +26,16 @@ Start each client site from a fresh clone of this repository.
 
 ## Quick start (about 5 minutes)
 
-### 1. Create the app repository
+### 1. Create the app
 
-Clone the starter into a new folder and move into it:
+**Recommended:** scaffold from the published generator (no git required):
+
+```bash
+npm create jed@latest my-site
+cd my-site
+```
+
+**Alternative:** clone this repository into a new folder:
 
 ```bash
 git clone https://github.com/jahzlariosa/jed.git my-site
@@ -260,4 +267,19 @@ Keep client-specific env vars and Supabase projects separate per client.
 
 ## CI
 
-GitHub Actions runs on every PR and on `main`: `npm ci`, Biome, typecheck, tests, build, and `npm audit --omit=dev --audit-level=high`. Require the **Lint, typecheck, test, build, audit** check on `main` under branch protection.
+GitHub Actions runs on every PR and on `main`: `npm ci`, Biome, typecheck, tests, build, `packages/create-jed` tests, and `npm audit --omit=dev --audit-level=high`. Require the **Lint, typecheck, test, build, audit** check on `main` under branch protection.
+
+## Publishing `create-jed` to npm
+
+The scaffold CLI lives in `packages/create-jed` and publishes as [`create-jed`](https://www.npmjs.com/package/create-jed) (`npm create jed@latest`).
+
+1. Add an npm automation token as the GitHub repository secret **`NPM_TOKEN`** (publish access to `create-jed`).
+2. Bump `version` in `packages/create-jed/package.json` when releasing.
+3. Tag and push:
+
+```bash
+git tag create-jed@1.0.0
+git push origin create-jed@1.0.0
+```
+
+GitHub Actions workflow `publish-create-jed.yml` publishes with provenance. Do not publish from a laptop unless you are debugging the workflow.

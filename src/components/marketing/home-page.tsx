@@ -1,19 +1,14 @@
-import {
-  Article,
-  Code,
-  Database,
-  EnvelopeSimple,
-  GithubLogo,
-  Key,
-  MagnifyingGlass,
-  PlugsConnected,
-  ShieldCheck,
-  SquaresFour,
-} from '@phosphor-icons/react'
+import { GithubLogo } from '@phosphor-icons/react'
 import { Link } from '@tanstack/react-router'
-import type { Icon } from '@phosphor-icons/react'
 
 import { MarketingShowcase } from '#/components/marketing/marketing-showcase'
+import {
+  MarketingBoxSection,
+  MarketingDetailSections,
+  MarketingFaqSection,
+  MarketingFeatureGrid,
+  MarketingStackSection,
+} from '#/components/marketing/marketing-sections'
 import { MarketingSiteShell } from '#/components/marketing/marketing-site-shell'
 import { Reveal } from '#/components/marketing/reveal'
 import { StartTerminal } from '#/components/marketing/start-terminal'
@@ -22,73 +17,21 @@ import type { PublicMarketing } from '#/lib/cms/public-marketing'
 import { phosphorIcon } from '#/lib/icon'
 import { JED_REPO_URL } from '#/lib/marketing/repo'
 
-const homeFeatures: {
-  title: string
-  description: string
-  icon: Icon
-}[] = [
-  {
-    icon: ShieldCheck,
-    title: 'Auth with MFA',
-    description: 'Sign-in with an optional authenticator step.',
-  },
-  {
-    icon: Article,
-    title: 'Blog and pages',
-    description: 'Write and publish site content from one place.',
-  },
-  {
-    icon: MagnifyingGlass,
-    title: 'Search',
-    description: 'Find posts and pages on the site and in admin.',
-  },
-  {
-    icon: EnvelopeSimple,
-    title: 'Contact',
-    description: 'A contact form that lands in your inbox tools.',
-  },
-  {
-    icon: Database,
-    title: 'SQL templates',
-    description: 'Ready queries for common content tasks.',
-  },
-  {
-    icon: SquaresFour,
-    title: 'Admin panel',
-    description: 'A calm console for content, media, and settings.',
-  },
-  {
-    icon: Code,
-    title: 'Versioned REST',
-    description: 'OpenAPI at /api/v1 with personal access tokens.',
-  },
-  {
-    icon: PlugsConnected,
-    title: 'MCP server',
-    description: 'Point a client at /api/mcp with the same tokens.',
-  },
-  {
-    icon: Key,
-    title: 'Access tokens',
-    description: 'Create, scope, and revoke tokens from admin.',
-  },
-]
-
 const startSteps = [
   {
     num: '01',
-    title: 'Clone the starter',
-    body: 'Pull the repo and run the local app against your Supabase project.',
+    title: 'Clone the repository',
+    body: 'Clone JED into a new folder for the client and run npm ci.',
   },
   {
     num: '02',
-    title: 'Set your brand',
-    body: 'Swap --brand, logos, and site name in settings. Keep zinc neutrals.',
+    title: 'Connect Supabase',
+    body: 'Copy .env.example to .env.local, add your keys, and run npx supabase db push.',
   },
   {
     num: '03',
-    title: 'Publish content',
-    body: 'Write pages and posts in admin, then open the public site.',
+    title: 'Grant an admin and brand it',
+    body: 'Make your account an admin with one SQL insert, then set the name, colour, and logo in settings.',
   },
 ] as const
 
@@ -104,39 +47,42 @@ export function HomePage({ marketing }: { marketing: PublicMarketing }) {
                 params={{ slug: 'mcp' }}
                 className="marketing-pill"
               >
-                New: Admin v2 shell and MCP clients{' '}
-                <span className="text-foreground">→</span>
+                Now with a REST API and MCP server on scoped tokens
               </Link>
             </Reveal>
             <Reveal i={1}>
-              <h1 id="hero-heading">A solid base for the next client site.</h1>
+              <h1 id="hero-heading">
+                The client site starter for TanStack Start and Supabase.
+              </h1>
             </Reveal>
             <Reveal i={2}>
               <p className="marketing-hero-sub">
-                Auth, admin, and content, ready to brand. Clone it. Ship it.
-                Keep the structure.
+                JED gives you sign-in with two-step login, roles enforced in
+                Postgres, an admin your client can run, and an API with an MCP
+                server. Start each project from the same tested base and spend
+                your time on the parts that are actually new.
               </p>
             </Reveal>
             <Reveal i={3}>
               <div className="marketing-hero-actions">
                 <Link
-                  to="/signup"
-                  className="marketing-btn-lg marketing-btn-brand"
-                >
-                  Get started
-                </Link>
-                <Link
                   to="/docs/$slug"
                   params={{ slug: 'getting-started' }}
+                  className="marketing-btn-lg marketing-btn-brand"
+                >
+                  Read the setup guide
+                </Link>
+                <Link
+                  to="/features"
                   className="marketing-btn-lg marketing-btn-outline-lg"
                 >
-                  Read the docs
+                  See all features
                 </Link>
                 <a
                   href={JED_REPO_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label="View Jed on GitHub (opens in a new tab)"
+                  aria-label="View the JED source on GitHub (opens in a new tab)"
                   className="marketing-btn-lg marketing-btn-outline-lg gap-2"
                 >
                   <GithubLogo {...phosphorIcon} aria-hidden />
@@ -147,33 +93,48 @@ export function HomePage({ marketing }: { marketing: PublicMarketing }) {
           </div>
         </section>
 
+        <MarketingFeatureGrid
+          headingId="features-heading"
+          eyebrow="Features"
+          title="What you get on day one"
+          intro="Each of these works in the demo and is covered in the docs."
+        />
+
         <MarketingShowcase />
+
+        <MarketingDetailSections />
+
+        <MarketingBoxSection />
 
         <section
           className="marketing-section-block"
-          aria-labelledby="features-heading"
+          aria-labelledby="audience-heading"
         >
-          <div className="marketing-wrap">
+          <div className="marketing-wrap marketing-wrap-wide">
             <div className="marketing-section-head">
-              <p className="marketing-eyebrow">Features</p>
-              <h2 id="features-heading">Everything included</h2>
-              <p>Real product surface only. Brand it, then ship.</p>
+              <p className="marketing-eyebrow">Who it's for</p>
+              <h2 id="audience-heading">
+                Built for developers who ship sites for clients
+              </h2>
             </div>
-            <ul className="marketing-feat-list list-none p-0 m-0">
-              {homeFeatures.map((item, index) => (
-                <li key={item.title} className="marketing-feat-item">
-                  <Reveal i={index % 3}>
-                    <div className="marketing-feat-icon" aria-hidden>
-                      <item.icon {...phosphorIcon} size={18} />
-                    </div>
-                    <div className="marketing-feat-name">{item.title}</div>
-                    <p className="marketing-feat-desc">{item.description}</p>
-                  </Reveal>
-                </li>
-              ))}
-            </ul>
+            <div className="marketing-prose">
+              <p>
+                If you build a new marketing site, blog, or small product site
+                every few weeks, you rebuild the same sign-in, admin, and
+                content model each time. JED is that layer, already tested.
+                Clone it for each client, connect a fresh Supabase project, and
+                deploy to Vercel. Each client keeps their own code, database,
+                and deployment.
+              </p>
+              <p>
+                It's a good fit if you're comfortable with TypeScript, React,
+                and SQL migrations. It's not a hosted CMS or a no-code builder.
+              </p>
+            </div>
           </div>
         </section>
+
+        <MarketingStackSection />
 
         <section
           className="marketing-section-block"
@@ -182,8 +143,11 @@ export function HomePage({ marketing }: { marketing: PublicMarketing }) {
           <div className="marketing-wrap marketing-wrap-wide">
             <div className="marketing-section-head">
               <p className="marketing-eyebrow">Getting started</p>
-              <h2 id="start-heading">Three steps to a branded site</h2>
-              <p>Clone the starter, set your brand tokens, and publish.</p>
+              <h2 id="start-heading">From clone to first admin</h2>
+              <p>
+                Most setups take a few minutes once your Supabase project
+                exists.
+              </p>
             </div>
             <div className="marketing-steps items-stretch">
               {startSteps.map((step, index) => (
@@ -197,6 +161,38 @@ export function HomePage({ marketing }: { marketing: PublicMarketing }) {
               ))}
             </div>
             <StartTerminal />
+          </div>
+        </section>
+
+        <MarketingFaqSection />
+
+        <section
+          className="marketing-section-block"
+          aria-labelledby="cta-heading"
+        >
+          <div className="marketing-wrap marketing-cta">
+            <div className="marketing-section-head">
+              <h2 id="cta-heading">Start the next client site from JED</h2>
+              <p>
+                The setup guide takes you from an empty repository to a running
+                site with an admin account.
+              </p>
+            </div>
+            <div className="marketing-hero-actions">
+              <Link
+                to="/docs/$slug"
+                params={{ slug: 'getting-started' }}
+                className="marketing-btn-lg marketing-btn-brand"
+              >
+                Read the setup guide
+              </Link>
+              <Link
+                to="/docs"
+                className="marketing-btn-lg marketing-btn-outline-lg"
+              >
+                Browse the docs
+              </Link>
+            </div>
           </div>
         </section>
       </main>

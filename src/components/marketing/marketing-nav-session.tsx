@@ -147,7 +147,11 @@ export function MarketingNavSession({ className }: { className?: string }) {
       >
         Sign in
       </Link>
-      <Link to="/signup" className="marketing-btn-brand marketing-guest-action">
+      <Link
+        to="/docs/$slug"
+        params={{ slug: 'getting-started' }}
+        className="marketing-btn-brand marketing-guest-action"
+      >
         Get started
       </Link>
     </div>

@@ -5,7 +5,7 @@ import { getPublicMarketingFn } from '#/lib/cms/public-marketing-fns'
 import { publicHead, PUBLIC_CACHE_HEADERS, siteUrlFromMatches } from '#/lib/seo'
 
 const FEATURES_DESCRIPTION =
-  'What comes with JED: auth, content, admin, and a versioned API with MCP for client sites on TanStack Start and Supabase.'
+  'Every feature in JED, the TanStack Start and Supabase starter for client sites: auth and two-step login, RLS roles, admin and editor, blog, contact inbox, REST API, MCP server, and CI.'
 
 export const Route = createFileRoute('/features/')({
   staleTime: Number.POSITIVE_INFINITY,

@@ -101,7 +101,7 @@ export function MarketingSiteShell({
               onClick={openSearch}
             >
               <MagnifyingGlass {...phosphorIcon} size={14} />
-              <span>Search docs...</span>
+              <span>Search docs</span>
               <kbd>⌘K</kbd>
             </button>
             <MarketingThemeToggle />
@@ -145,7 +145,9 @@ export function MarketingSiteShell({
                   <Link to="/login">Sign in</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
-                  <Link to="/signup">Get started</Link>
+                  <Link to="/docs/$slug" params={{ slug: 'getting-started' }}>
+                    Get started
+                  </Link>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
@@ -161,8 +163,8 @@ export function MarketingSiteShell({
           <div>
             <div className="marketing-footer-brand">{siteName}</div>
             <p className="marketing-footer-blurb">
-              A reusable base for branded client sites: auth, admin, content,
-              and a versioned API with MCP.
+              A TanStack Start and Supabase starter for client sites, with auth,
+              an admin panel, a blog, and an API with MCP.
             </p>
           </div>
           <div className="marketing-footer-col">

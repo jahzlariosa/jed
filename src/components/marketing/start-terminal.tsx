@@ -88,7 +88,7 @@ export function StartTerminal() {
         >
           setup guide
         </Link>{' '}
-        in the docs
+        to apply the schema and create your first admin.
       </p>
     </div>
   )

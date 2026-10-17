@@ -45,14 +45,14 @@ export function MarketingShowcase() {
           </div>
         </div>
         <div className="marketing-sc-card">
-          <h3>Writing desk</h3>
+          <h3>Block editor</h3>
           <div className="marketing-mini">
             <div className="marketing-mini-bar">
               <span className="size-1.5 rounded-full bg-muted-foreground/40" />
               <span className="size-1.5 rounded-full bg-muted-foreground/40" />
               <span className="text-[11px] text-muted-foreground">About</span>
               <span className="ml-auto text-[10px] text-muted-foreground">
-                Saved 8s ago
+                Draft saved
               </span>
             </div>
             <div className="marketing-mini-body">
@@ -60,7 +60,7 @@ export function MarketingShowcase() {
                 About
               </p>
               <p className="text-muted-foreground leading-snug">
-                We help teams ship branded sites from one reusable starter.
+                We design and build gardens for homes across the valley.
               </p>
               <p className="mt-2.5 text-muted-foreground/60">
                 Type / for blocks
@@ -76,7 +76,7 @@ export function MarketingShowcase() {
                 <span className="block text-[10.5px] text-muted-foreground mb-0.5">
                   Name
                 </span>
-                <div className="marketing-mini-box">Studio deploy</div>
+                <div className="marketing-mini-box">Static build</div>
               </div>
               <div className="marketing-mini-field">
                 <span className="block text-[10.5px] text-muted-foreground mb-0.5">
@@ -101,17 +101,17 @@ export function MarketingShowcase() {
           </div>
         </div>
         <div className="marketing-sc-card">
-          <h3>Auth card</h3>
+          <h3>Sign-in</h3>
           <div className="marketing-mini-auth">
             <h4>Sign in</h4>
-            <p>Email and password to open the workspace.</p>
+            <p>Use your email and password, then your authenticator code.</p>
             <div className="marketing-mini-box mb-1.5 h-7">you@example.com</div>
             <div className="marketing-mini-box mb-1.5 h-7">********</div>
             <div className="marketing-mini-auth-btn">Sign in</div>
           </div>
         </div>
         <div className="marketing-sc-card">
-          <h3>Settings tabs</h3>
+          <h3>Settings</h3>
           <div className="marketing-mini">
             <div className="marketing-mini-tabs" aria-hidden>
               <span className="on">General</span>
@@ -124,7 +124,7 @@ export function MarketingShowcase() {
                 <span className="block text-[10.5px] text-muted-foreground mb-0.5">
                   Site name
                 </span>
-                <div className="marketing-mini-box">JED</div>
+                <div className="marketing-mini-box">Valley Gardens</div>
               </div>
               <div className="marketing-mini-field">
                 <span className="block text-[10.5px] text-muted-foreground mb-0.5">

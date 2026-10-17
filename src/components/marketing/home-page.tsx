@@ -26,7 +26,7 @@ const startSteps = [
   {
     num: '02',
     title: 'Connect Supabase',
-    body: 'Copy .env.example to .env.local, add your keys, and run npx supabase db push.',
+    body: 'Run npm run setup, then link your Supabase project and push the migrations.',
   },
   {
     num: '03',

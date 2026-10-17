@@ -41,6 +41,7 @@ export const RESERVED_CMS_PAGE_SLUGS = new Set([
   'update-password',
   'admin-panel',
   'roles',
+  'setup',
 ])
 
 export function isReservedCmsPageSlug(slug: string): boolean {

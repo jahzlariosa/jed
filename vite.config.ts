@@ -1,4 +1,6 @@
 import { defineConfig } from 'vite'
+
+import { appEnvPlugin } from './src/lib/env/vite-plugin.ts'
 import { devtools } from '@tanstack/devtools-vite'
 import { nitro } from 'nitro/vite'
 
@@ -24,6 +26,7 @@ const config = defineConfig({
     },
   },
   plugins: [
+    appEnvPlugin(),
     devtools(),
     tailwindcss(),
     tanstackStart(),

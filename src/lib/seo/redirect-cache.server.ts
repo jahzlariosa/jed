@@ -34,7 +34,18 @@ async function loadRedirectState(): Promise<RedirectCacheState> {
   if (cache && now - cache.loadedAt < TTL_MS) {
     return cache
   }
-  const supabase = createServiceRoleClient()
+  let supabase: ReturnType<typeof createServiceRoleClient>
+  try {
+    supabase = createServiceRoleClient()
+  } catch (error) {
+    console.error(error)
+    cache = {
+      redirects: new Map(),
+      externalHosts: [],
+      loadedAt: now,
+    }
+    return cache
+  }
   const [{ data: redirects, error }, { data: settings, error: settingsError }] =
     await Promise.all([
       supabase

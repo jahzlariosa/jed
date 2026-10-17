@@ -22,6 +22,7 @@ describe('isPublicCacheableHtmlPath', () => {
     '/update-password',
     '/mfa-setup',
     '/mfa-challenge',
+    '/setup',
   ]
 
   for (const path of privatePaths) {

@@ -21,6 +21,7 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
 import { Route as SearchRouteImport } from './routes/search'
+import { Route as SetupRouteImport } from './routes/setup'
 import { Route as SignupRouteImport } from './routes/signup'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as UpdatePasswordRouteImport } from './routes/update-password'
@@ -117,6 +118,11 @@ const RobotsDottxtRoute = RobotsDottxtRouteImport.update({
 const SearchRoute = SearchRouteImport.update({
   id: '/search',
   path: '/search',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SetupRoute = SetupRouteImport.update({
+  id: '/setup',
+  path: '/setup',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SignupRoute = SignupRouteImport.update({
@@ -331,6 +337,7 @@ export interface FileRoutesByFullPath {
   '/reset-password': typeof ResetPasswordRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/search': typeof SearchRoute
+  '/setup': typeof SetupRoute
   '/signup': typeof SignupRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/update-password': typeof UpdatePasswordRoute
@@ -381,6 +388,7 @@ export interface FileRoutesByTo {
   '/reset-password': typeof ResetPasswordRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/search': typeof SearchRoute
+  '/setup': typeof SetupRoute
   '/signup': typeof SignupRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/update-password': typeof UpdatePasswordRoute
@@ -433,6 +441,7 @@ export interface FileRoutesById {
   '/reset-password': typeof ResetPasswordRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/search': typeof SearchRoute
+  '/setup': typeof SetupRoute
   '/signup': typeof SignupRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/update-password': typeof UpdatePasswordRoute
@@ -486,6 +495,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/robots.txt'
     | '/search'
+    | '/setup'
     | '/signup'
     | '/sitemap.xml'
     | '/update-password'
@@ -536,6 +546,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/robots.txt'
     | '/search'
+    | '/setup'
     | '/signup'
     | '/sitemap.xml'
     | '/update-password'
@@ -587,6 +598,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/robots.txt'
     | '/search'
+    | '/setup'
     | '/signup'
     | '/sitemap.xml'
     | '/update-password'
@@ -640,6 +652,7 @@ export interface RootRouteChildren {
   ResetPasswordRoute: typeof ResetPasswordRoute
   RobotsDottxtRoute: typeof RobotsDottxtRoute
   SearchRoute: typeof SearchRoute
+  SetupRoute: typeof SetupRoute
   SignupRoute: typeof SignupRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   UpdatePasswordRoute: typeof UpdatePasswordRoute
@@ -739,6 +752,13 @@ declare module '@tanstack/react-router' {
       path: '/search'
       fullPath: '/search'
       preLoaderRoute: typeof SearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/setup': {
+      id: '/setup'
+      path: '/setup'
+      fullPath: '/setup'
+      preLoaderRoute: typeof SetupRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/signup': {
@@ -1120,6 +1140,7 @@ const rootRouteChildren: RootRouteChildren = {
   ResetPasswordRoute: ResetPasswordRoute,
   RobotsDottxtRoute: RobotsDottxtRoute,
   SearchRoute: SearchRoute,
+  SetupRoute: SetupRoute,
   SignupRoute: SignupRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   UpdatePasswordRoute: UpdatePasswordRoute,

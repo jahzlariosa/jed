@@ -9,6 +9,9 @@
     "node": ">=22.12.0"
   },
   "scripts": {
+    "postinstall": "node --experimental-strip-types scripts/postinstall-env-notice.mjs",
+    "setup": "node --experimental-strip-types scripts/setup.mjs",
+    "doctor": "node --experimental-strip-types scripts/doctor.mjs",
     "dev": "vite dev --port 3000",
     "generate-routes": "tsr generate",
     "build": "vite build",

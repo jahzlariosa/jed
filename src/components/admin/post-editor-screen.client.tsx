@@ -287,8 +287,10 @@ export function PostEditorScreen({
       if ('slug' in result && typeof result.slug === 'string') {
         setSlug(result.slug)
       }
-      setStatus(nextStatus)
-      setSavedBaseline({ status: nextStatus, slug: savedSlug })
+      const resolvedStatus =
+        publishIntent === 'save_draft' ? 'draft' : nextStatus
+      setStatus(resolvedStatus)
+      setSavedBaseline({ status: resolvedStatus, slug: savedSlug })
       setLastSavedAt(Date.now())
       if (!options?.quiet) {
         if (publishIntent === 'publish') {
@@ -323,8 +325,8 @@ export function PostEditorScreen({
       savedBaseline,
       slug,
       status,
-      onSaveThenOpen: async (saveStatus) => {
-        const ok = await persist('update', saveStatus as PostStatus, {
+      onSaveThenOpen: async () => {
+        const ok = await persist('update', savedBaseline.status as PostStatus, {
           quiet: true,
         })
         if (!ok) {
@@ -581,7 +583,17 @@ export function PostEditorScreen({
           <AdminStickySaveBar
             dirty={isDirty}
             saving={pending}
-            onSave={() => void persist('update')}
+            onSave={() => void persist('update', status)}
+            secondarySaveLabel={
+              isNew || savedBaseline.status === 'draft'
+                ? 'Save draft'
+                : undefined
+            }
+            onSecondarySave={
+              isNew || savedBaseline.status === 'draft'
+                ? () => void persist('save_draft')
+                : undefined
+            }
           />
         }
       />

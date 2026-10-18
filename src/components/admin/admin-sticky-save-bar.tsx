@@ -6,12 +6,16 @@ export function AdminStickySaveBar({
   onDiscard,
   onSave,
   saveLabel = 'Save changes',
+  secondarySaveLabel,
+  onSecondarySave,
 }: {
   dirty: boolean
   saving: boolean
   onDiscard?: () => void
   onSave: () => void
   saveLabel?: string
+  secondarySaveLabel?: string
+  onSecondarySave?: () => void
 }) {
   return (
     <div className="admin-save-bar" role="status" aria-live="polite">
@@ -41,6 +45,18 @@ export function AdminStickySaveBar({
             onClick={onDiscard}
           >
             Discard
+          </Button>
+        ) : null}
+        {secondarySaveLabel && onSecondarySave ? (
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            loading={saving}
+            disabled={saving || !dirty}
+            onClick={onSecondarySave}
+          >
+            {secondarySaveLabel}
           </Button>
         ) : null}
         <Button

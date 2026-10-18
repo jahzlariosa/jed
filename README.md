@@ -128,8 +128,8 @@ Copy from [`.env.example`](./.env.example). Never commit real secrets.
 | `VITE_SUPABASE_PUBLISHABLE_KEY` | Yes | Anon / publishable key for the browser | Dashboard → **API → Project API keys → anon** (or publishable). Local: `supabase status` |
 | `VITE_AUTH_GOOGLE_ENABLED` | Yes | Set `true` to show Google on login/signup | You must also enable Google in Supabase **Authentication → Providers** |
 | `APP_URL` | No (server only) | Canonical site origin for auth email links (no trailing slash) | Your production URL, e.g. `https://www.example.com`. Local default: `http://localhost:3000` |
-| `SUPABASE_SERVICE_ROLE_KEY` | No | Admin user CRUD (create/delete users, password/email changes) | Dashboard → **API → service_role** (secret). Never prefix with `VITE_` |
-| `SUPABASE_JWT_SECRET` | No | API/MCP personal access tokens (short-lived user JWT) | Dashboard → **API → JWT Keys** (JWT secret). Local: `npx supabase status`. Required for **Admin → API and MCP** |
+| `SUPABASE_SERVICE_ROLE_KEY` | Yes | Required. Admin user CRUD (create/delete users, password/email changes) and production builds | Dashboard → **API → service_role** (secret). Never prefix with `VITE_` |
+| `SUPABASE_JWT_SECRET` | Yes | Required. API/MCP personal access tokens (short-lived user JWT) | Dashboard → **API → JWT Keys** (JWT secret). Local: `npx supabase status` |
 | `MEDIA_UPLOAD_TICKET_SECRET` | No | HMAC secret for signed admin media upload tickets (32+ characters) | Generate with `npm run secrets:generate`. Required for **Admin → Media** uploads from the CMS editor |
 | `CONTACT_IP_HASH_SECRET` | Production | HMAC secret for hashing visitor IPs for the contact form rate limit. The contact form refuses to save messages in production without it | Generate with `npm run secrets:generate` |
 | `RESEND_API_KEY` | No | Optional. Emails each contact form message to the contact email in **Admin → Settings**. Messages are always saved to **Admin → Inbox** either way | [resend.com](https://resend.com) → **API Keys** |
@@ -204,8 +204,8 @@ Each new migration file must have an entry in `src/lib/cms/migration-explanation
    | `VITE_SUPABASE_URL` | Production, Preview |
    | `VITE_SUPABASE_PUBLISHABLE_KEY` | Production, Preview |
    | `APP_URL` | Production (your live domain) |
-   | `SUPABASE_SERVICE_ROLE_KEY` | Production (and Preview only if you use admin user tools on previews) |
-   | `SUPABASE_JWT_SECRET` | Production (and Preview if you use API/MCP tokens on previews) |
+   | `SUPABASE_SERVICE_ROLE_KEY` | Production, Preview |
+   | `SUPABASE_JWT_SECRET` | Production, Preview |
    | `MEDIA_UPLOAD_TICKET_SECRET` | Production (and Preview if editors upload media on previews) |
    | `CONTACT_IP_HASH_SECRET` | Production, Preview |
 

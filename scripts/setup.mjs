@@ -55,8 +55,17 @@ function readText() {
   return existsSync(envPath) ? readFileSync(envPath, 'utf8') : ''
 }
 
+function chmodEnvFile() {
+  try {
+    chmodSync(envPath, 0o600)
+  } catch {
+    // Windows may reject chmod on existing files.
+  }
+}
+
 function writeText(text) {
   writeFileSync(envPath, text, { mode: 0o600 })
+  chmodEnvFile()
 }
 
 function ensureExampleCopy() {

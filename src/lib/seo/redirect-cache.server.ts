@@ -16,6 +16,7 @@ type RedirectCacheState = {
 
 /** In-memory per instance; cleared on redirect save (may lag up to TTL_MS across instances). */
 let cache: RedirectCacheState | null = null
+let loggedServiceRoleUnavailable = false
 const TTL_MS = 10_000
 
 export function clearRedirectCache(): void {
@@ -38,7 +39,18 @@ async function loadRedirectState(): Promise<RedirectCacheState> {
   try {
     supabase = createServiceRoleClient()
   } catch (error) {
-    console.error(error)
+    if (!loggedServiceRoleUnavailable) {
+      loggedServiceRoleUnavailable = true
+      const reason =
+        error instanceof Error ? error.message : 'service_role_unavailable'
+      console.error(
+        JSON.stringify({
+          level: 'warn',
+          event: 'redirect_cache_service_role_unavailable',
+          reason,
+        }),
+      )
+    }
     cache = {
       redirects: new Map(),
       externalHosts: [],

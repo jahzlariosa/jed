@@ -219,10 +219,20 @@ export const saveAdminPostFn = createServerFn({ method: 'POST' })
       input.bodyBlocks as import('#/lib/cms/blocknote-types').BlockNoteDocument,
       input.bodyHtml,
     )
+    let existingPublishedAt: string | null = null
+    if (input.id) {
+      const { data: existing } = await supabase
+        .from('posts')
+        .select('published_at')
+        .eq('id', input.id)
+        .maybeSingle()
+      existingPublishedAt = existing?.published_at ?? null
+    }
     const { status, publishedAt } = resolvePostStatusOnSave({
       publishIntent: input.publishIntent,
       status: input.status,
       publishedAt: input.publishedAt,
+      existingPublishedAt,
       now: new Date(),
     })
     const payload = {
@@ -246,7 +256,6 @@ export const saveAdminPostFn = createServerFn({ method: 'POST' })
       cover_image_alt: input.coverImageAlt ?? null,
       noindex: input.noindex === true,
       sitemap_exclude: input.sitemapExclude === true,
-      author_id: user.id,
       updated_at: new Date().toISOString(),
     }
 
@@ -298,7 +307,11 @@ export const saveAdminPostFn = createServerFn({ method: 'POST' })
     }
 
     const newId = newAdminPostId()
-    const inserted = await insertAdminPost(supabase, payload, newId)
+    const inserted = await insertAdminPost(
+      supabase,
+      { ...payload, author_id: user.id },
+      newId,
+    )
     if ('error' in inserted) {
       return { error: clientPostSaveError('insert', inserted.error) }
     }

@@ -68,10 +68,20 @@ export async function saveAdminPostDomain(
     input.bodyBlocks,
     input.bodyHtml,
   )
+  let existingPublishedAt: string | null = null
+  if (input.id) {
+    const { data: existing } = await supabase
+      .from('posts')
+      .select('published_at')
+      .eq('id', input.id)
+      .maybeSingle()
+    existingPublishedAt = existing?.published_at ?? null
+  }
   const { status, publishedAt } = resolvePostStatusOnSave({
     publishIntent: input.publishIntent,
     status: input.status,
     publishedAt: input.publishedAt,
+    existingPublishedAt,
     now: new Date(),
   })
   const payload = {
@@ -90,7 +100,6 @@ export async function saveAdminPostDomain(
     featured_media_id: input.featuredMediaId ?? null,
     meta_title: input.metaTitle ?? null,
     meta_description: input.metaDescription ?? null,
-    author_id: user.id,
     updated_at: new Date().toISOString(),
   }
 
@@ -118,7 +127,11 @@ export async function saveAdminPostDomain(
   }
 
   const newId = newAdminPostId()
-  const inserted = await insertAdminPost(supabase, payload, newId)
+  const inserted = await insertAdminPost(
+    supabase,
+    { ...payload, author_id: user.id },
+    newId,
+  )
   if ('error' in inserted) {
     const message = clientPostSaveError('insert', inserted.error)
     throw new Error(message)

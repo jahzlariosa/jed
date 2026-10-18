@@ -10,6 +10,9 @@ let cache: { at: number; status: SetupStatus } | null = null
 
 export const getSetupStatusFn = createServerFn({ method: 'GET' }).handler(
   async (): Promise<SetupStatus> => {
+    if (!import.meta.env.DEV) {
+      return { ok: true, items: [] }
+    }
     markPrivateNoStore()
     if (process.env.NODE_ENV === 'production') {
       return { ok: true, items: [] }

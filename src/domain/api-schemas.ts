@@ -59,7 +59,7 @@ export const auditListQuerySchema = z.object({
 
 export const mcpConfirmSchema = z.object({
   confirm: z.literal(true, {
-    errorMap: () => ({ message: 'Set confirm to true to run this tool' }),
+    message: 'Set confirm to true to run this tool',
   }),
 })
 

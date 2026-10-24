@@ -11,11 +11,17 @@ const mfaSessionState = vi.fn()
 const requireUserMock = vi.fn()
 const getAccessMock = vi.fn()
 
-vi.mock('@tanstack/react-start/server', () => ({
-  setResponseStatus: vi.fn(),
-  setResponseHeader: vi.fn(),
-  getRequest: () => testRequest,
-}))
+vi.mock('@tanstack/react-start/server', async (importOriginal) => {
+  const actual =
+    await importOriginal<typeof import('@tanstack/react-start/server')>()
+  return {
+    ...actual,
+    setResponseStatus: vi.fn(),
+    setResponseHeader: vi.fn(),
+    getRequest: () => testRequest,
+    getCookies: vi.fn(() => ({})),
+  }
+})
 
 vi.mock('#/auth/mfa-request.server', () => ({
   getRequestMfaSiteSettings: () => mfaSiteSettings(),

@@ -2,6 +2,7 @@ import { createFileRoute, Link } from '@tanstack/react-router'
 
 import { MarketingSiteShell } from '#/components/marketing/marketing-site-shell'
 import { Reveal } from '#/components/marketing/reveal'
+import { blogIndexLinkSearch } from '#/lib/cms/blog'
 import { getPublicMarketingFn } from '#/lib/cms/public-marketing-fns'
 import {
   parseHighlightMarks,
@@ -104,7 +105,11 @@ function SearchPage() {
                 <p className="font-medium">No results for “{q}”</p>
                 <p className="mt-2 text-sm marketing-muted">
                   Try different words or browse the{' '}
-                  <Link to="/blog" className="text-foreground underline">
+                  <Link
+                    to="/blog"
+                    search={blogIndexLinkSearch}
+                    className="text-foreground underline"
+                  >
                     blog
                   </Link>
                   .

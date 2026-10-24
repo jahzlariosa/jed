@@ -84,7 +84,7 @@ export const blogListSearchSchema = z.object({
   q: z.string().max(120).optional(),
   category: postKindSchema.optional(),
   tag: z.string().max(48).optional(),
-  draftPreview: draftPreviewSearchSchema,
+  draftPreview: draftPreviewSearchSchema.optional(),
 })
 
 export type BlogListSearch = z.infer<typeof blogListSearchSchema>
@@ -92,6 +92,11 @@ export type BlogListSearch = z.infer<typeof blogListSearchSchema>
 const blogRouteSearchSchema = blogListSearchSchema.omit({ page: true }).extend({
   page: z.coerce.number().int().min(1).max(500).optional(),
 })
+
+/** Default blog index search params for typed `<Link to="/blog">` usage. */
+export const blogIndexLinkSearch = {
+  draftPreview: undefined,
+} satisfies z.input<typeof blogRouteSearchSchema>
 
 /** Route search: page stays off the URL until the visitor chooses one. */
 export function parseBlogRouteSearch(search: Record<string, unknown>) {

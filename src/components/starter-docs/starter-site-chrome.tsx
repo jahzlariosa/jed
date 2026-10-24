@@ -5,6 +5,7 @@ import { AuthBrandMark } from '#/components/auth/auth-brand-mark'
 import { SkipLink } from '#/components/a11y/skip-link'
 import { MAIN_CONTENT_ID } from '#/components/a11y/skip-link'
 import { useMarketingRevealInit } from '#/components/marketing/reveal'
+import { blogIndexLinkSearch } from '#/lib/cms/blog'
 import {
   normalizePublicMarketing,
   type PublicMarketing,
@@ -55,7 +56,9 @@ export function StarterFeaturesShell({
               Features
             </Link>
             <Link to="/docs">Docs</Link>
-            <Link to="/blog">Blog</Link>
+            <Link to="/blog" search={blogIndexLinkSearch}>
+              Blog
+            </Link>
             <Link to="/contact">Contact</Link>
           </nav>
           <div className="starter-nav-actions">
@@ -87,7 +90,9 @@ export function StarterFeaturesShell({
           <nav className="starter-footer-links" aria-label="Footer">
             <Link to="/features">Features</Link>
             <Link to="/docs">Docs</Link>
-            <Link to="/blog">Blog</Link>
+            <Link to="/blog" search={blogIndexLinkSearch}>
+              Blog
+            </Link>
             <Link to="/contact">Contact</Link>
             <Link to="/login">Sign in</Link>
           </nav>

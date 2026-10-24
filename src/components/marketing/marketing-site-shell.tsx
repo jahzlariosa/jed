@@ -11,6 +11,7 @@ import {
   useDocsSearchShortcut,
 } from '#/components/starter-docs/docs-search-dialog'
 import { SkipLink } from '#/components/a11y/skip-link'
+import { blogIndexLinkSearch } from '#/lib/cms/blog'
 import { applyMarketingBrandCss } from '#/lib/cms/brand'
 import {
   normalizePublicMarketing,
@@ -135,7 +136,9 @@ export function MarketingSiteShell({
                   <Link to="/features">Features</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
-                  <Link to="/blog">Blog</Link>
+                  <Link to="/blog" search={blogIndexLinkSearch}>
+                    Blog
+                  </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                   <Link to="/contact">Contact</Link>
@@ -177,7 +180,9 @@ export function MarketingSiteShell({
                 <Link to="/docs">Docs</Link>
               </li>
               <li>
-                <Link to="/blog">Blog</Link>
+                <Link to="/blog" search={blogIndexLinkSearch}>
+                  Blog
+                </Link>
               </li>
             </ul>
           </div>
@@ -234,7 +239,11 @@ function NavLink({
   children: ReactNode
 }) {
   return (
-    <Link to={to} aria-current={active ? 'page' : undefined}>
+    <Link
+      to={to}
+      {...(to === '/blog' ? { search: blogIndexLinkSearch } : {})}
+      aria-current={active ? 'page' : undefined}
+    >
       {children}
     </Link>
   )

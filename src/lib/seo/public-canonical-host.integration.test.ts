@@ -32,7 +32,8 @@ describe('public canonical host alignment', { timeout: 120_000 }, () => {
   it.skipIf(!builtHandlerExists)(
     'matches APP_URL on HTML canonical and sitemap loc',
     async () => {
-      const configuredOrigin = 'https://jed-starter.vercel.app'
+      const configuredOrigin =
+        process.env.APP_URL?.trim() || 'https://jed-starter.vercel.app'
       process.env.NODE_ENV = 'production'
       process.env.APP_URL = configuredOrigin
       process.env.VITE_SUPABASE_URL =

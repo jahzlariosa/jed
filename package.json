@@ -55,7 +55,7 @@
     "shiki": "^4.5.0",
     "sonner": "^2.0.8",
     "tailwindcss": "^4.1.18",
-    "zod": "^3.24.2"
+    "zod": "4.6.7"
   },
   "devDependencies": {
     "@biomejs/biome": "2.5.15",
@@ -76,6 +76,10 @@
     "vitest": "^5.0.3"
   },
   "overrides": {
+    "zod": "4.6.7",
+    "@vercel/cli-config": {
+      "zod": "4.6.7"
+    },
     "@tanstack/start-server-core": "^1.169.39",
     "solid-js": {
       "seroval": "^1.6.8",

@@ -12,6 +12,7 @@ describe('resolvePublicSiteName', () => {
     expect(resolvePublicSiteName(null)).toBe(DEFAULT_PUBLIC_SITE_NAME)
     expect(resolvePublicSiteName('')).toBe(DEFAULT_PUBLIC_SITE_NAME)
     expect(resolvePublicSiteName('Site name')).toBe(DEFAULT_PUBLIC_SITE_NAME)
+    expect(resolvePublicSiteName('Jed')).toBe(DEFAULT_PUBLIC_SITE_NAME)
     expect(resolvePublicSiteName('Acme Studio')).toBe('Acme Studio')
   })
 })

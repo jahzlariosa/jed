@@ -70,7 +70,8 @@ Use this as orientation. If it disagrees with code, fix the code *and* this sect
 | `/update-password` | session | Signed-in password change. Same no-store / no-cache router settings as other auth pages |
 | `/blog`, `/blog/$slug` | public | `/blog` is a layout route (`<Outlet />`); index at `blog.index.tsx`, posts at `blog.$slug.tsx`. Featured latest post + paginated grid (`category` / `tag` filters). SSR via `MarketingSiteShell`. `draftPreview` for admins. `/blog/rss.xml` RSS. Public cache |
 | `/$slug` | public | Published CMS pages (`content_entries` kind `page`). Reserved slugs in `#/lib/cms/pages` |
-| `/sitemap.xml` | public | Paginated published pages and posts, docs toggles, `lastmod`, exclusions; public XML cache headers |
+| `/sitemap.xml` | public | Paginated published pages and posts, docs toggles, `lastmod` from content or settings (not request time), exclusions; `PUBLIC_XML_CACHE_HEADERS` (`s-maxage`) |
+| `/llms.txt` | public | Plain-text site summary for LLM crawlers; `PUBLIC_XML_CACHE_HEADERS` |
 | `/robots.txt` | public | Dynamic `Sitemap:` line, indexing toggle, preview `Disallow: /` (replaces static `public/robots.txt`) |
 | `/account` | signed in | Pixel marketing shell: profile (avatar upload to `avatars` bucket, display name), password, two-factor (respects `mfa_enabled`), admin link, sign out. `_authenticated` `beforeLoad` runs `getMfaGateRedirectFn`. `PRIVATE_ROUTE_CACHE`, `PRIVATE_ROUTE_HEADERS` |
 | `/admin/login` | public | Admin sign-in card; `AUTH_PAGE_CACHE` + `noindex` |

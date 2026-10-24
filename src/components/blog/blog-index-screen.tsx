@@ -112,7 +112,7 @@ function PostRow({
         {thumb ? (
           <img
             src={thumb}
-            alt=""
+            alt={post.title}
             width={160}
             height={90}
             loading="lazy"

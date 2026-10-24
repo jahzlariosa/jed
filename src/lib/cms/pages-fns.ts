@@ -12,6 +12,7 @@ import {
   isCmsPagePubliclyVisible,
   isReservedCmsPageSlug,
 } from '#/lib/cms/pages'
+import { isStarterDemoPageSlug } from '#/lib/cms/starter-demo-content'
 import { staffCanPreviewDrafts } from '#/lib/cms/preview-access.server'
 import { sanitizeCanonicalUrl } from '#/lib/url-security'
 
@@ -44,7 +45,7 @@ function mapPage(row: ContentRow, bodyHtml: string): CmsPageDto {
     metaTitle: row.meta_title,
     metaDescription: row.meta_description,
     canonicalUrl: sanitizeCanonicalUrl(row.canonical_url),
-    noindex: row.noindex,
+    noindex: row.noindex || isStarterDemoPageSlug(row.slug),
     showInNav: row.show_in_nav,
   }
 }

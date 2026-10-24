@@ -6,7 +6,11 @@ import {
 } from '#/lib/cms/brand-defaults'
 import { getPublicMarketingFn } from '#/lib/cms/public-marketing-fns'
 import { optimizedCoverImageUrl } from '#/lib/media/cover-image'
-import { buildBlogPostingJsonLd, buildHomeJsonLd } from '#/lib/seo/json-ld'
+import {
+  buildBlogPostingJsonLd,
+  buildDocsTechArticleJsonLd,
+  buildHomeJsonLd,
+} from '#/lib/seo/json-ld'
 import { loadPublicSeoSettings } from '#/lib/seo/public-settings.server'
 import { getSiteUrl } from '#/lib/site.server'
 
@@ -26,6 +30,37 @@ export const getHomeRouteLoaderFn = createServerFn({ method: 'GET' }).handler(
     return { marketing, seo, siteUrl, jsonLd }
   },
 )
+
+export const buildDocsJsonLdFn = createServerFn({ method: 'GET' })
+  .validator((input: unknown) => {
+    if (typeof input !== 'object' || input === null) {
+      throw new Error('Unable to build structured data')
+    }
+    const raw = input as Record<string, unknown>
+    return {
+      title: String(raw.title ?? ''),
+      description: String(raw.description ?? ''),
+      path: String(raw.path ?? '/docs'),
+    }
+  })
+  .handler(async ({ data }) => {
+    const [seo, siteUrl] = await Promise.all([
+      loadPublicSeoSettings(),
+      getSiteUrl(),
+    ])
+    if (!siteUrl) {
+      return { jsonLd: null }
+    }
+    return {
+      jsonLd: JSON.stringify(
+        buildDocsTechArticleJsonLd({
+          siteUrl,
+          siteName: seo.siteName,
+          doc: data,
+        }),
+      ),
+    }
+  })
 
 export const buildBlogPostJsonLdFn = createServerFn({ method: 'GET' })
   .validator((input: unknown) => {

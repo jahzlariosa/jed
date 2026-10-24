@@ -5,11 +5,8 @@ import { MarketingSiteShell } from '#/components/marketing/marketing-site-shell'
 import { parseBlogRouteSearch } from '#/lib/cms/blog'
 import { getBlogCategoryCountsFn, listBlogPostsFn } from '#/lib/cms/blog-fns'
 import { getPublicMarketingFn } from '#/lib/cms/public-marketing-fns'
-import {
-  BLOG_PUBLIC_CACHE_HEADERS,
-  publicHead,
-  siteUrlFromMatches,
-} from '#/lib/seo'
+import { BLOG_PUBLIC_CACHE_HEADERS } from '#/lib/seo'
+import { marketingRouteHead } from '#/lib/seo/marketing-head'
 
 export const Route = createFileRoute('/blog/')({
   staleTime: Number.POSITIVE_INFINITY,
@@ -41,13 +38,7 @@ export const Route = createFileRoute('/blog/')({
     return { marketing, list, categories }
   },
   head: ({ matches }) =>
-    publicHead({
-      pageLabel: 'Blog',
-      description: 'Articles and updates from the team.',
-      path: '/blog',
-      siteUrl: siteUrlFromMatches(matches),
-      matches,
-    }),
+    marketingRouteHead('/blog', matches, { rssPath: '/blog/rss.xml' }),
   component: BlogIndexPage,
 })
 

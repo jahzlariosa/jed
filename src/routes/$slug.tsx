@@ -5,6 +5,8 @@ import { SafeRichHtml } from '#/components/blog/safe-rich-html'
 import { cmsPageSearchSchema } from '#/lib/cms/pages'
 import { getCmsPageBySlugFn } from '#/lib/cms/pages-fns'
 import { notFoundHead, publicHead, siteUrlFromMatches } from '#/lib/seo'
+import { DEFAULT_OG_IMAGE_ALT } from '#/lib/seo/og-image'
+import { rootSeoFromMatches } from '#/lib/seo/matches-helpers'
 
 export const Route = createFileRoute('/$slug')({
   staleTime: Number.POSITIVE_INFINITY,
@@ -27,6 +29,7 @@ export const Route = createFileRoute('/$slug')({
       return notFoundHead(matches)
     }
     const page = loaderData.page
+    const rootSeo = rootSeoFromMatches(matches)
     return publicHead({
       pageLabel: page.metaTitle ?? page.title,
       description: page.metaDescription ?? undefined,
@@ -35,6 +38,11 @@ export const Route = createFileRoute('/$slug')({
       noindex: page.noindex,
       siteUrl: siteUrlFromMatches(matches),
       matches,
+      siteDefaultDescription: rootSeo?.defaultDescription,
+      socialImageUrl: rootSeo?.socialImageUrl,
+      ogImageAlt: rootSeo?.defaultOgImageAlt ?? DEFAULT_OG_IMAGE_ALT,
+      twitterSite: rootSeo?.twitterHandle ?? undefined,
+      ogLocale: rootSeo?.ogLocale,
     })
   },
   component: CmsPage,

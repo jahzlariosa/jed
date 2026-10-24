@@ -10,6 +10,8 @@ import {
 } from '#/lib/cms/search'
 import { searchPublishedContentFn } from '#/lib/cms/search-fns'
 import { publicHead, PUBLIC_CACHE_HEADERS, siteUrlFromMatches } from '#/lib/seo'
+import { DEFAULT_OG_IMAGE_ALT } from '#/lib/seo/og-image'
+import { rootSeoFromMatches } from '#/lib/seo/matches-helpers'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -28,8 +30,9 @@ export const Route = createFileRoute('/search')({
     })
     return { marketing, results }
   },
-  head: ({ matches, loaderData }) =>
-    publicHead({
+  head: ({ matches, loaderData }) => {
+    const rootSeo = rootSeoFromMatches(matches)
+    return publicHead({
       pageLabel: loaderData?.results.q
         ? `Search: ${loaderData.results.q}`
         : 'Search',
@@ -37,7 +40,13 @@ export const Route = createFileRoute('/search')({
       path: '/search',
       siteUrl: siteUrlFromMatches(matches),
       matches,
-    }),
+      siteDefaultDescription: rootSeo?.defaultDescription,
+      socialImageUrl: rootSeo?.socialImageUrl,
+      ogImageAlt: rootSeo?.defaultOgImageAlt ?? DEFAULT_OG_IMAGE_ALT,
+      twitterSite: rootSeo?.twitterHandle ?? undefined,
+      ogLocale: rootSeo?.ogLocale,
+    })
+  },
   component: SearchPage,
 })
 

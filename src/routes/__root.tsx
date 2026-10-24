@@ -16,6 +16,8 @@ import {
   SITE_NAME,
   seoTitleTemplate,
 } from '#/lib/seo'
+import { resolveMetaDescription } from '#/lib/seo/descriptions'
+import { resolveOgImageUrl } from '#/lib/seo/og-image'
 import { SETUP_CACHE_HEADERS, shouldRedirectToSetup } from '#/lib/env/gate'
 import { getSetupStatusFn } from '#/lib/env/setup-status'
 import { getRootShellFn } from '#/lib/site'
@@ -58,64 +60,78 @@ export const Route = createRootRoute({
   staleTime: Infinity,
   gcTime: Infinity,
   loader: () => getRootShellFn(),
-  head: ({ loaderData }) => ({
-    meta: [
-      {
-        charSet: 'utf-8',
-      },
-      {
-        name: 'viewport',
-        content: 'width=device-width, initial-scale=1',
-      },
-      {
-        title: seoTitleTemplate(SITE_NAME, {
-          siteName: resolvePublicSiteName(loaderData?.seo.siteName),
-          titleTemplate:
-            loaderData?.seo.titleTemplate ?? DEFAULT_SEO_TITLE_TEMPLATE,
-        }),
-      },
-      {
-        name: 'description',
-        content: loaderData?.seo.defaultDescription?.trim() || SITE_DESCRIPTION,
-      },
-      {
-        property: 'og:site_name',
-        content: resolvePublicSiteName(loaderData?.seo.siteName),
-      },
-      { property: 'og:type', content: 'website' },
-      {
-        property: 'og:locale',
-        content: loaderData?.seo.ogLocale ?? 'en_US',
-      },
-      { name: 'twitter:card', content: 'summary' },
-      ...(loaderData?.seo.googleSiteVerification
-        ? [
-            {
-              name: 'google-site-verification',
-              content: loaderData.seo.googleSiteVerification,
-            },
-          ]
-        : []),
-      ...(loaderData?.seo.bingSiteVerification
-        ? [
-            {
-              name: 'msvalidate.01',
-              content: loaderData.seo.bingSiteVerification,
-            },
-          ]
-        : []),
-      ...(loaderData?.seo.twitterHandle
-        ? [{ name: 'twitter:site', content: loaderData.seo.twitterHandle }]
-        : []),
-    ],
-    links: [
-      { rel: 'icon', href: '/favicon.svg', type: 'image/svg+xml' },
-      {
-        rel: 'stylesheet',
-        href: appCss,
-      },
-    ],
-  }),
+  head: ({ loaderData }) => {
+    const siteUrl = loaderData?.siteUrl
+    const rootDescription = resolveMetaDescription(
+      loaderData?.seo.defaultDescription,
+      SITE_DESCRIPTION,
+    )
+    const ogImageUrl = resolveOgImageUrl({
+      siteUrl,
+      socialImageUrl: loaderData?.seo.socialImageUrl,
+    })
+    return {
+      meta: [
+        {
+          charSet: 'utf-8',
+        },
+        {
+          name: 'viewport',
+          content: 'width=device-width, initial-scale=1',
+        },
+        {
+          title: seoTitleTemplate(SITE_NAME, {
+            siteName: resolvePublicSiteName(loaderData?.seo.siteName),
+            titleTemplate:
+              loaderData?.seo.titleTemplate ?? DEFAULT_SEO_TITLE_TEMPLATE,
+          }),
+        },
+        {
+          name: 'description',
+          content: rootDescription,
+        },
+        {
+          property: 'og:site_name',
+          content: resolvePublicSiteName(loaderData?.seo.siteName),
+        },
+        { property: 'og:type', content: 'website' },
+        {
+          property: 'og:locale',
+          content: loaderData?.seo.ogLocale ?? 'en_US',
+        },
+        {
+          name: 'twitter:card',
+          content: ogImageUrl ? 'summary_large_image' : 'summary',
+        },
+        ...(loaderData?.seo.googleSiteVerification
+          ? [
+              {
+                name: 'google-site-verification',
+                content: loaderData.seo.googleSiteVerification,
+              },
+            ]
+          : []),
+        ...(loaderData?.seo.bingSiteVerification
+          ? [
+              {
+                name: 'msvalidate.01',
+                content: loaderData.seo.bingSiteVerification,
+              },
+            ]
+          : []),
+        ...(loaderData?.seo.twitterHandle
+          ? [{ name: 'twitter:site', content: loaderData.seo.twitterHandle }]
+          : []),
+      ],
+      links: [
+        { rel: 'icon', href: '/favicon.svg', type: 'image/svg+xml' },
+        {
+          rel: 'stylesheet',
+          href: appCss,
+        },
+      ],
+    }
+  },
   shellComponent: RootDocument,
 })
 

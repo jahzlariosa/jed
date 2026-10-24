@@ -8,6 +8,7 @@ import {
   sanitizeTwitterHandle,
   sanitizeVerificationCode,
 } from '#/lib/seo/public-seo-sanitize'
+import { DEFAULT_SITE_META_DESCRIPTION } from '#/lib/seo/descriptions'
 import { sanitizeCmsImageUrl } from '#/lib/url-security'
 
 export type PublicSeoSettings = {
@@ -44,7 +45,7 @@ export type PublicSeoSettings = {
 const DEFAULTS: PublicSeoSettings = {
   siteName: 'JED',
   titleTemplate: '{title} · {site}',
-  defaultDescription: '',
+  defaultDescription: DEFAULT_SITE_META_DESCRIPTION,
   socialImageUrl: null,
   defaultOgImageAlt: null,
   language: 'en',

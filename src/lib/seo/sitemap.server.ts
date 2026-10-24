@@ -1,6 +1,11 @@
 import '@tanstack/react-start/server-only'
 
+import {
+  isStarterDemoPageSlug,
+  isStarterDemoPostSlug,
+} from '#/lib/cms/starter-demo-content'
 import { listStarterDocs } from '#/lib/starter-docs/catalog'
+import { starterDocLastModifiedIso } from '#/lib/starter-docs/lastmod.server'
 import { createServiceRoleClient } from '#/lib/supabase/service-role.server'
 import { escapeXml } from '#/lib/seo'
 import { loadPublicSeoSettings } from '#/lib/seo/public-settings.server'
@@ -22,6 +27,25 @@ function isExcluded(path: string, excluded: string[]) {
   return excluded.some(
     (entry) => entry === path || path.startsWith(`${entry}/`),
   )
+}
+
+async function loadSiteSettingsLastmod(): Promise<string | undefined> {
+  try {
+    const supabase = createServiceRoleClient()
+    const { data, error } = await supabase
+      .from('site_settings')
+      .select('updated_at')
+      .eq('id', 1)
+      .maybeSingle()
+    if (error) {
+      console.error(error)
+      return undefined
+    }
+    return formatSitemapLastmod(data?.updated_at)
+  } catch (error) {
+    console.error(error)
+    return undefined
+  }
 }
 
 async function listAllPublishedPosts() {
@@ -49,7 +73,11 @@ async function listAllPublishedPosts() {
       break
     }
     for (const row of data) {
-      if (row.noindex || row.sitemap_exclude) {
+      if (
+        row.noindex ||
+        row.sitemap_exclude ||
+        isStarterDemoPostSlug(row.slug)
+      ) {
         continue
       }
       posts.push({
@@ -92,7 +120,11 @@ async function listAllPublishedPages() {
       break
     }
     for (const row of data) {
-      if (row.noindex || row.sitemap_exclude) {
+      if (
+        row.noindex ||
+        row.sitemap_exclude ||
+        isStarterDemoPageSlug(row.slug)
+      ) {
         continue
       }
       pages.push({
@@ -112,16 +144,18 @@ async function listAllPublishedPages() {
 export async function buildSitemapXml(origin: string): Promise<string> {
   const settings = await loadPublicSeoSettings()
   const excluded = settings.sitemapExcludedPaths
+  const siteLastmod = await loadSiteSettingsLastmod()
+
   const staticPages = [
-    { path: '/', priority: '1.0', lastmod: new Date().toISOString() },
-    { path: '/features', priority: '0.8', lastmod: new Date().toISOString() },
+    { path: '/', priority: '1.0', lastmod: siteLastmod },
+    { path: '/features', priority: '0.8', lastmod: siteLastmod },
     {
       path: '/features/api-and-mcp',
       priority: '0.7',
-      lastmod: new Date().toISOString(),
+      lastmod: siteLastmod,
     },
-    { path: '/blog', priority: '0.8', lastmod: new Date().toISOString() },
-    { path: '/contact', priority: '0.6', lastmod: new Date().toISOString() },
+    { path: '/blog', priority: '0.8', lastmod: siteLastmod },
+    { path: '/contact', priority: '0.6', lastmod: siteLastmod },
   ].filter((page) => !isExcluded(page.path, excluded))
 
   const docUrls = settings.sitemapIncludeDocs
@@ -129,7 +163,8 @@ export async function buildSitemapXml(origin: string): Promise<string> {
         .map((doc) => ({
           loc: `${origin}${doc.path}`,
           priority: doc.fileSlug === 'index' ? '0.8' : '0.7',
-          lastmod: new Date().toISOString(),
+          lastmod:
+            starterDocLastModifiedIso(doc.fileSlug) ?? siteLastmod ?? undefined,
         }))
         .filter((entry) => !isExcluded(entry.loc.replace(origin, ''), excluded))
     : []
@@ -155,7 +190,7 @@ export async function buildSitemapXml(origin: string): Promise<string> {
     })),
     ...posts.map((post) => ({
       loc: `${origin}/blog/${post.slug}`,
-      lastmod: formatSitemapLastmod(post.published_at ?? post.updated_at),
+      lastmod: formatSitemapLastmod(post.updated_at ?? post.published_at),
       priority: '0.6',
     })),
   ]

@@ -2,10 +2,15 @@ import {
   DEFAULT_PUBLIC_SITE_NAME,
   resolvePublicSiteName,
 } from '#/lib/cms/brand-defaults'
+import {
+  DEFAULT_SITE_META_DESCRIPTION,
+  resolveMetaDescription,
+} from '#/lib/seo/descriptions'
+import { DEFAULT_OG_IMAGE_ALT, resolveOgImageUrl } from '#/lib/seo/og-image'
 import { sanitizeCanonicalUrl } from '#/lib/url-security'
 
 export const SITE_NAME = DEFAULT_PUBLIC_SITE_NAME
-export const SITE_DESCRIPTION = ''
+export const SITE_DESCRIPTION = DEFAULT_SITE_META_DESCRIPTION
 
 export const DEFAULT_SEO_TITLE_TEMPLATE = '{title} · {site}'
 
@@ -124,6 +129,8 @@ export type PublicHeadInput = {
   title?: string
   pageLabel?: string
   description?: string
+  siteDefaultDescription?: string
+  socialImageUrl?: string | null
   path: string
   siteUrl: string | undefined
   matches?: ReadonlyArray<RootMatch>
@@ -159,11 +166,20 @@ export function publicHead(input: PublicHeadInput) {
   const ctx = input.matches ? seoContextFromMatches(input.matches) : undefined
   const resolvedTitle =
     input.title ?? pageTitle(input.pageLabel ?? SITE_NAME, ctx)
-  const description = input.description?.trim() || SITE_DESCRIPTION
+  const description = resolveMetaDescription(
+    input.description,
+    input.siteDefaultDescription ?? SITE_DESCRIPTION,
+  )
   const canonical =
     sanitizeCanonicalUrl(input.canonicalUrl) ||
     (input.siteUrl ? new URL(input.path, input.siteUrl).toString() : undefined)
-  const twitterCard = input.ogImageUrl ? 'summary_large_image' : 'summary'
+  const ogImageUrl = resolveOgImageUrl({
+    siteUrl: input.siteUrl,
+    ogImageUrl: input.ogImageUrl,
+    socialImageUrl: input.socialImageUrl,
+  })
+  const ogImageAlt = input.ogImageAlt?.trim() || DEFAULT_OG_IMAGE_ALT
+  const twitterCard = ogImageUrl ? 'summary_large_image' : 'summary'
   const meta: Array<Record<string, string>> = [
     { title: resolvedTitle },
     { name: 'description', content: description },
@@ -178,13 +194,11 @@ export function publicHead(input: PublicHeadInput) {
   if (canonical) {
     meta.push({ property: 'og:url', content: canonical })
   }
-  if (input.ogImageUrl) {
-    meta.push({ property: 'og:image', content: input.ogImageUrl })
-    if (input.ogImageAlt) {
-      meta.push({ property: 'og:image:alt', content: input.ogImageAlt })
-      meta.push({ name: 'twitter:image:alt', content: input.ogImageAlt })
-    }
-    meta.push({ name: 'twitter:image', content: input.ogImageUrl })
+  if (ogImageUrl) {
+    meta.push({ property: 'og:image', content: ogImageUrl })
+    meta.push({ property: 'og:image:alt', content: ogImageAlt })
+    meta.push({ name: 'twitter:image:alt', content: ogImageAlt })
+    meta.push({ name: 'twitter:image', content: ogImageUrl })
   }
   if (input.twitterSite) {
     meta.push({ name: 'twitter:site', content: input.twitterSite })

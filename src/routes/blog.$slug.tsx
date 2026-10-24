@@ -18,6 +18,8 @@ import {
   publicHead,
   siteUrlFromMatches,
 } from '#/lib/seo'
+import { DEFAULT_OG_IMAGE_ALT } from '#/lib/seo/og-image'
+import { rootSeoFromMatches } from '#/lib/seo/matches-helpers'
 
 export const Route = createFileRoute('/blog/$slug')({
   staleTime: Number.POSITIVE_INFINITY,
@@ -60,6 +62,7 @@ export const Route = createFileRoute('/blog/$slug')({
       return notFoundHead(matches)
     }
     const post = loaderData.post
+    const rootSeo = rootSeoFromMatches(matches)
     return publicHead({
       pageLabel: post.metaTitle ?? post.title,
       description: post.metaDescription ?? post.excerpt ?? undefined,
@@ -68,9 +71,15 @@ export const Route = createFileRoute('/blog/$slug')({
       noindex: post.noindex,
       siteUrl: siteUrlFromMatches(matches),
       matches,
+      siteDefaultDescription: rootSeo?.defaultDescription,
+      socialImageUrl: rootSeo?.socialImageUrl,
       ogType: 'article',
       ogImageUrl: post.ogImageUrl ?? post.coverImageUrl ?? undefined,
-      ogImageAlt: post.ogImageAlt ?? post.coverImageAlt ?? undefined,
+      ogImageAlt:
+        post.ogImageAlt ??
+        post.coverImageAlt ??
+        rootSeo?.defaultOgImageAlt ??
+        DEFAULT_OG_IMAGE_ALT,
       articlePublishedTime: post.publishedAt ?? undefined,
       articleModifiedTime: post.updatedAt ?? undefined,
       articleAuthor: post.authorName,

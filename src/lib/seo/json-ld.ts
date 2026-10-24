@@ -1,5 +1,7 @@
 import type { PublicSeoSettings } from '#/lib/seo/public-settings.server'
 
+export const JED_CODE_REPOSITORY = 'https://github.com/jahzlariosa/jed'
+
 export function serializeJsonLd(
   data: Record<string, unknown> | Record<string, unknown>[],
 ): string {
@@ -46,7 +48,66 @@ export function buildHomeJsonLd(input: {
     org.sameAs = settings.orgSameAs
   }
   graph.push(org)
+  graph.push({
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareSourceCode',
+    name: siteName,
+    description: settings.defaultDescription.trim() || undefined,
+    url: siteUrl,
+    codeRepository: JED_CODE_REPOSITORY,
+    programmingLanguage: 'TypeScript',
+    runtimePlatform: 'Node.js',
+  })
   return graph
+}
+
+export function buildDocsTechArticleJsonLd(input: {
+  siteUrl: string
+  siteName: string
+  doc: {
+    title: string
+    description: string
+    path: string
+  }
+}) {
+  const url = new URL(input.doc.path, input.siteUrl).toString()
+  const article: Record<string, unknown> = {
+    '@context': 'https://schema.org',
+    '@type': 'TechArticle',
+    headline: input.doc.title,
+    description: input.doc.description,
+    url,
+    mainEntityOfPage: url,
+    publisher: {
+      '@type': 'Organization',
+      name: input.siteName,
+    },
+  }
+  const breadcrumbs = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: input.siteUrl,
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Docs',
+        item: new URL('/docs', input.siteUrl).toString(),
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: input.doc.title,
+        item: url,
+      },
+    ],
+  }
+  return [article, breadcrumbs]
 }
 
 export function buildBlogPostingJsonLd(input: {

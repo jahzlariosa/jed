@@ -2,6 +2,7 @@ import { createServerFn } from '@tanstack/react-start'
 import { setResponseStatus } from '@tanstack/react-start/server'
 import { z } from 'zod'
 
+import { isStarterDemoPostSlug } from '#/lib/cms/starter-demo-content'
 import { staffCanPreviewDrafts } from '#/lib/cms/preview-access.server'
 import { createSupabaseAnonReadClient } from '#/lib/supabase/anon-read.server'
 import { createSupabaseServerClient } from '#/lib/supabase/server'
@@ -280,7 +281,7 @@ export const getBlogPostBySlugFn = createServerFn({ method: 'GET' })
         ogImageUrl: sanitizeCmsImageUrl(row.cover_image_url),
         ogImageAlt: row.og_image_alt,
         coverImageAlt: row.cover_image_alt,
-        noindex: row.noindex,
+        noindex: row.noindex || isStarterDemoPostSlug(row.slug),
         updatedAt: row.updated_at,
       },
       previous: null,

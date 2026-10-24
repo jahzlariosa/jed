@@ -1,5 +1,6 @@
 import { createFileRoute, notFound } from '@tanstack/react-router'
 
+import { StructuredData } from '#/components/seo/structured-data'
 import { DocsMarkdown } from '#/components/starter-docs/docs-markdown'
 import {
   DocsPager,
@@ -9,7 +10,11 @@ import {
 import { getPublicMarketingFn } from '#/lib/cms/public-marketing-fns'
 import { getStarterDocByFileSlug } from '#/lib/starter-docs/catalog'
 import { renderStarterDocMarkdownFn } from '#/lib/starter-docs/render-doc-fns'
-import { publicHead, PUBLIC_CACHE_HEADERS, siteUrlFromMatches } from '#/lib/seo'
+import { PUBLIC_CACHE_HEADERS } from '#/lib/seo'
+import { marketingRouteHead } from '#/lib/seo/marketing-head'
+import { MARKETING_ROUTE_SEO } from '#/lib/seo/marketing-routes'
+import { buildDocsJsonLdFn } from '#/lib/seo/public-route-fns'
+
 export const Route = createFileRoute('/docs/')({
   staleTime: Number.POSITIVE_INFINITY,
   gcTime: Number.POSITIVE_INFINITY,
@@ -23,25 +28,25 @@ export const Route = createFileRoute('/docs/')({
     const rendered = await renderStarterDocMarkdownFn({
       data: { body: doc.body },
     })
-    return { marketing, doc, rendered }
-  },
-  head: ({ loaderData, matches }) => {
-    const doc = loaderData?.doc
-    return publicHead({
-      pageLabel: 'Docs',
-      description: doc?.description ?? '',
-      path: '/docs',
-      siteUrl: siteUrlFromMatches(matches),
-      matches,
+    const jsonLdResult = await buildDocsJsonLdFn({
+      data: {
+        title: doc.title,
+        description:
+          MARKETING_ROUTE_SEO['/docs'].description || doc.description,
+        path: doc.path,
+      },
     })
+    return { marketing, doc, rendered, jsonLd: jsonLdResult.jsonLd }
   },
+  head: ({ matches }) => marketingRouteHead('/docs', matches),
   component: DocsIndexPage,
 })
 
 function DocsIndexPage() {
-  const { marketing, doc, rendered } = Route.useLoaderData()
+  const { marketing, doc, rendered, jsonLd } = Route.useLoaderData()
   return (
     <DocsShell marketing={marketing} activePath={doc.path}>
+      <StructuredData json={jsonLd} />
       <article
         id="main-content"
         tabIndex={-1}

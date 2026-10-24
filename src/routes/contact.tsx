@@ -7,20 +7,29 @@ import { getPublicMarketingFn } from '#/lib/cms/public-marketing-fns'
 import { normalizePublicMarketing } from '#/lib/cms/public-marketing'
 import { phosphorIcon } from '#/lib/icon'
 import { publicHead, PUBLIC_CACHE_HEADERS, siteUrlFromMatches } from '#/lib/seo'
+import { DEFAULT_OG_IMAGE_ALT } from '#/lib/seo/og-image'
+import { rootSeoFromMatches } from '#/lib/seo/matches-helpers'
 
 export const Route = createFileRoute('/contact')({
   staleTime: Number.POSITIVE_INFINITY,
   gcTime: Number.POSITIVE_INFINITY,
   headers: () => PUBLIC_CACHE_HEADERS,
   loader: () => getPublicMarketingFn(),
-  head: ({ matches }) =>
-    publicHead({
+  head: ({ matches }) => {
+    const rootSeo = rootSeoFromMatches(matches)
+    return publicHead({
       pageLabel: 'Contact',
       description: 'Get in touch about your project.',
       path: '/contact',
       siteUrl: siteUrlFromMatches(matches),
       matches,
-    }),
+      siteDefaultDescription: rootSeo?.defaultDescription,
+      socialImageUrl: rootSeo?.socialImageUrl,
+      ogImageAlt: rootSeo?.defaultOgImageAlt ?? DEFAULT_OG_IMAGE_ALT,
+      twitterSite: rootSeo?.twitterHandle ?? undefined,
+      ogLocale: rootSeo?.ogLocale,
+    })
+  },
   component: ContactPage,
 })
 

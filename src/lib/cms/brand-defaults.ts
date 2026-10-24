@@ -9,11 +9,16 @@ export const MARKETING_ACCENT_HEX = '#1F5E4B'
 
 /** Pre–anti-slop seed values; treated as unset in app code. */
 export const LEGACY_SITE_NAME = 'Site name'
+export const LEGACY_JED_SITE_NAME = 'Jed'
 export const LEGACY_BRAND_HEX = '#4F46E5'
 
 export function resolvePublicSiteName(name: string | null | undefined): string {
   const trimmed = name?.trim() ?? ''
-  if (!trimmed || trimmed === LEGACY_SITE_NAME) {
+  if (
+    !trimmed ||
+    trimmed === LEGACY_SITE_NAME ||
+    trimmed === LEGACY_JED_SITE_NAME
+  ) {
     return DEFAULT_PUBLIC_SITE_NAME
   }
   return trimmed

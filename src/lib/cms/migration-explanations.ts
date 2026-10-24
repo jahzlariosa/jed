@@ -204,6 +204,12 @@ export const MIGRATION_EXPLANATIONS: Record<string, MigrationExplanation> = {
     whenToRun:
       'After 20261015130000_site_settings_neutral_defaults.sql. Safe to re-run.',
   },
+  '20261024120000_seo_jed_starter_live.sql': {
+    summary:
+      'Sets jed-starter live SEO defaults (JED name, site URL, default description) and marks starter demo CMS rows noindex with sitemap_exclude.',
+    whenToRun:
+      'On the hosted jed-starter Supabase project after prior site_settings migrations. Does not run on local db reset unless pushed.',
+  },
   '20261017090000_site_layout_widths.sql': {
     summary:
       'Adds navbar_width and footer_width to site_settings so admins can choose full width, contained, or full width with contained content for the public navbar and footer. Both default to full width.',

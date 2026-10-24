@@ -5,7 +5,7 @@ import { totpIssuerFromSiteName } from './mfa-issuer'
 
 describe('totpIssuerFromSiteName', () => {
   it('uses the trimmed site name', () => {
-    expect(totpIssuerFromSiteName('  Jed  ')).toBe('Jed')
+    expect(totpIssuerFromSiteName('  Jed  ')).toBe('JED')
   })
 
   it('removes colons so the otpauth label stays intact', () => {

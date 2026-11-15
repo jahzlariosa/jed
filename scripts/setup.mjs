@@ -40,8 +40,8 @@ const PROMPTS = [
     fallback: 'http://localhost:3000',
   },
   {
-    name: 'SUPABASE_SERVICE_ROLE_KEY',
-    label: 'Supabase service role key',
+    name: 'SUPABASE_SECRET_KEY',
+    label: 'Supabase secret key',
     secret: true,
   },
   {

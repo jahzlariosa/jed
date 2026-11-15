@@ -50,13 +50,49 @@ describe('readAppliedMigrations', () => {
   it('reads versions from a permitted key', async () => {
     const result = await readAppliedMigrations(
       'https://abc.supabase.co',
-      ['service-secret', key],
+      ['sb_secret_test-value', key],
       async () =>
         jsonResponse(200, [{ version: '20261017110000', name: 'mfa_helper' }]),
     )
     expect(result).toEqual({
       status: 'read',
       versions: ['20261017110000'],
+    })
+  })
+
+  it('sends a secret key as apikey and a legacy JWT as a bearer token', async () => {
+    const secret = 'sb_secret_test-value'
+    const legacy = 'eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiYW5vbiJ9.signature'
+    const seen: Array<{ apikey: string | null; authorization: string | null }> =
+      []
+    await readAppliedMigrations(
+      'https://abc.supabase.co',
+      [secret],
+      async (_url, init) => {
+        const headers = new Headers(init?.headers)
+        seen.push({
+          apikey: headers.get('apikey'),
+          authorization: headers.get('authorization'),
+        })
+        return jsonResponse(403, { message: 'forbidden' })
+      },
+    )
+    await readAppliedMigrations(
+      'https://abc.supabase.co',
+      [legacy],
+      async (_url, init) => {
+        const headers = new Headers(init?.headers)
+        seen.push({
+          apikey: headers.get('apikey'),
+          authorization: headers.get('authorization'),
+        })
+        return jsonResponse(200, [{ version: '20261017110000' }])
+      },
+    )
+    expect(seen[0]).toEqual({ apikey: secret, authorization: null })
+    expect(seen[1]).toEqual({
+      apikey: legacy,
+      authorization: `Bearer ${legacy}`,
     })
   })
 

@@ -151,7 +151,7 @@ Merge or cherry-pick what you need. Expect conflicts in branding, `AGENTS.md`, a
 | Email links point to the wrong host | `APP_URL` missing or wrong | Set `APP_URL` in Vercel Production and check the Supabase Site URL |
 | "Invalid API key" or always signed out | Wrong Supabase URL or key | Match the dashboard values and restart `npm run dev` |
 | `/admin` sends you to sign in after the SQL grant | Role not applied or wrong email | Run the admin SQL again and check `user_roles` for an `admin` row |
-| Admin user actions fail | Service role key missing | Set `SUPABASE_SERVICE_ROLE_KEY` on the server |
+| Admin user actions fail | Secret key missing | Set `SUPABASE_SECRET_KEY` on the server |
 | `/contact` says messages aren't available | No contact email | Set **Contact email** in Admin > Settings |
 | Search returns nothing | Search migration not applied | Run `npx supabase db push` |
 | Every SQL template shows "not applied" | RPC migration missing or wrong project | Apply `20261015161000_admin_schema_migrations_rpc.sql` and check the linked project |

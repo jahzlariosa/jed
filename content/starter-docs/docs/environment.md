@@ -19,7 +19,7 @@ Anything that starts with `VITE_` ends up in the browser bundle, so only public 
 | `VITE_SUPABASE_PUBLISHABLE_KEY` | Yes | Anon or publishable key | **Project Settings > API**, anon or publishable key. Local: `npx supabase status` |
 | `VITE_AUTH_GOOGLE_ENABLED` | Yes | Set to `true` to show Google on `/login` and `/signup` | Also enable Google under **Authentication > Providers** in Supabase |
 | `APP_URL` | No | Your site's public origin, used in sign-up and password reset emails. No trailing slash. | Your production URL, for example `https://www.example.com`. Local: `http://localhost:3000` |
-| `SUPABASE_SERVICE_ROLE_KEY` | Yes | Required. Admin user tools (create and delete users, change emails and passwords), API token lookup, and production builds | **Project Settings > API > service_role** |
+| `SUPABASE_SECRET_KEY` | No | Required. Admin user tools (create and delete users, change emails and passwords), API token lookup, and production builds. Secret API key (`sb_secret_...`), not a JWT | **Project Settings > API Keys > secret**. Local: `npx supabase status` (Secret key) |
 | `SUPABASE_JWT_SECRET` | Yes | Required. Signs short-lived sessions for API and MCP tokens | **Project Settings > API > JWT Keys**. Local: `npx supabase status` |
 | `MEDIA_UPLOAD_TICKET_SECRET` | No | Signs admin media upload tickets | Run `npm run secrets:generate` |
 | `CONTACT_IP_HASH_SECRET` | No | Hashes visitor IPs for the contact form rate limit. Required in production | Run `npm run secrets:generate` |
@@ -35,7 +35,7 @@ VITE_SUPABASE_URL=http://127.0.0.1:54321
 VITE_SUPABASE_PUBLISHABLE_KEY=
 VITE_AUTH_GOOGLE_ENABLED=false
 APP_URL=http://localhost:3000
-SUPABASE_SERVICE_ROLE_KEY=
+SUPABASE_SECRET_KEY=
 SUPABASE_JWT_SECRET=
 MEDIA_UPLOAD_TICKET_SECRET=
 CONTACT_IP_HASH_SECRET=
@@ -57,8 +57,9 @@ Supabase and Resend keys come from their own dashboards.
 
 ## Notes on the secret keys
 
-- Never put the service role key in a `VITE_` variable. It bypasses row level security.
-- `SUPABASE_SERVICE_ROLE_KEY` and `SUPABASE_JWT_SECRET` are required for `npm run build` and for production deploys. Without the service role key, the **Users** screen can't create or delete accounts. Without the JWT secret, the **API and MCP** screen won't create tokens. Supabase projects that only use asymmetric JWT signing keys aren't supported for tokens.
+- Never put the secret key in a `VITE_` variable. It bypasses row level security. Send it as the `apikey` header only. Supabase rejects it from a browser.
+- `SUPABASE_SECRET_KEY` and `SUPABASE_JWT_SECRET` are required for `npm run build` and for production deploys. Without the secret key, the **Users** screen can't create or delete accounts. Without the JWT secret, the **API and MCP** screen won't create tokens. Supabase projects that only use asymmetric JWT signing keys aren't supported for tokens.
+- There are no Edge Functions in this repo. Supabase still injects `SUPABASE_SERVICE_ROLE_KEY` into that runtime. Don't read it. If you add a function, read the injected `SUPABASE_SECRET_KEYS` JSON (`default`) or set `SUPABASE_SECRET_KEY` with `supabase secrets set`, and set `verify_jwt = false` because a secret key is not a JWT.
 - Without `CONTACT_IP_HASH_SECRET`, the contact form won't save messages in production. Locally a development fallback is used.
 - If a secret leaks, rotate it in Supabase and update Vercel straight away.
 
@@ -69,7 +70,7 @@ Supabase and Resend keys come from their own dashboards.
 | `VITE_SUPABASE_URL` | Production, Preview |
 | `VITE_SUPABASE_PUBLISHABLE_KEY` | Production, Preview |
 | `APP_URL` | Production (your live domain) |
-| `SUPABASE_SERVICE_ROLE_KEY` | Production, Preview |
+| `SUPABASE_SECRET_KEY` | Production, Preview |
 | `CONTACT_IP_HASH_SECRET` | Production, Preview |
 | `SUPABASE_JWT_SECRET` | Production, Preview |
 

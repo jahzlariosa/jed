@@ -1,6 +1,7 @@
 import { z } from 'zod'
 
 import { resolveAppUrl } from '../app-url.ts'
+import { isSecretApiKey } from '../supabase/secret-key-fetch.ts'
 
 export type EnvSource = Record<string, string | undefined>
 
@@ -28,7 +29,7 @@ export const appEnvObjectSchema = z
     VITE_SUPABASE_KEY: z.string().optional(),
     VITE_AUTH_GOOGLE_ENABLED: z.string().optional(),
     APP_URL: z.string().optional(),
-    SUPABASE_SERVICE_ROLE_KEY: z.string().optional(),
+    SUPABASE_SECRET_KEY: z.string().optional(),
     SUPABASE_JWT_SECRET: z.string().optional(),
     MEDIA_UPLOAD_TICKET_SECRET: z.string().optional(),
     CONTACT_IP_HASH_SECRET: z.string().optional(),
@@ -99,6 +100,13 @@ function appUrlMessage(env: EnvSource): string | null {
   }
 }
 
+function secretApiKeyMessage(value: string | undefined): string | null {
+  const trimmed = value?.trim() ?? ''
+  if (!trimmed) return 'Required'
+  if (!isSecretApiKey(trimmed)) return 'Must be a Supabase secret key'
+  return null
+}
+
 function requiredSecretMessage(
   value: string | undefined,
   minimum: number,
@@ -148,8 +156,8 @@ export function collectAppEnvIssues(env: EnvSource): EnvIssue[] {
   addIssue(issues, 'APP_URL', appUrlMessage(env))
   addIssue(
     issues,
-    'SUPABASE_SERVICE_ROLE_KEY',
-    requiredSecretMessage(env.SUPABASE_SERVICE_ROLE_KEY, 1),
+    'SUPABASE_SECRET_KEY',
+    secretApiKeyMessage(env.SUPABASE_SECRET_KEY),
   )
   addIssue(
     issues,

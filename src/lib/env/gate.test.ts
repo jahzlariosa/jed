@@ -32,7 +32,7 @@ describe('loadSetupStatus', () => {
     VITE_SUPABASE_URL: 'https://abc.supabase.co',
     VITE_SUPABASE_PUBLISHABLE_KEY: 'publishable-secret',
     APP_URL: 'http://localhost:3000',
-    SUPABASE_SERVICE_ROLE_KEY: 'service-role-secret',
+    SUPABASE_SECRET_KEY: 'sb_secret_test-value',
     SUPABASE_JWT_SECRET: 'jwt-secret',
     MEDIA_UPLOAD_TICKET_SECRET: 'm'.repeat(32),
     CONTACT_IP_HASH_SECRET: 'c'.repeat(32),
@@ -57,6 +57,6 @@ describe('loadSetupStatus', () => {
       'VITE_SUPABASE_PUBLISHABLE_KEY',
     )
     expect(JSON.stringify(status)).not.toContain('publishable-secret')
-    expect(JSON.stringify(status)).not.toContain('service-role-secret')
+    expect(JSON.stringify(status)).not.toContain('sb_secret_test-value')
   })
 })

@@ -68,9 +68,9 @@ export async function evaluateDoctor(input: {
     return { ok, lines }
   }
   const readMigrations = input.readMigrations ?? readAppliedMigrations
-  const serviceKey = input.env.SUPABASE_SERVICE_ROLE_KEY?.trim() ?? ''
+  const secretKey = input.env.SUPABASE_SECRET_KEY?.trim() ?? ''
   const applied: MigrationRead = await readMigrations(url, [
-    serviceKey,
+    secretKey,
     publishable,
   ])
   if (applied.status === 'skipped') {

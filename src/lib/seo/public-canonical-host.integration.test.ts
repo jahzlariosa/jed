@@ -40,8 +40,8 @@ describe('public canonical host alignment', { timeout: 120_000 }, () => {
         process.env.VITE_SUPABASE_URL ?? 'http://127.0.0.1:54321'
       process.env.VITE_SUPABASE_PUBLISHABLE_KEY =
         process.env.VITE_SUPABASE_PUBLISHABLE_KEY ?? 'test-publishable-key'
-      process.env.SUPABASE_SERVICE_ROLE_KEY =
-        process.env.SUPABASE_SERVICE_ROLE_KEY ?? 'test-service-role-key'
+      process.env.SUPABASE_SECRET_KEY =
+        process.env.SUPABASE_SECRET_KEY ?? 'sb_secret_test-placeholder'
 
       const handlerUrl = pathToFileURL(handlerPath).href
       const { default: handler } = await import(handlerUrl)

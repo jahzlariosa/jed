@@ -10,7 +10,7 @@ import {
   supabaseUrlMessage,
 } from './schema'
 
-const secret = 'super-secret-service-role-value'
+const secret = 'sb_secret_test-value'
 
 function validEnv(
   overrides: Record<string, string | undefined> = {},
@@ -20,7 +20,7 @@ function validEnv(
     VITE_SUPABASE_URL: 'http://127.0.0.1:54321',
     VITE_SUPABASE_PUBLISHABLE_KEY: 'publishable-key',
     APP_URL: 'http://localhost:3000',
-    SUPABASE_SERVICE_ROLE_KEY: secret,
+    SUPABASE_SECRET_KEY: secret,
     SUPABASE_JWT_SECRET: 'jwt-secret-value',
     MEDIA_UPLOAD_TICKET_SECRET: 'm'.repeat(32),
     CONTACT_IP_HASH_SECRET: 'c'.repeat(32),
@@ -48,7 +48,7 @@ describe('appEnvSchema', () => {
       NODE_ENV: 'production',
       VITE_SUPABASE_URL: 'http://db.internal/secret-path',
       APP_URL: 'http://app.example/with-secret',
-      SUPABASE_SERVICE_ROLE_KEY: 'short',
+      SUPABASE_SECRET_KEY: 'short',
       MEDIA_UPLOAD_TICKET_SECRET: 'tiny',
     })
     const text = formatAppEnvIssues(issues)
@@ -65,13 +65,42 @@ describe('appEnvSchema', () => {
     const parsed = appEnvSchema.safeParse({
       ...validEnv(),
       VITE_SUPABASE_URL: 'not a url',
-      SUPABASE_SERVICE_ROLE_KEY: secret,
+      SUPABASE_SECRET_KEY: secret,
     })
     expect(parsed.success).toBe(false)
     if (!parsed.success) {
       expect(JSON.stringify(parsed.error.issues)).not.toContain(secret)
       expect(JSON.stringify(parsed.error.issues)).not.toContain('not a url')
     }
+  })
+
+  it('rejects a legacy service role key and does not fall back to it', () => {
+    const legacyJwt = 'eyJhbGciOiJIUzI1NiJ9.payload.signature'
+    const issues = collectAppEnvIssues(
+      validEnv({
+        SUPABASE_SECRET_KEY: legacyJwt,
+        SUPABASE_SERVICE_ROLE_KEY: secret,
+      }),
+    )
+    expect(issues).toEqual([
+      {
+        name: 'SUPABASE_SECRET_KEY',
+        message: 'Must be a Supabase secret key',
+      },
+    ])
+    expect(JSON.stringify(issues)).not.toContain(legacyJwt)
+    expect(JSON.stringify(issues)).not.toContain(secret)
+
+    const missing = collectAppEnvIssues(
+      validEnv({
+        SUPABASE_SECRET_KEY: undefined,
+        SUPABASE_SERVICE_ROLE_KEY: secret,
+      }),
+    )
+    expect(missing.some((issue) => issue.name === 'SUPABASE_SECRET_KEY')).toBe(
+      true,
+    )
+    expect(JSON.stringify(missing)).not.toContain(secret)
   })
 
   it('allows a Vercel preview build without APP_URL', () => {

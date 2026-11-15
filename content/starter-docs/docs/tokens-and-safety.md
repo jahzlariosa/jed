@@ -14,7 +14,7 @@ The API and MCP server use personal access tokens. This page explains how tokens
 Tokens need these server-only environment variables:
 
 - `SUPABASE_JWT_SECRET`, from **Project Settings > API > JWT Keys** in Supabase.
-- `SUPABASE_SERVICE_ROLE_KEY`, used to look up a token by its hash, store idempotency records, and run user invites and deactivations.
+- `SUPABASE_SECRET_KEY`, used to look up a token by its hash, store idempotency records, and run user invites and deactivations.
 
 If `SUPABASE_JWT_SECRET` is missing, the API and MCP screen won't create tokens and tells you why. Projects that only use asymmetric JWT signing keys aren't supported for tokens.
 
@@ -46,7 +46,7 @@ On every request, the token's scopes are compared with your current permissions.
 4. Every database query runs as that person, with row level security applied.
 5. The endpoint checks that the token has the scope it needs.
 
-Content, posts, and settings are always read and written as that person. The service role key is used only for the few account tasks Supabase reserves for it, such as sending invites and deactivating accounts, and only after the admin check has passed.
+Content, posts, and settings are always read and written as that person. The secret key is used only for the few account tasks Supabase reserves for a privileged key, such as sending invites and deactivating accounts, and only after the admin check has passed.
 
 ## Revoking a token
 

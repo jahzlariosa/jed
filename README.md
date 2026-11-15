@@ -26,9 +26,9 @@ Start each client site from a fresh clone of this repository.
 
 ## Quick start (about 5 minutes)
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fjahzlariosa%2Fjed&env=VITE_SUPABASE_URL,VITE_SUPABASE_PUBLISHABLE_KEY,APP_URL,SUPABASE_SERVICE_ROLE_KEY,SUPABASE_JWT_SECRET,MEDIA_UPLOAD_TICKET_SECRET,CONTACT_IP_HASH_SECRET&envDescription=Required%20settings%20from%20your%20Supabase%20project%20and%20generated%20app%20secrets&envLink=https%3A%2F%2Fgithub.com%2Fjahzlariosa%2Fjed%2Fblob%2Fmain%2F.env.example&project-name=jed)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fjahzlariosa%2Fjed&env=VITE_SUPABASE_URL,VITE_SUPABASE_PUBLISHABLE_KEY,APP_URL,SUPABASE_SECRET_KEY,SUPABASE_JWT_SECRET,MEDIA_UPLOAD_TICKET_SECRET,CONTACT_IP_HASH_SECRET&envDescription=Required%20settings%20from%20your%20Supabase%20project%20and%20generated%20app%20secrets&envLink=https%3A%2F%2Fgithub.com%2Fjahzlariosa%2Fjed%2Fblob%2Fmain%2F.env.example&project-name=jed)
 
-The button creates a Vercel project from this repository and asks for `VITE_SUPABASE_URL`, `VITE_SUPABASE_PUBLISHABLE_KEY`, `APP_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `SUPABASE_JWT_SECRET`, `MEDIA_UPLOAD_TICKET_SECRET`, and `CONTACT_IP_HASH_SECRET`.
+The button creates a Vercel project from this repository and asks for `VITE_SUPABASE_URL`, `VITE_SUPABASE_PUBLISHABLE_KEY`, `APP_URL`, `SUPABASE_SECRET_KEY`, `SUPABASE_JWT_SECRET`, `MEDIA_UPLOAD_TICKET_SECRET`, and `CONTACT_IP_HASH_SECRET`.
 
 ### 1. Create the app repository
 
@@ -128,7 +128,7 @@ Copy from [`.env.example`](./.env.example). Never commit real secrets.
 | `VITE_SUPABASE_PUBLISHABLE_KEY` | Yes | Anon / publishable key for the browser | Dashboard → **API → Project API keys → anon** (or publishable). Local: `supabase status` |
 | `VITE_AUTH_GOOGLE_ENABLED` | Yes | Set `true` to show Google on login/signup | You must also enable Google in Supabase **Authentication → Providers** |
 | `APP_URL` | No (server only) | Canonical site origin for auth email links (no trailing slash) | Your production URL, e.g. `https://www.example.com`. Local default: `http://localhost:3000` |
-| `SUPABASE_SERVICE_ROLE_KEY` | Yes | Required. Admin user CRUD (create/delete users, password/email changes) and production builds | Dashboard → **API → service_role** (secret). Never prefix with `VITE_` |
+| `SUPABASE_SECRET_KEY` | No (server only) | Required. Privileged server jobs (admin user changes, token lookup, rate limits) and production builds. Secret API key (`sb_secret_...`), sent as `apikey` only | Dashboard → **Project Settings → API Keys → secret**. Local: `npx supabase status` → Secret key. Never prefix with `VITE_` |
 | `SUPABASE_JWT_SECRET` | Yes | Required. API/MCP personal access tokens (short-lived user JWT) | Dashboard → **API → JWT Keys** (JWT secret). Local: `npx supabase status` |
 | `MEDIA_UPLOAD_TICKET_SECRET` | No | HMAC secret for signed admin media upload tickets (32+ characters) | Generate with `npm run secrets:generate`. Required for **Admin → Media** uploads from the CMS editor |
 | `CONTACT_IP_HASH_SECRET` | Production | HMAC secret for hashing visitor IPs for the contact form rate limit. The contact form refuses to save messages in production without it | Generate with `npm run secrets:generate` |
@@ -193,7 +193,7 @@ Each new migration file must have an entry in `src/lib/cms/migration-explanation
 
 ## Deploy to Vercel
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fjahzlariosa%2Fjed&env=VITE_SUPABASE_URL,VITE_SUPABASE_PUBLISHABLE_KEY,APP_URL,SUPABASE_SERVICE_ROLE_KEY,SUPABASE_JWT_SECRET,MEDIA_UPLOAD_TICKET_SECRET,CONTACT_IP_HASH_SECRET&envDescription=Required%20settings%20from%20your%20Supabase%20project%20and%20generated%20app%20secrets&envLink=https%3A%2F%2Fgithub.com%2Fjahzlariosa%2Fjed%2Fblob%2Fmain%2F.env.example&project-name=jed)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fjahzlariosa%2Fjed&env=VITE_SUPABASE_URL,VITE_SUPABASE_PUBLISHABLE_KEY,APP_URL,SUPABASE_SECRET_KEY,SUPABASE_JWT_SECRET,MEDIA_UPLOAD_TICKET_SECRET,CONTACT_IP_HASH_SECRET&envDescription=Required%20settings%20from%20your%20Supabase%20project%20and%20generated%20app%20secrets&envLink=https%3A%2F%2Fgithub.com%2Fjahzlariosa%2Fjed%2Fblob%2Fmain%2F.env.example&project-name=jed)
 
 1. **Import** the GitHub repository: Vercel > **Add New > Project**. Or use the button above. It asks for the required environment variables.
 2. **Build settings**: Install `npm ci`, Build `npm run build`, Node **22.x** (matches `.nvmrc`). Framework preset **Other** is fine.
@@ -204,7 +204,7 @@ Each new migration file must have an entry in `src/lib/cms/migration-explanation
    | `VITE_SUPABASE_URL` | Production, Preview |
    | `VITE_SUPABASE_PUBLISHABLE_KEY` | Production, Preview |
    | `APP_URL` | Production (your live domain) |
-   | `SUPABASE_SERVICE_ROLE_KEY` | Production, Preview |
+   | `SUPABASE_SECRET_KEY` | Production, Preview |
    | `SUPABASE_JWT_SECRET` | Production, Preview |
    | `MEDIA_UPLOAD_TICKET_SECRET` | Production (and Preview if editors upload media on previews) |
    | `CONTACT_IP_HASH_SECRET` | Production, Preview |
@@ -262,7 +262,7 @@ Generated files such as `src/routeTree.gen.ts` are produced by `npm run generate
 | Login works locally but email links go to the wrong host | `APP_URL` missing or wrong | Set `APP_URL` in Vercel Production to your live domain; check Supabase Site URL |
 | "Invalid API key" or always signed out | Wrong Supabase URL/key in `.env.local` | Match Dashboard → API; restart `npm run dev` after env changes |
 | `/admin` redirects to login after SQL grant | Role not applied or wrong email | Re-run admin SQL; confirm row in `user_roles` for `admin` |
-| Admin **Users** actions fail | Missing service role | Set `SUPABASE_SERVICE_ROLE_KEY` on the server (never `VITE_*`) |
+| Admin **Users** actions fail | Missing secret key | Set `SUPABASE_SECRET_KEY` on the server (never `VITE_*`) |
 | `/contact` says form unavailable | No contact email | Set **Contact email** in Admin → Settings |
 | Search returns nothing | Migrations not applied | Run `20261015160000_public_content_search.sql` (or full `db push`) |
 | SQL templates all "not applied" | RPC migration missing or wrong project | Apply `20261015161000_admin_schema_migrations_rpc.sql`; confirm linked Supabase project |

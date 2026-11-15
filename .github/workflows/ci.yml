@@ -21,7 +21,7 @@ jobs:
       VITE_SUPABASE_URL: https://example.supabase.co
       VITE_SUPABASE_PUBLISHABLE_KEY: ci-publishable-key
       APP_URL: https://ci.example.com
-      SUPABASE_SERVICE_ROLE_KEY: ci-service-role-key
+      SUPABASE_SECRET_KEY: sb_secret_ci-placeholder
       SUPABASE_JWT_SECRET: ci-jwt-secret
       MEDIA_UPLOAD_TICKET_SECRET: ci-media-upload-ticket-secret-placeholder
       CONTACT_IP_HASH_SECRET: ci-contact-ip-hash-secret-placeholder

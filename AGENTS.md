@@ -78,7 +78,7 @@ Use this as orientation. If it disagrees with code, fix the code *and* this sect
 | `/admin` | `admin.access` | Dashboard (live CMS counts, recent content/activity). `ADMIN_ROUTE_CACHE`, `private, no-store`. Missing `admin.access` redirects to `/` |
 | `/admin/content`, `/admin/content/$id` | `content.read` / `content.write` | Paginated list + BlockNote writing desk (`?tab=content|seo|settings`): resizable sidebar (localStorage), cover in sidebar, slug from title, View/Preview when published |
 | `/admin/media` | `media.read` | Thumbnail grid, detail dialog with large preview, alt text edit (`media` bucket) |
-| `/admin/users` | `admin` + `roles.manage` (service role) | Tabbed members and roles (`?tab=members|roles`). Paginated directory (10/25/50/100) with status, MFA, role, created range, and search filters; add-user modal. Roles tab: custom role CRUD (`#/auth/roles-admin`). User CRUD via `#/auth/users-admin` + service role. API roles routes |
+| `/admin/users` | `admin` + `roles.manage` (secret key) | Tabbed members and roles (`?tab=members|roles`). Paginated directory (10/25/50/100) with status, MFA, role, created range, and search filters; add-user modal. Roles tab: custom role CRUD (`#/auth/roles-admin`). User CRUD via `#/auth/users-admin` + `createServiceRoleClient()` (`SUPABASE_SECRET_KEY`). API roles routes |
 | `/admin/settings` | `settings.read` | Tabbed settings (`?tab=general|branding|seo|integrations|domains`): site identity, branding, SEO, integrations, external redirect hosts; sticky save bar; per-field help popovers. Auth redirect paths and **MFA** (`mfa_enabled`, `mfa_policy`; audit on change) |
 | `/mfa-setup`, `/mfa-challenge` | signed in | TOTP enrollment and step-up when site policy or enrolled factors require it. Same `MarketingAuthLayout` chrome as public auth. Exempt from MFA gate redirects |
 | `/admin/redirects` | `admin.access` | Tabbed rules and allowed hosts (`?tab=rules|hosts`); URL redirect CRUD (`url_redirects`); hosts sync with settings domains |
@@ -155,7 +155,8 @@ New signups get **member** only. Do not grant admin from JWT `user_metadata`.
 ### Setup and env
 
 - Post-sign-in paths load via `loadAuthRedirectSettings()` (`get_site_auth_redirects()` SECURITY DEFINER RPC). With no `?redirect`, only `admin.access` uses the admin path; everyone else uses the member path, and the legacy `/account` value means `/`. Password and MFA sign-in return that path; the login page replaces the document (`location.replace`) instead of throwing a router redirect. `/admin` sends anyone without `admin.access` to `/`. User admin mutations write `audit_log` with the admin session client (`auth.uid()`), not the service role.
-- Env contract lives in `.env.example` (`VITE_SUPABASE_URL`, `VITE_SUPABASE_PUBLISHABLE_KEY` with legacy `VITE_SUPABASE_ANON_KEY` / `VITE_SUPABASE_KEY` aliases on the server; server-only `APP_URL` with apex/www treated as trusted siblings for CSRF). Auth/session SSR uses `tryCreateClient()` so misconfigured keys log and degrade to signed-out instead of HTTP 500 on `/login`. Update it whenever an env var is added.
+- Env contract lives in `.env.example` (`VITE_SUPABASE_URL`, `VITE_SUPABASE_PUBLISHABLE_KEY` with legacy `VITE_SUPABASE_ANON_KEY` / `VITE_SUPABASE_KEY` aliases on the server; server-only `APP_URL` with apex/www treated as trusted siblings for CSRF; server-only `SUPABASE_SECRET_KEY`). Auth/session SSR uses `tryCreateClient()` so misconfigured keys log and degrade to signed-out instead of HTTP 500 on `/login`. Update it whenever an env var is added.
+- `SUPABASE_SECRET_KEY` (`sb_secret_…`) is required. Zod in `#/lib/env/schema` runs from the `jed-app-env` Vite plugin: `npm run build` throws when it is missing or not a secret key; `npm run dev` logs the same issues so `/setup` can render. There is no fallback to `SUPABASE_SERVICE_ROLE_KEY`. `createServiceRoleClient()` (`#/lib/supabase/service-role.server`) passes the key to `createClient` and strips it from `Authorization` (`secretKeyFetch`) because `@supabase/supabase-js` 2.118.0 still copies non-JWT keys into that header. The key still maps to the Postgres `service_role` role. No Edge Functions ship in this repo. The platform injects `SUPABASE_SERVICE_ROLE_KEY` and `SUPABASE_SECRET_KEYS` into that runtime; do not read the legacy variable. A new function should use `SUPABASE_SECRET_KEYS` (JSON, name `default`) or `supabase secrets set SUPABASE_SECRET_KEY`, with `verify_jwt = false`.
 - Local Supabase: `supabase/config.toml` + `supabase/seed.sql` (`supabase start`, `supabase db reset`). Hosted: `supabase link` + `supabase db push`. First admin: SQL snippet in `README.md`.
 - Deploy target is Vercel; client sites start as a clone of this repo and pull later updates through a `starter` git remote. The README has the Vercel setup and "Updating from the starter" steps; keep them current.
 
@@ -214,8 +215,8 @@ Loader data, RPC returns, router context, and SSR HTML are **visible to the clie
 
 Use Supabase Auth today. Verify current Supabase docs/changelog; do not copy APIs from memory.
 
-- Browser: URL + publishable/anon key only. Never `service_role` in the client or `VITE_*`.
-- Server: cookie-backed user client; service-role only for admin jobs that cannot use RLS.
+- Browser: URL + publishable/anon key only. Never a secret key (`sb_secret_…`) or the legacy `service_role` JWT in the client or `VITE_*`.
+- Server: cookie-backed user client; `SUPABASE_SECRET_KEY` only for admin jobs that cannot use RLS. Send it as `apikey`, never as `Authorization: Bearer`.
 - Sessions: HttpOnly cookies (`@supabase/ssr` or equivalent), not `localStorage`.
 - Inside `#/auth` only: `supabase.auth.getUser()` (not `getSession()` alone).
 
@@ -336,5 +337,5 @@ Decide cache policy **when the route or server fn is created**, not later. Publi
 - Follow existing files first. Do not add libraries, folders, or env vars unless the task needs them.
 - Before marking work done: confirm cache headers/`staleTime`, no leftover subscriptions or post-unmount `setState`, and fail-closed auth/redirects/XSS. Fix those in the same task.
 - Pin `@supabase/*` and commit the lockfile when those packages change.
-- Do not commit secrets (`.env`, service role).
+- Do not commit secrets (`.env`, `SUPABASE_SECRET_KEY`).
 - **Keep agent docs current in the same PR/task:** edit `AGENTS.md` catch-up + the relevant policy section. Leave tool adapters as `@AGENTS.md` / one-liners. Do not start a second source of truth.

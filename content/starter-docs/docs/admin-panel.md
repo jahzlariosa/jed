@@ -52,7 +52,7 @@ Until you save settings, the site uses neutral defaults.
 
 ## Users
 
-The Users screen needs `SUPABASE_SERVICE_ROLE_KEY` on the server to create, delete, or change accounts. From here you can:
+The Users screen needs `SUPABASE_SECRET_KEY` on the server to create, delete, or change accounts. From here you can:
 
 - Invite someone by email or create an account directly, choosing their role.
 - Change a person's role. You can't remove your own admin role, and the site always keeps at least one admin.

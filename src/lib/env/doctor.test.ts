@@ -2,14 +2,14 @@ import { describe, expect, it } from 'vitest'
 
 import { evaluateDoctor } from './doctor'
 
-const secret = 'service-role-secret-value'
+const secret = 'sb_secret_test-value'
 
 const env = {
   NODE_ENV: 'development',
   VITE_SUPABASE_URL: 'http://127.0.0.1:54321',
   VITE_SUPABASE_PUBLISHABLE_KEY: 'publishable-secret',
   APP_URL: 'http://localhost:3000',
-  SUPABASE_SERVICE_ROLE_KEY: secret,
+  SUPABASE_SECRET_KEY: secret,
   SUPABASE_JWT_SECRET: 'jwt-secret',
   MEDIA_UPLOAD_TICKET_SECRET: 'm'.repeat(32),
   CONTACT_IP_HASH_SECRET: 'c'.repeat(32),

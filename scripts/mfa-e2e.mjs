@@ -1,29 +1,35 @@
 /**
  * Optional local Supabase MFA smoke test.
- * Requires: supabase start, .env.local with service role, otplib installed.
+ * Requires: supabase start, .env.local with SUPABASE_SECRET_KEY, otplib installed.
  *
- * Usage: node scripts/mfa-e2e.mjs
+ * Usage: npm run test:mfa-e2e
  */
 import { createClient } from '@supabase/supabase-js'
 import { authenticator } from 'otplib'
 
+import {
+  isSecretApiKey,
+  secretKeyFetch,
+} from '../src/lib/supabase/secret-key-fetch.ts'
+
 const url = process.env.VITE_SUPABASE_URL ?? process.env.SUPABASE_URL
-const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY
+const secretKey = process.env.SUPABASE_SECRET_KEY?.trim() ?? ''
 const anonKey =
   process.env.VITE_SUPABASE_PUBLISHABLE_KEY ??
   process.env.VITE_SUPABASE_ANON_KEY
 const email = process.env.MFA_E2E_EMAIL ?? 'mfa-e2e@example.com'
 const password = process.env.MFA_E2E_PASSWORD ?? 'password12345'
 
-if (!url || !serviceKey || !anonKey) {
+if (!url || !isSecretApiKey(secretKey) || !anonKey) {
   console.error(
-    'Set VITE_SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, and publishable key.',
+    'Set VITE_SUPABASE_URL, SUPABASE_SECRET_KEY, and publishable key.',
   )
   process.exit(1)
 }
 
-const admin = createClient(url, serviceKey, {
+const admin = createClient(url, secretKey, {
   auth: { autoRefreshToken: false, persistSession: false },
+  global: { fetch: secretKeyFetch(secretKey) },
 })
 
 async function ensureUser() {

@@ -59,6 +59,13 @@ export async function probeSupabase(
   return { reachable: true, keyAccepted: response.ok }
 }
 
+/** Legacy anon and service_role keys are JWTs. Secret and publishable keys are not. */
+function isLegacyJwtKey(key: string): boolean {
+  if (!key.startsWith('eyJ')) return false
+  const parts = key.split('.')
+  return parts.length === 3 && parts.every((part) => part.length > 0)
+}
+
 function isPermissionSkip(status: number, body: string): boolean {
   if (status === 401 || status === 403 || status === 404 || status === 406) {
     return true
@@ -81,7 +88,7 @@ async function readWithKey(
       method: 'POST',
       headers: {
         apikey: key,
-        authorization: `Bearer ${key}`,
+        ...(isLegacyJwtKey(key) ? { authorization: `Bearer ${key}` } : {}),
         accept: 'application/json',
         'content-type': 'application/json',
       },
